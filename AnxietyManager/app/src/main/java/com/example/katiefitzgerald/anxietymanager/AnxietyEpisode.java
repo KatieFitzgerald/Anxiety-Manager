@@ -26,9 +26,6 @@ public class AnxietyEpisode {
 
     @Override
     public String toString() {
-        return "AnxietyEpisode{" +
-                "date='" + date + '\'' +
-                ", time='" + time + '\'' +
-                '}';
+        return "" + this.date.toString() + " " + this.time.toString();
     }
 }

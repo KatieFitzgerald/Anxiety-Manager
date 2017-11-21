@@ -3,13 +3,15 @@ package com.example.katiefitzgerald.anxietymanager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,12 +20,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getSensedAnxiety();
+        ArrayList<AnxietyEpisode> anxietyEpisode = new ArrayList<>();
+        getSensedAnxiety(anxietyEpisode);
+
+        ArrayAdapter<AnxietyEpisode> adapter = new ArrayAdapter<>(this, R.layout.list_view_items, anxietyEpisode);
+
+        ListView episodeList = (ListView) findViewById(R.id.episodeListView);
+        if (episodeList != null) {
+            episodeList.setAdapter(adapter);
+        }
     }
 
     //Based on tutorial https://www.youtube.com/watch?v=i-TqNzUryn8
-    private List<AnxietyEpisode> anxietyEpisode = new ArrayList<>();
-    private void getSensedAnxiety(){
+
+    private void getSensedAnxiety(ArrayList<AnxietyEpisode> anxietyEpisode){
 
         InputStream is = getResources().openRawResource(R.raw.sensed);
         BufferedReader reader = new BufferedReader(
@@ -43,13 +53,12 @@ public class MainActivity extends AppCompatActivity {
                 episode.setTime(tokens[1]);
 
                 anxietyEpisode.add(episode);
-
-                Log.d("MyActivity", "just created" + episode);
             }
         } catch (IOException e) {
             Log.wtf("My Activity", "Error reading data file on line" + line, e);
             e.printStackTrace();
         }
+
     }
 }
 
