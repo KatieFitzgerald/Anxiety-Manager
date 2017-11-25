@@ -23,12 +23,8 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<AnxietyEpisode> anxietyEpisode = new ArrayList<>();
         getSensedAnxiety(anxietyEpisode);
 
-        ArrayAdapter<AnxietyEpisode> adapter = new ArrayAdapter<>(this, R.layout.list_view_items, anxietyEpisode);
-
         ListView episodeList = (ListView) findViewById(R.id.episodeListView);
-        if (episodeList != null) {
-            episodeList.setAdapter(adapter);
-        }
+        episodeList.setAdapter(new SensedAnxietyAdapter(MainActivity.this, R.layout.list_view_items, anxietyEpisode));
     }
 
     //Based on tutorial https://www.youtube.com/watch?v=i-TqNzUryn8

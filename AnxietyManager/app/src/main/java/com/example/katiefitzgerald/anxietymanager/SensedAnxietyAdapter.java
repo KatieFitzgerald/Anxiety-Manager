@@ -1,10 +1,10 @@
 package com.example.katiefitzgerald.anxietymanager;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CursorAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -16,45 +16,35 @@ import java.util.ArrayList;
 public class SensedAnxietyAdapter  extends ArrayAdapter {
 
     ArrayList<AnxietyEpisode> anxietyEpisode;
+    public LayoutInflater inflater;
 
-    public SensedAnxietyAdapter(Context context, ArrayList<AnxietyEpisode> episode) {
+    public SensedAnxietyAdapter(Context context, int textViewResourceId, ArrayList<AnxietyEpisode> episode) {
 
-        super(context, 0, episode);
+        super(context, textViewResourceId, episode);
         anxietyEpisode = episode;
+
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
+        // TODO Auto-generated method stub
+        //return super.getView(position, convertView, parent);
 
-        if (convertView == null) {
+        View row = convertView;
 
-            //convertView = mInflater.inflate(R.layout.list_view_items,parent,false);
+        if(row == null){
 
-            // inflate custom layout called row
-            holder = new ViewHolder();
-            holder.tv =(TextView) convertView.findViewById(R.id.textView);
-
-            // initialize textview
-            convertView.setTag(holder);
-        }
-        else
-        {
-            holder = (ViewHolder)convertView.getTag();
+            row = inflater.inflate(R.layout.list_view_items, parent, false);
         }
 
-        AnxietyEpisode item = (AnxietyEpisode)anxietyEpisode.get(position);
-        holder.tv.setText(item.toString());
-        // set the name to the text;
+        AnxietyEpisode item = anxietyEpisode.get(position);
 
-        return convertView;
+        TextView textView =(TextView)row.findViewById(R.id.textView);
+        textView.setText(item.toString());
+        TextView locationItem =(TextView)row.findViewById(R.id.locationItem);
+        locationItem.setText(" location");
 
+        return row;
     }
-
-    static class ViewHolder
-    {
-
-        TextView tv;
-    }
-
-}
+} // end custom adapter
