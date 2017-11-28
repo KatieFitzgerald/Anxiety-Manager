@@ -43,7 +43,7 @@ public class SensedAnxietyAdapter  extends ArrayAdapter {
         TextView textView =(TextView)row.findViewById(R.id.textView);
         textView.setText(item.toString());
         TextView locationItem =(TextView)row.findViewById(R.id.locationItem);
-        locationItem.setText(" location");
+        locationItem.setText(item.getLocation());
 
         return row;
     }

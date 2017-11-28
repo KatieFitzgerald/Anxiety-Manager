@@ -7,6 +7,7 @@ package com.example.katiefitzgerald.anxietymanager;
 public class AnxietyEpisode {
     private String date;
     private String time;
+    private String location;
 
     public String getDate() {
         return date;
@@ -22,6 +23,14 @@ public class AnxietyEpisode {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location){
+        this.location = location;
     }
 
     @Override
