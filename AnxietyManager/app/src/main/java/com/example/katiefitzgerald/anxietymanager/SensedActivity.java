@@ -45,7 +45,14 @@ public class SensedActivity extends AppCompatActivity {
 
     private void getSensedAnxiety(ArrayList<AnxietyEpisode> anxietyEpisode) {
 
-        //https://www.youtube.com/watch?v=QNb_3QKSmMk
+        InputStream is = getResources().openRawResource(R.raw.sensed);
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(is, Charset.forName("UTF-8"))
+        );
+
+        String line = "";
+
+        https://www.youtube.com/watch?v=QNb_3QKSmMk
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         locationListener = new LocationListener() {
             @Override
