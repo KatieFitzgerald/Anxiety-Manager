@@ -27,7 +27,7 @@ public class SensedActivity extends AppCompatActivity {
     private LocationManager locationManager;
     private LocationListener locationListener;
 
-    String locationText = "";
+    String locationText = " Kevin Street";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

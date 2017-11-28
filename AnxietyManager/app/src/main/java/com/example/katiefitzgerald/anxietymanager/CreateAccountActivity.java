@@ -50,9 +50,16 @@ public class CreateAccountActivity extends SensedActivity {
 
         Intent home = new Intent(getApplicationContext(), HomeActivity.class);
 
-        if(!TextUtils.isEmpty(userEmail) || !TextUtils.isEmpty(password)){
+        if(userEmail.matches("")){
+            Toast.makeText(this, "Please fill in a email address", Toast.LENGTH_LONG).show();
+        }
+        else if (password.matches("")){
+            Toast.makeText(this, "Please fill in a password", Toast.LENGTH_LONG).show();
+        }
+        else {
+            Toast.makeText(this, "Counsellor", Toast.LENGTH_LONG).show();
+
             if(chosenAccount.isChecked()) {
-                Toast.makeText(this, "You are a counsellor " + userEmail, Toast.LENGTH_LONG).show();
                 startActivity(home);
                 setContentView(R.layout.activity_home);
             }
@@ -67,9 +74,6 @@ public class CreateAccountActivity extends SensedActivity {
 
                 Toast.makeText(this, "New account created: " + userEmail, Toast.LENGTH_LONG).show();
             }
-
-        }else {
-            Toast.makeText(this, "Please fill in all fields!", Toast.LENGTH_LONG).show();
         }
     }
 }
