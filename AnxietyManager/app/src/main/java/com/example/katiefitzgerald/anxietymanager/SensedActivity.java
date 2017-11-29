@@ -52,7 +52,7 @@ public class SensedActivity extends AppCompatActivity {
 
         String line = "";
 
-        https://www.youtube.com/watch?v=QNb_3QKSmMk
+        //https://www.youtube.com/watch?v=QNb_3QKSmMk
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         locationListener = new LocationListener() {
             @Override
