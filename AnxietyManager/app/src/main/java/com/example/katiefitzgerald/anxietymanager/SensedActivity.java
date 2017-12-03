@@ -12,8 +12,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.google.firebase.database.DatabaseReference;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -31,19 +32,23 @@ public class SensedActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        String user_id = getIntent().getStringExtra("userId");
+
         setContentView(R.layout.activity_main);
 
         ArrayList<AnxietyEpisode> anxietyEpisode = new ArrayList<>();
-        getSensedAnxiety(anxietyEpisode);
+        getSensedAnxiety(anxietyEpisode, user_id);
 
-        ListView episodeList = (ListView) findViewById(R.id.episodeListView);
+        ListView episodeList = findViewById(R.id.episodeListView);
         episodeList.setAdapter(new SensedAnxietyAdapter(SensedActivity.this, R.layout.list_view_items, anxietyEpisode));
+
     }
 
     //Based on tutorial https://www.youtube.com/watch?v=i-TqNzUryn8
 
-    private void getSensedAnxiety(ArrayList<AnxietyEpisode> anxietyEpisode) {
+    private void getSensedAnxiety(ArrayList<AnxietyEpisode> anxietyEpisode, String userId) {
 
         InputStream is = getResources().openRawResource(R.raw.sensed);
         BufferedReader reader = new BufferedReader(
@@ -52,7 +57,7 @@ public class SensedActivity extends AppCompatActivity {
 
         String line = "";
 
-        //https://www.youtube.com/watch?v=QNb_3QKSmMk
+        //Based on tutorial https://www.youtube.com/watch?v=QNb_3QKSmMk
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         locationListener = new LocationListener() {
             @Override
@@ -105,8 +110,10 @@ public class SensedActivity extends AppCompatActivity {
                 episode.setDate(tokens[0]);
                 episode.setTime(tokens[1]);
                 episode.setLocation(locationText);
+                episode.setUser_id(userId);
 
                 anxietyEpisode.add(episode);
+
             }
         } catch (IOException e) {
             Log.wtf("My Activity", "Error reading data file on line" + line, e);

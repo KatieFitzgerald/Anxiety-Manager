@@ -8,6 +8,7 @@ public class AnxietyEpisode {
     private String date;
     private String time;
     private String location;
+    private String user_id;
 
     public String getDate() {
         return date;
@@ -33,6 +34,13 @@ public class AnxietyEpisode {
         this.location = location;
     }
 
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
     @Override
     public String toString() {
         return "" + this.date.toString() + " " + this.time.toString();

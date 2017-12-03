@@ -28,8 +28,6 @@ public class SensedAnxietyAdapter  extends ArrayAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // TODO Auto-generated method stub
-        //return super.getView(position, convertView, parent);
 
         View row = convertView;
 
@@ -40,9 +38,9 @@ public class SensedAnxietyAdapter  extends ArrayAdapter {
 
         AnxietyEpisode item = anxietyEpisode.get(position);
 
-        TextView textView =(TextView)row.findViewById(R.id.textView);
+        TextView textView = row.findViewById(R.id.textView);
         textView.setText(item.toString());
-        TextView locationItem =(TextView)row.findViewById(R.id.locationItem);
+        TextView locationItem =row.findViewById(R.id.locationItem);
         locationItem.setText(item.getLocation());
 
         return row;

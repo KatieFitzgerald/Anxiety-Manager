@@ -2,12 +2,10 @@ package com.example.katiefitzgerald.anxietymanager;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
@@ -29,10 +27,10 @@ public class CreateAccountActivity extends SensedActivity {
 
         databaseUsers = FirebaseDatabase.getInstance().getReference("user_profile");
 
-        enterEmail = (EditText) findViewById(R.id.enterEmail);
-        enterPassword = (EditText) findViewById(R.id.password);
-        chosenAccount = (CheckBox) findViewById(R.id.isCounsellor);
-        createAccount = (Button) findViewById(R.id.createBtn);
+        enterEmail = findViewById(R.id.enterEmail);
+        enterPassword = findViewById(R.id.password);
+        chosenAccount = findViewById(R.id.isCounsellor);
+        createAccount = findViewById(R.id.createBtn);
 
         createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,7 +45,6 @@ public class CreateAccountActivity extends SensedActivity {
         String userEmail = enterEmail.getText().toString().trim();
         String password = enterPassword.getText().toString().trim();
 
-
         Intent home = new Intent(getApplicationContext(), HomeActivity.class);
 
         if(userEmail.matches("")){
@@ -57,22 +54,24 @@ public class CreateAccountActivity extends SensedActivity {
             Toast.makeText(this, "Please fill in a password", Toast.LENGTH_LONG).show();
         }
         else {
-            Toast.makeText(this, "Counsellor", Toast.LENGTH_LONG).show();
-
             if(chosenAccount.isChecked()) {
                 startActivity(home);
                 setContentView(R.layout.activity_home);
+
+                Toast.makeText(this, "Counsellor", Toast.LENGTH_LONG).show();
             }
             else {
+                String user_id = databaseUsers.push().getKey();
+                UserDao user = new UserDao(user_id, userEmail, password);
+
+                databaseUsers.child(user_id).setValue(user);
+
+                Toast.makeText(this, "New account created: " + userEmail, Toast.LENGTH_LONG).show();
+
+                home.putExtra("userId", user_id);
                 startActivity(home);
                 setContentView(R.layout.activity_home);
 
-                String id = databaseUsers.push().getKey();
-                UserDao user = new UserDao(id, userEmail, password);
-
-                databaseUsers.child(id).setValue(user);
-
-                Toast.makeText(this, "New account created: " + userEmail, Toast.LENGTH_LONG).show();
             }
         }
     }
