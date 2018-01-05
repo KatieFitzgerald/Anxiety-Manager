@@ -10,9 +10,54 @@
         android:id="@+id/sensedAnxiety"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="96dp"
+        android:text="Sensed" />
+
+    <Button
+        android:id="@+id/calendarBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/sensedAnxiety"
+        android:layout_alignBottom="@+id/sensedAnxiety"
+        android:layout_alignParentStart="true"
+        android:text="Calendar" />
+
+    <Button
+        android:id="@+id/cycleBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="12dp"
+        android:layout_toEndOf="@+id/calendarBtn"
+        android:text="Cycle" />
+
+    <Button
+        android:id="@+id/profileBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:text="Profile" />
+
+    <Button
+        android:id="@+id/addAnxiety"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/sensedAnxiety"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="63dp"
+        android:text="Log Today's Anxiety Episode" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="135dp"
-        android:layout_marginTop="194dp"
-        android:text="Sensed" />
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="53dp"
+        android:text="Your current worries..."
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 </RelativeLayout>
