@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">AnxietyManager</string>
+    <array name="createAccountOptions">
+        <item>Client</item>
+        <item>Counsellor</item>
+    </array>
 </resources>
