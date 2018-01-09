@@ -19,9 +19,8 @@
         android:id="@+id/calendarBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/sensedAnxiety"
-        android:layout_alignBottom="@+id/sensedAnxiety"
-        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/textView2"
         android:text="Calendar" />
 
     <Button
@@ -29,7 +28,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="12dp"
         android:layout_toEndOf="@+id/calendarBtn"
         android:text="Cycle" />
 
@@ -47,17 +45,25 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/sensedAnxiety"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="63dp"
+        android:layout_marginBottom="23dp"
         android:text="Log Today's Anxiety Episode" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="53dp"
+        android:layout_alignStart="@+id/worriesChart"
+        android:layout_marginTop="26dp"
         android:text="Your current worries..."
         android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/worriesChart"
+        android:layout_width="350dp"
+        android:layout_height="320dp"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp" />
+
 </RelativeLayout>
