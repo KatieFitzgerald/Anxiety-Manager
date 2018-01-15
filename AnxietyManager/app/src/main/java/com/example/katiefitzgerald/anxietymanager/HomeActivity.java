@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.LegendEntry;
@@ -27,7 +29,11 @@ public class HomeActivity extends AppCompatActivity {
     private static String TAG = "HomeActivity";
 
     String user_id;
-    Button sensed;
+    Button sensedAnxiety;
+    Button addTodayAnxiety;
+    Button calendarButton;
+    Button cycleButton;
+    Button profileButton;
 
     private int[] yData = {50, 20, 30};
     private String[] anxietyNamesData = {"College", "Social", "Money"};
@@ -35,14 +41,16 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate: starting to create chart");
 
         user_id = getIntent().getStringExtra("userId");
 
         setContentView(R.layout.activity_home);
 
-        sensed = findViewById(R.id.sensedAnxiety);
-        sensed.setOnClickListener(new View.OnClickListener() {
+        PieChart chart = findViewById(R.id.worriesChart);
+        addDataSet(chart);
+
+        sensedAnxiety = findViewById(R.id.sensedAnxiety);
+        sensedAnxiety.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent sensedActivity = new Intent(getApplicationContext(), SensedActivity.class);
@@ -51,8 +59,35 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        PieChart chart = findViewById(R.id.worriesChart);
-        addDataSet(chart);
+        addTodayAnxiety = findViewById(R.id.addAnxiety);
+        addTodayAnxiety.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "Go to Add Anxiety", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        calendarButton = findViewById(R.id.calendarButton);
+        calendarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "Go to Calendar", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        cycleButton = findViewById(R.id.cycleBtn);
+        cycleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "Go to Anxiety Cycle", Toast.LENGTH_SHORT).show();            }
+        });
+
+        profileButton = findViewById(R.id.profileBtn);
+        profileButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Toast.makeText(getApplicationContext(), "Go to Profile", Toast.LENGTH_SHORT).show();            }
+        });
     }
 
     private void addDataSet(PieChart chart) {
