@@ -1,3 +1,4 @@
+![alt text](https://github.com/KatieFitzgerald/Anxiety-Manager/raw/master/AnxietyManager/app/src/main/res/drawable/logo.PNG)
 
 ## Anxiety Manager Android App
 
