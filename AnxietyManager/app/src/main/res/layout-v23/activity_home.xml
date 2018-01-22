@@ -8,48 +8,39 @@
 
     <Button
         android:id="@+id/sensedAnxiety"
-        style="@android:style/Widget.Material.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_toStartOf="@+id/profileBtn"
-        android:text="Sensed"
-        tools:targetApi="m" />
+        android:text="Sensed" />
 
     <Button
         android:id="@+id/calendarButton"
-        style="@android:style/Widget.Material.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_toStartOf="@+id/cycleBtn"
-        android:text="Calendar"
-        tools:targetApi="m" />
+        android:text="Calendar" />
 
     <Button
         android:id="@+id/cycleBtn"
-        style="@android:style/Widget.Material.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_toStartOf="@+id/sensedAnxiety"
-        android:text="Cycle"
-        tools:targetApi="m" />
+        android:text="Cycle" />
 
     <Button
         android:id="@+id/profileBtn"
-        style="@android:style/Widget.Material.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:text="Profile"
-        tools:targetApi="m" />
+        android:text="Profile" />
 
     <Button
         android:id="@+id/addAnxiety"
-        style="@android:style/Widget.Material.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/worriesChart"
@@ -72,9 +63,9 @@
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/worriesChart"
         android:layout_width="340dp"
-        android:layout_height="350dp"
+        android:layout_height="320dp"
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="36dp" />
+        android:layout_marginTop="51dp" />
 
 </RelativeLayout>
