@@ -10,28 +10,35 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.katiefitzgerald.anxietymanager.CreateAccountActivity">
 
-
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="400dp"
+        android:layout_height="200dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="182dp"
-        android:ems="10"
-        android:hint="Enter Password"
-        android:inputType="textPassword" />
+        android:src="@drawable/logo" />
 
     <EditText
         android:id="@+id/enterEmail"
-        android:layout_width="wrap_content"
+        android:layout_width="400dp"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/password"
-        android:layout_alignEnd="@+id/password"
-        android:layout_marginBottom="57dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
         android:ems="10"
         android:hint="Enter Email"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        android:selectAllOnFocus="true" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/enterEmail"
+        android:layout_marginTop="54dp"
+        android:ems="10"
+        android:hint="Enter Password"
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/createBtn"
@@ -39,16 +46,15 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/isCounsellor"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="27dp"
+        android:layout_marginTop="30dp"
         android:text="Create Account" />
 
     <CheckBox
         android:id="@+id/isCounsellor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_below="@+id/password"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="19dp"
         android:text="I am a counsellor." />
 
 </RelativeLayout>

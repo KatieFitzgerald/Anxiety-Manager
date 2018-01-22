@@ -3,6 +3,7 @@ package com.example.katiefitzgerald.anxietymanager;
 //Pie chart tutorial used https://www.youtube.com/watch?v=8BcTXbwDGbg
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,7 +36,7 @@ public class HomeActivity extends AppCompatActivity {
     Button cycleButton;
     Button profileButton;
 
-    private int[] yData = {50, 20, 30};
+    private int[] yData = {40, 30, 30};
     private String[] anxietyNamesData = {"College", "Social", "Money"};
 
     @Override
@@ -63,7 +64,8 @@ public class HomeActivity extends AppCompatActivity {
         addTodayAnxiety.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Go to Add Anxiety", Toast.LENGTH_SHORT).show();
+                Intent Questionnaire = new Intent(getApplicationContext(), WhatsUpActvity.class);
+                startActivity(Questionnaire);
             }
         });
 
@@ -105,9 +107,9 @@ public class HomeActivity extends AppCompatActivity {
 
         //add color to dataset
         ArrayList<Integer> color = new ArrayList<>();
-        color.add(LTGRAY);
-        color.add(BLUE);
-        color.add(CYAN);
+        color.add(Color.rgb(51,187,255));
+        color.add(Color.rgb(255,153,153));
+        color.add(Color.rgb(192,192,192));
 
         pieDataSet.setColors(color);
 
@@ -123,13 +125,13 @@ public class HomeActivity extends AppCompatActivity {
         Legend legend = chart.getLegend();
         legend.setForm(Legend.LegendForm.CIRCLE);
         legend.setCustom(entries);
-        legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
 
         PieData pieData = new PieData(pieDataSet);
 
         chart.setData(pieData);
         chart.setTransparentCircleRadius(0);
         chart.setEnabled(true);
+        chart.getDescription().setEnabled(false);
         chart.setRotationEnabled(false);
         chart.setHoleRadius(0);
         chart.invalidate();
