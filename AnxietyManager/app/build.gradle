@@ -29,6 +29,7 @@ dependencies {
     compile 'com.google.firebase:firebase-database:11.4.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     testCompile 'junit:junit:4.12'
+    implementation 'com.android.support:design:27.0.2'
 }
 
 apply plugin: 'com.google.gms.google-services'
