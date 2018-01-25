@@ -21,7 +21,10 @@
         </activity>
         <activity android:name=".SensedActivity"></activity>
         <activity android:name=".HomeActivity"></activity>
-        <activity android:name=".WhatsUpActivity"></activity>
+        <activity android:name=".WhatsUpActivity"
+            android:windowSoftInputMode="stateHidden" ></activity>
+        <activity android:name=".ThoughtsActivity"
+            android:windowSoftInputMode="stateHidden" ></activity>
     </application>
 
 </manifest>

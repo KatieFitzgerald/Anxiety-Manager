@@ -58,8 +58,8 @@ public class WhatsUpActivity extends AppCompatActivity {
                     worryAdapter.notifyDataSetChanged();
                 }
 
-                //Intent Thoughts = new Intent(getApplicationContext(), ThoughtsActivity.class);
-                //startActivity(Thoughts);
+                Intent Thoughts = new Intent(getApplicationContext(), ThoughtsActivity.class);
+                startActivity(Thoughts);
 
             }
         });

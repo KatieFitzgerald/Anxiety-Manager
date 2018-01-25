@@ -13,20 +13,19 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="13dp"
         android:textColor="#33BBFF"
-        android:text="What's up?"
+        android:text="Thoughts?"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
     <EditText
-        android:id="@+id/worryName"
+        android:id="@+id/thoughtName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView5"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="41dp"
         android:ems="10"
-        android:hint="Write a new name"
+        android:hint="Enter your thoughts"
         android:inputType="text"
-        android:selectAllOnFocus="false"
         android:textAppearance="@android:style/TextAppearance.Holo.SearchResult.Subtitle" />
 
     <TextView
@@ -36,17 +35,16 @@
         android:layout_below="@+id/next"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="53dp"
-        android:text="Give this situation a name"
+        android:text="What are you thinking about?"
         android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
         android:textColor="#FF9999" />
 
     <ListView
-        android:id="@+id/worryList"
+        android:id="@+id/thoughtList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView6"
-        android:layout_marginTop="1dp" />
+        android:layout_marginTop="300dp"
+        android:layout_alignParentStart="true" />
 
     <ImageButton
         android:id="@+id/next"
@@ -62,16 +60,25 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView4"
         android:layout_centerHorizontal="true"
-        android:text="Add a new situation below, or choose a previous one"
+        android:text="Add a new thought, or choose a previous one"
         android:textStyle="italic" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/worryName"
+        android:layout_alignStart="@+id/previous"
+        android:layout_below="@+id/thoughtName"
+        android:layout_centerVertical="true"
         android:layout_marginTop="41dp"
-        android:text="Previously added situations:" />
+        android:text="Previously added thoughts:" />
+
+    <ImageButton
+        android:id="@+id/previous"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView4"
+        android:layout_toStartOf="@+id/textView4"
+        app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
 
 </RelativeLayout>
