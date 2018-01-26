@@ -58,8 +58,8 @@ public class ThoughtsActivity extends AppCompatActivity {
                     thoughtAdapter.notifyDataSetChanged();
                 }
 
-                //Intent Physical = new Intent(getApplicationContext(), PhysicalActivity.class);
-                //startActivity(Physical);
+                Intent Physical = new Intent(getApplicationContext(), PhysicalActivity.class);
+                startActivity(Physical);
 
             }
         });

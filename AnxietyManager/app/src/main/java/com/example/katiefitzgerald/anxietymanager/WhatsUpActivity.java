@@ -64,15 +64,7 @@ public class WhatsUpActivity extends AppCompatActivity {
             }
         });
 
-
-
-
     }
-    
-
-
-
-
 
 }
 
