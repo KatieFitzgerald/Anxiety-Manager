@@ -82,7 +82,7 @@
         android:layout_alignStart="@+id/toilet"
         android:layout_below="@+id/nervousIcon"
         android:layout_marginTop="30dp"
-        app:srcCompat="@drawable/nervous" />
+        app:srcCompat="@drawable/shaking" />
 
     <ImageView
         android:id="@+id/toilet"

@@ -1,8 +1,10 @@
 package com.example.katiefitzgerald.anxietymanager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -21,6 +23,9 @@ public class PhysicalActivity extends AppCompatActivity {
     ImageView shaking;
     ImageView changeAppetite;
 
+    ImageButton nextQuestion;
+    ImageButton previousQuestion;
+
     int questionCount = 0;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +41,9 @@ public class PhysicalActivity extends AppCompatActivity {
         frequentToilet = findViewById(R.id.toilet);
         shaking = findViewById(R.id.shakingIcon);
         changeAppetite = findViewById(R.id.hungerIcon);
+
+        nextQuestion = findViewById(R.id.next);
+        previousQuestion = findViewById(R.id.previous);
 
         breathing.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,6 +135,27 @@ public class PhysicalActivity extends AppCompatActivity {
             frequentToilet.setClickable(false);
             shaking.setClickable(false);
             changeAppetite.setClickable(false);
+
+            //put user input into an array
+            nextQuestion = findViewById(R.id.next);
+            nextQuestion.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Intent Emotion = new Intent(getApplicationContext(), EmotionActivity.class);
+                    startActivity(Emotion);
+
+                }
+            });
+
+            previousQuestion = findViewById(R.id.previous);
+            previousQuestion.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent Physical = new Intent(getApplicationContext(), PhysicalActivity.class);
+                    startActivity(Physical);
+                }
+            });
         }
     }
 }
