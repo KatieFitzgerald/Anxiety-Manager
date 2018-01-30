@@ -141,9 +141,9 @@ public class PhysicalActivity extends AppCompatActivity {
             nextQuestion.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
                     Intent Emotion = new Intent(getApplicationContext(), EmotionActivity.class);
                     startActivity(Emotion);
+                    overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
 
                 }
             });
@@ -152,8 +152,9 @@ public class PhysicalActivity extends AppCompatActivity {
             previousQuestion.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent Physical = new Intent(getApplicationContext(), PhysicalActivity.class);
-                    startActivity(Physical);
+                    Intent Thoughts = new Intent(getApplicationContext(), ThoughtsActivity.class);
+                    startActivity(Thoughts);
+                    overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_right);
                 }
             });
         }

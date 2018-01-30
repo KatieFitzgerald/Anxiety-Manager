@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Tutorial https://kylewbanks.com/blog/left-and-right-slide-animations-on-android-activity-or-view-->
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <translate
+        android:fromXDelta="100%"
+        android:toXDelta="0"
+        android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+        android:duration="@integer/slide_animation_duration"/>
+</set>

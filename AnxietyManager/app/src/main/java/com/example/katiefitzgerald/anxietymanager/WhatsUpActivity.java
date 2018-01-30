@@ -1,6 +1,5 @@
 package com.example.katiefitzgerald.anxietymanager;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -60,7 +59,7 @@ public class WhatsUpActivity extends AppCompatActivity {
 
                 Intent Thoughts = new Intent(getApplicationContext(), ThoughtsActivity.class);
                 startActivity(Thoughts);
-
+                overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
             }
         });
 

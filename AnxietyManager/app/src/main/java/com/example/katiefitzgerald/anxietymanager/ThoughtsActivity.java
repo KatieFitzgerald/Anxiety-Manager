@@ -60,6 +60,7 @@ public class ThoughtsActivity extends AppCompatActivity {
 
                 Intent Physical = new Intent(getApplicationContext(), PhysicalActivity.class);
                 startActivity(Physical);
+                overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
 
             }
         });
@@ -70,6 +71,7 @@ public class ThoughtsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent WhatsUp = new Intent(getApplicationContext(), WhatsUpActivity.class);
                 startActivity(WhatsUp);
+                overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_right);
             }
         });
     }
