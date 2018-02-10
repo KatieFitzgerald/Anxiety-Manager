@@ -141,7 +141,7 @@ public class PhysicalActivity extends AppCompatActivity {
             nextQuestion.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent Emotion = new Intent(getApplicationContext(), EmotionActivity.class);
+                    Intent Emotion = new Intent(getApplicationContext(), MoodActivity.class);
                     startActivity(Emotion);
                     overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
 

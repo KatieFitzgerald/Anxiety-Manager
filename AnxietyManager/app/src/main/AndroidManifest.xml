@@ -26,7 +26,7 @@
         <activity android:name=".ThoughtsActivity"
             android:windowSoftInputMode="stateHidden" ></activity>
         <activity android:name=".PhysicalActivity"></activity>
-        <activity android:name=".EmotionActivity"></activity>
+        <activity android:name=".MoodActivity"></activity>
     </application>
 
 </manifest>
