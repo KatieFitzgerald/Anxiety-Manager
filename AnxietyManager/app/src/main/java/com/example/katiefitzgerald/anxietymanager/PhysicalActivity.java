@@ -117,6 +117,16 @@ public class PhysicalActivity extends AppCompatActivity {
             }
         });
 
+        previousQuestion = findViewById(R.id.previous);
+        previousQuestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent Thoughts = new Intent(getApplicationContext(), ThoughtsActivity.class);
+                startActivity(Thoughts);
+                overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_right);
+            }
+        });
+
     }
 
     void checkQuestions() {
@@ -148,15 +158,6 @@ public class PhysicalActivity extends AppCompatActivity {
                 }
             });
 
-            previousQuestion = findViewById(R.id.previous);
-            previousQuestion.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent Thoughts = new Intent(getApplicationContext(), ThoughtsActivity.class);
-                    startActivity(Thoughts);
-                    overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_right);
-                }
-            });
         }
     }
 }

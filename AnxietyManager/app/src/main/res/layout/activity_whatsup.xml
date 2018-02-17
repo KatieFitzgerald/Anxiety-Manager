@@ -74,4 +74,19 @@
         android:layout_marginTop="41dp"
         android:text="Previously added situations:" />
 
+    <Button
+        android:id="@+id/addSituation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/worryName"
+        android:text="Add" />
+
+    <TextView
+        android:id="@+id/warning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/worryName" />
+
 </RelativeLayout>
