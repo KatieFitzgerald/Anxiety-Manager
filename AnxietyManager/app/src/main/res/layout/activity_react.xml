@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="13dp"
+        android:textColor="#33BBFF"
+        android:text="Reaction"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+    <ImageButton
+        android:id="@+id/previous"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
+
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_above="@+id/imageView12"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="73dp"
+        android:layout_marginStart="29dp"
+        app:srcCompat="@drawable/stay" />
+
+    <ImageView
+        android:id="@+id/imageView12"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/imageView11"
+        android:layout_marginBottom="72dp"
+        app:srcCompat="@drawable/leave" />
+
+    <TextView
+        android:id="@+id/stayed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView11"
+        android:layout_marginBottom="60dp"
+        android:layout_marginStart="58dp"
+        android:layout_toEndOf="@+id/imageView11"
+        android:text="I stayed"
+        android:textAppearance="@android:style/TextAppearance.Holo.Large" />
+
+    <TextView
+        android:id="@+id/left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView12"
+        android:layout_alignStart="@+id/stayed"
+        android:layout_marginBottom="52dp"
+        android:text="I left"
+        android:textAppearance="@android:style/TextAppearance.Holo.Large" />
+</RelativeLayout>

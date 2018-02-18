@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.CountDownTimer;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -22,13 +23,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Timer;
 
 public class SensedActivity extends AppCompatActivity {
 
     private LocationManager locationManager;
     private LocationListener locationListener;
-
-    String locationText = " Kevin Street";
+    int locationCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +41,7 @@ public class SensedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ArrayList<AnxietyEpisode> anxietyEpisode = new ArrayList<>();
-        getSensedAnxiety(anxietyEpisode, user_id);
+        addAnxiety(anxietyEpisode, user_id);
 
         ListView episodeList = findViewById(R.id.episodeListView);
         episodeList.setAdapter(new SensedAnxietyAdapter(SensedActivity.this, R.layout.list_view_items, anxietyEpisode));
@@ -48,21 +50,28 @@ public class SensedActivity extends AppCompatActivity {
 
     //Based on tutorial https://www.youtube.com/watch?v=i-TqNzUryn8
 
-    private void getSensedAnxiety(ArrayList<AnxietyEpisode> anxietyEpisode, String userId) {
+    private BufferedReader getSensedAnxiety() {
 
+        //read in data
         InputStream is = getResources().openRawResource(R.raw.sensed);
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(is, Charset.forName("UTF-8"))
         );
 
-        String line = "";
+        return reader;
+
+    }
+
+    private String getAnxietyLocation() {
+
+        final String[] locationText = new String[1];
 
         //Based on tutorial https://www.youtube.com/watch?v=QNb_3QKSmMk
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-                locationText = " " + location.getLatitude() + " " + location.getLongitude();
+                locationText[0] = " " + location.getLatitude() + " " + location.getLongitude();
             }
 
             @Override
@@ -82,26 +91,40 @@ public class SensedActivity extends AppCompatActivity {
             }
         };
 
+        if (locationCount != 1) {
+            if (ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED) {
 
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                        Manifest.permission.ACCESS_FINE_LOCATION)) {
 
 
-            } else {
+                } else {
 
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        0);
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                            0);
+                }
             }
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, locationListener);
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, locationListener);
+
+        return Arrays.toString(locationText);
+    }
+
+    private void addAnxiety(ArrayList<AnxietyEpisode> anxietyEpisode, String userId) {
+
+        String line = "";
+        BufferedReader reader = getSensedAnxiety();
 
         try {
-            while( (line = reader.readLine()) != null) {
+
+
+
+
+
+            while((line = reader.readLine()) != null) {
                 //Split by ","
                 String[] tokens = line.split(",");
 
@@ -109,10 +132,11 @@ public class SensedActivity extends AppCompatActivity {
                 AnxietyEpisode episode = new AnxietyEpisode();
                 episode.setDate(tokens[0]);
                 episode.setTime(tokens[1]);
-                episode.setLocation(locationText);
+                episode.setLocation(getAnxietyLocation());
                 episode.setUser_id(userId);
 
                 anxietyEpisode.add(episode);
+                locationCount = 1;
 
             }
         } catch (IOException e) {
@@ -122,6 +146,7 @@ public class SensedActivity extends AppCompatActivity {
 
     }
 }
+
 
 
 
