@@ -56,7 +56,7 @@ public class ThoughtsActivity extends AppCompatActivity {
             }
         });
 
-        addThought = findViewById(R.id.addSituation);
+        addThought = findViewById(R.id.addThought);
         addThought.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

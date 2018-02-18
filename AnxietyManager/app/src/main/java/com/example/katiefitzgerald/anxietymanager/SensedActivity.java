@@ -24,11 +24,13 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Timer;
 
 public class SensedActivity extends AppCompatActivity {
 
     private LocationManager locationManager;
     private LocationListener locationListener;
+    int locationCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +62,7 @@ public class SensedActivity extends AppCompatActivity {
 
     }
 
-    private String getAnxietyLocation(){
+    private String getAnxietyLocation() {
 
         final String[] locationText = new String[1];
 
@@ -89,26 +91,26 @@ public class SensedActivity extends AppCompatActivity {
             }
         };
 
+        if (locationCount != 1) {
+            if (ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED) {
 
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                        Manifest.permission.ACCESS_FINE_LOCATION)) {
 
 
-            } else {
+                } else {
 
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        0);
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                            0);
+                }
             }
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, locationListener);
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, locationListener);
 
         return Arrays.toString(locationText);
-
     }
 
     private void addAnxiety(ArrayList<AnxietyEpisode> anxietyEpisode, String userId) {
@@ -117,6 +119,11 @@ public class SensedActivity extends AppCompatActivity {
         BufferedReader reader = getSensedAnxiety();
 
         try {
+
+
+
+
+
             while((line = reader.readLine()) != null) {
                 //Split by ","
                 String[] tokens = line.split(",");
@@ -129,6 +136,7 @@ public class SensedActivity extends AppCompatActivity {
                 episode.setUser_id(userId);
 
                 anxietyEpisode.add(episode);
+                locationCount = 1;
 
             }
         } catch (IOException e) {

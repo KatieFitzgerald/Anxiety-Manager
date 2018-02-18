@@ -68,7 +68,7 @@ public class HomeActivity extends AppCompatActivity {
         calendarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Go to Calendar", Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -76,14 +76,15 @@ public class HomeActivity extends AppCompatActivity {
         cycleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Go to Anxiety Cycle", Toast.LENGTH_SHORT).show();            }
+
+            }
         });
 
         profileButton = findViewById(R.id.profileBtn);
         profileButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Toast.makeText(getApplicationContext(), "Go to Profile", Toast.LENGTH_SHORT).show();            }
+            }
         });
     }
 

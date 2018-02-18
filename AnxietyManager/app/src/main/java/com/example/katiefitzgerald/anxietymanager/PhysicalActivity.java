@@ -48,7 +48,6 @@ public class PhysicalActivity extends AppCompatActivity {
         breathing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Breathing", Toast.LENGTH_SHORT).show();
                 questionCount += 1;
                 checkQuestions();
             }
@@ -57,7 +56,6 @@ public class PhysicalActivity extends AppCompatActivity {
         heartbeat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Heartbeat", Toast.LENGTH_SHORT).show();
                 questionCount += 1;
                 checkQuestions();
             }
@@ -66,7 +64,6 @@ public class PhysicalActivity extends AppCompatActivity {
         sweating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Sweating", Toast.LENGTH_SHORT).show();
                 questionCount += 1;
                 checkQuestions();
             }
@@ -75,7 +72,6 @@ public class PhysicalActivity extends AppCompatActivity {
         warm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Warmth", Toast.LENGTH_SHORT).show();
                 questionCount += 1;
                 checkQuestions();
             }
@@ -84,7 +80,6 @@ public class PhysicalActivity extends AppCompatActivity {
         nervousStomach.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Stomach", Toast.LENGTH_SHORT).show();
                 questionCount += 1;
                 checkQuestions();
             }
@@ -93,7 +88,6 @@ public class PhysicalActivity extends AppCompatActivity {
         frequentToilet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Toilet", Toast.LENGTH_SHORT).show();
                 questionCount += 1;
                 checkQuestions();
             }
@@ -102,7 +96,6 @@ public class PhysicalActivity extends AppCompatActivity {
         shaking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Shaking", Toast.LENGTH_SHORT).show();
                 questionCount += 1;
                 checkQuestions();
             }
@@ -111,7 +104,6 @@ public class PhysicalActivity extends AppCompatActivity {
         changeAppetite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Appetite", Toast.LENGTH_SHORT).show();
                 questionCount += 1;
                 checkQuestions();
             }

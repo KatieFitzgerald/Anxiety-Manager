@@ -12,17 +12,17 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="13dp"
-        android:textColor="#33BBFF"
         android:text="Thoughts?"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textColor="#33BBFF" />
 
     <EditText
         android:id="@+id/thoughtName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/textView5"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="41dp"
+        android:layout_marginTop="18dp"
         android:ems="10"
         android:hint="Enter your thoughts"
         android:inputType="text"
@@ -43,8 +43,8 @@
         android:id="@+id/thoughtList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="300dp"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="300dp" />
 
     <ImageButton
         android:id="@+id/next"
@@ -68,9 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/previous"
-        android:layout_below="@+id/thoughtName"
         android:layout_centerVertical="true"
-        android:layout_marginTop="41dp"
         android:text="Previously added thoughts:" />
 
     <ImageButton
@@ -85,8 +83,16 @@
         android:id="@+id/warning"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/addThought"
+        android:layout_alignBottom="@+id/addThought"
         android:layout_alignStart="@+id/textView6"
-        android:layout_below="@+id/thoughtName"
-        android:layout_marginStart="17dp" />
+        android:layout_marginStart="13dp" />
 
+    <Button
+        android:id="@+id/addThought"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/thoughtName"
+        android:text="Add" />
 </RelativeLayout>
