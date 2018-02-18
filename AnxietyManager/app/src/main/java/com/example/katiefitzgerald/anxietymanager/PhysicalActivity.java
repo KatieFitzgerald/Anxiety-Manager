@@ -138,7 +138,6 @@ public class PhysicalActivity extends AppCompatActivity {
             shaking.setClickable(false);
             changeAppetite.setClickable(false);
 
-            //put user input into an array
             nextQuestion = findViewById(R.id.next);
             nextQuestion.setOnClickListener(new View.OnClickListener() {
                 @Override
