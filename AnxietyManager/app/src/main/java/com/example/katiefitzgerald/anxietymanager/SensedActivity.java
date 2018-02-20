@@ -6,31 +6,23 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.CountDownTimer;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ListView;
 
-import com.google.firebase.database.DatabaseReference;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Timer;
 
 public class SensedActivity extends AppCompatActivity {
 
     private LocationManager locationManager;
     private LocationListener locationListener;
     int locationCount = 0;
+    
+    ArrayList<AnxietyEpisode> episode = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,29 +32,14 @@ public class SensedActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        ArrayList<AnxietyEpisode> anxietyEpisode = new ArrayList<>();
-        addAnxiety(anxietyEpisode, user_id);
+        addAnxiety();
 
         ListView episodeList = findViewById(R.id.episodeListView);
-        episodeList.setAdapter(new SensedAnxietyAdapter(SensedActivity.this, R.layout.list_view_items, anxietyEpisode));
+        episodeList.setAdapter(new SensedAnxietyAdapter(SensedActivity.this, R.layout.list_view_items, episode));
 
     }
 
-    //Based on tutorial https://www.youtube.com/watch?v=i-TqNzUryn8
-
-    private BufferedReader getSensedAnxiety() {
-
-        //read in data
-        InputStream is = getResources().openRawResource(R.raw.sensed);
-        BufferedReader reader = new BufferedReader(
-                new InputStreamReader(is, Charset.forName("UTF-8"))
-        );
-
-        return reader;
-
-    }
-
-    private String getAnxietyLocation() {
+    public String getAnxietyLocation() {
 
         final String[] locationText = new String[1];
 
@@ -113,37 +90,10 @@ public class SensedActivity extends AppCompatActivity {
         return Arrays.toString(locationText);
     }
 
-    private void addAnxiety(ArrayList<AnxietyEpisode> anxietyEpisode, String userId) {
-
-        String line = "";
-        BufferedReader reader = getSensedAnxiety();
-
-        try {
-
-
-
-
-
-            while((line = reader.readLine()) != null) {
-                //Split by ","
-                String[] tokens = line.split(",");
-
-                //Read the data
-                AnxietyEpisode episode = new AnxietyEpisode();
-                episode.setDate(tokens[0]);
-                episode.setTime(tokens[1]);
-                episode.setLocation(getAnxietyLocation());
-                episode.setUser_id(userId);
-
-                anxietyEpisode.add(episode);
-                locationCount = 1;
-
-            }
-        } catch (IOException e) {
-            Log.wtf("My Activity", "Error reading data file on line" + line, e);
-            e.printStackTrace();
-        }
-
+    private void addAnxiety() {
+        Arduino arduino = new Arduino();
+        episode  = arduino.getAnxiety(this);
+        getAnxietyLocation();
     }
 }
 
