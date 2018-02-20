@@ -1,7 +1,5 @@
 package com.example.katiefitzgerald.anxietymanager;
 
-import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -32,9 +30,8 @@ public class Arduino {
         );
 
         try {
-             line = reader.readLine();
 
-            while(line != null) {
+            while((line = reader.readLine()) != null) {
 
                 //Split by ","
                 String[] tokens = line.split(",");
