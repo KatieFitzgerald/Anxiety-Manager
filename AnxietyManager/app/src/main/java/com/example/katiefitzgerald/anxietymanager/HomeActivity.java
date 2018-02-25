@@ -2,6 +2,9 @@ package com.example.katiefitzgerald.anxietymanager;
 
 //Pie chart tutorial used https://www.youtube.com/watch?v=8BcTXbwDGbg
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -18,11 +21,10 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
-
-    private static String TAG = "HomeActivity";
 
     String user_id;
     Button sensedAnxiety;

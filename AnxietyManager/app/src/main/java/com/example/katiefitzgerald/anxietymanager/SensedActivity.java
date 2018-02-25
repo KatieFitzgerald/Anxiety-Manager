@@ -1,6 +1,9 @@
 package com.example.katiefitzgerald.anxietymanager;
 
 import android.Manifest;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -24,6 +27,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Timer;
 
 public class SensedActivity extends AppCompatActivity {
@@ -45,6 +49,8 @@ public class SensedActivity extends AppCompatActivity {
 
         ListView episodeList = findViewById(R.id.episodeListView);
         episodeList.setAdapter(new SensedAnxietyAdapter(SensedActivity.this, R.layout.list_view_items, anxietyEpisode));
+
+        startNotificationCountdown();
 
     }
 
@@ -120,10 +126,6 @@ public class SensedActivity extends AppCompatActivity {
 
         try {
 
-
-
-
-
             while((line = reader.readLine()) != null) {
                 //Split by ","
                 String[] tokens = line.split(",");
@@ -143,6 +145,20 @@ public class SensedActivity extends AppCompatActivity {
             Log.wtf("My Activity", "Error reading data file on line" + line, e);
             e.printStackTrace();
         }
+
+    }
+
+    private void startNotificationCountdown() {
+
+        //alarmService
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        Intent notificationIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
+        PendingIntent broadcast = PendingIntent.getBroadcast(getApplicationContext(), 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.SECOND, 5);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast);
 
     }
 }

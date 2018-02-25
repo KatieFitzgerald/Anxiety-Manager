@@ -29,6 +29,13 @@
         <activity android:name=".MoodActivity"></activity>
         <activity android:name=".RateMoodActivity"></activity>
         <activity android:name=".ReactActivity"></activity>
+        <activity android:name=".NotificationActivity"></activity>
+
+        <receiver android:name=".AlarmReceiver">
+            <intent-filter>
+                <action android:name="fitzgerald.katie.action.DISPLAY_NOTIFICATION"/>
+            </intent-filter>
+        </receiver>
 
     </application>
 
