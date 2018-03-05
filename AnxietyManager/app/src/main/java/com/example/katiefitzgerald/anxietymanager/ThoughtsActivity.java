@@ -37,6 +37,10 @@ public class ThoughtsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thoughts);
 
+        QuestionnaireDao questionnaireDao = (QuestionnaireDao) getIntent().getSerializableExtra("questionnaireObj");
+
+        Toast.makeText(this, questionnaireDao.getSubject_ID(), Toast.LENGTH_SHORT).show();
+
         //get user input
         thoughtName = findViewById(R.id.thoughtName);
 

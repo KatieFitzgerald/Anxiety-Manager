@@ -6,7 +6,7 @@ package com.example.katiefitzgerald.anxietymanager;
 
 public class UserDao {
 
-    String userID;
+    String User_ID;
     String userEmail;
     String password;
 
@@ -14,14 +14,14 @@ public class UserDao {
 
     }
 
-    public UserDao(String userID, String userEmail, String password) {
-        this.userID = userID;
+    public UserDao(String user_ID, String userEmail, String password) {
+        this.User_ID = user_ID;
         this.userEmail = userEmail;
         this.password = password;
     }
 
     public String getUserID() {
-        return userID;
+        return User_ID;
     }
 
     public String getUserEmail() {

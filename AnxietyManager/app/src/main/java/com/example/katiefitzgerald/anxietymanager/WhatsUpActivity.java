@@ -15,6 +15,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 /**
@@ -29,6 +32,10 @@ public class WhatsUpActivity extends AppCompatActivity {
     ImageButton nextQuestion;
     Button addSituation;
     ListView worryList;
+    String user;
+
+    DatabaseReference databaseQuestionnaire;
+    QuestionnaireDao questionnaireDao = new QuestionnaireDao();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,14 +43,25 @@ public class WhatsUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_whatsup);
 
+        databaseQuestionnaire = FirebaseDatabase.getInstance().getReference("questionnaire");
+
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                user = null;
+            } else {
+                user = extras.getString("user_id");
+            }
+        } else {
+            user = (String) savedInstanceState.getSerializable("user_id");
+        }
+
         //get user input
         worryName = findViewById(R.id.worryName);
 
         worryAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, worryArrayList);
         worryList = findViewById(R.id.worryList);
         worryList.setAdapter(worryAdapter);
-
-        final Toast toast = Toast.makeText(this, "Situation has been added", Toast.LENGTH_SHORT);
 
         addSituation = findViewById(R.id.addSituation);
         addSituation.setOnClickListener(new View.OnClickListener() {
@@ -55,21 +73,16 @@ public class WhatsUpActivity extends AppCompatActivity {
                 //make sure there is something to add to list/database
                 if(null!= worryNameInput && worryNameInput.length() > 0) {
 
-                    /**
-                     *
-                     *
-                     * add worry to db here
-                     **/
-
                     worryArrayList.add(worryNameInput);
+                    questionnaireDao.setSubject_ID(worryNameInput);
                     worryAdapter.notifyDataSetChanged();
-                    toast.show();
 
                     nextQuestion = findViewById(R.id.next);
                     nextQuestion.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             Intent Thoughts = new Intent(getApplicationContext(), ThoughtsActivity.class);
+                            Thoughts.putExtra("questionnaireObj", questionnaireDao);
                             startActivity(Thoughts);
                             overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
                         }

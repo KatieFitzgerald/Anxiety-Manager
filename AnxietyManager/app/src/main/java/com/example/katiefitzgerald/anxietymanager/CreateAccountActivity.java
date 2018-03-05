@@ -2,6 +2,7 @@ package com.example.katiefitzgerald.anxietymanager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -68,7 +69,7 @@ public class CreateAccountActivity extends SensedActivity {
 
                 Toast.makeText(this, "New account created: " + userEmail, Toast.LENGTH_LONG).show();
 
-                home.putExtra("userId", user_id);
+                home.putExtra("user_id", user_id);
                 startActivity(home);
                 setContentView(R.layout.activity_home);
 

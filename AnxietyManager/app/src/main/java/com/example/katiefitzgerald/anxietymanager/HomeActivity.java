@@ -24,7 +24,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private static String TAG = "HomeActivity";
 
-    String user_id;
+    String user;
     Button sensedAnxiety;
     Button addTodayAnxiety;
     Button calendarButton;
@@ -37,10 +37,18 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        user_id = getIntent().getStringExtra("userId");
-
         setContentView(R.layout.activity_home);
+
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                user = null;
+            } else {
+                user = extras.getString("user_id");
+            }
+        } else {
+            user = (String) savedInstanceState.getSerializable("user_id");
+        }
 
         PieChart chart = findViewById(R.id.worriesChart);
         addDataSet(chart);
@@ -50,7 +58,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent sensedActivity = new Intent(getApplicationContext(), SensedActivity.class);
-                sensedActivity.putExtra("userId", user_id);
+                //sensedActivity.putExtra("userId", user_id);
                 startActivity(sensedActivity);
             }
         });
@@ -60,6 +68,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent Questionnaire = new Intent(getApplicationContext(), WhatsUpActivity.class);
+                Questionnaire.putExtra("user_id", user);
                 startActivity(Questionnaire);
             }
         });
