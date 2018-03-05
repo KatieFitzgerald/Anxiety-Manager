@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.katiefitzgerald.anxietymanager.CreateAccountActivity">
+    tools:context="com.example.katiefitzgerald.anxietymanager.LoginActivity">
 
     <ImageView
         android:id="@+id/imageView"
@@ -41,30 +41,12 @@
         android:inputType="textPassword" />
 
     <Button
-        android:id="@+id/createBtn"
+        android:id="@+id/loginBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/isCounsellor"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="17dp"
-        android:text="Create Account" />
-
-    <CheckBox
-        android:id="@+id/isCounsellor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/password"
-        android:text="I am a counsellor." />
-
-    <TextView
-        android:id="@+id/login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/createBtn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="51dp"
-        android:clickable="true"
-        android:text="Already got an account? Login here" />
+        android:text="Login" />
 
 </RelativeLayout>
