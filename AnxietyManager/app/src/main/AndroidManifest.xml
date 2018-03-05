@@ -29,7 +29,6 @@
         <activity android:name=".MoodActivity"></activity>
         <activity android:name=".RateMoodActivity"></activity>
         <activity android:name=".ReactActivity"></activity>
-        <activity android:name=".LoginActivity"></activity>
 
     </application>
 
