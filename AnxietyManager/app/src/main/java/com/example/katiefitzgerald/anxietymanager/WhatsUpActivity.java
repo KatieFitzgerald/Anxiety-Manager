@@ -13,10 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -34,7 +31,6 @@ public class WhatsUpActivity extends AppCompatActivity {
     ListView worryList;
     String user;
 
-    DatabaseReference databaseQuestionnaire;
     QuestionnaireDao questionnaireDao = new QuestionnaireDao();
 
     @Override
@@ -43,7 +39,6 @@ public class WhatsUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_whatsup);
 
-        databaseQuestionnaire = FirebaseDatabase.getInstance().getReference("questionnaire");
 
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
@@ -58,7 +53,6 @@ public class WhatsUpActivity extends AppCompatActivity {
 
         //get user input
         worryName = findViewById(R.id.worryName);
-
         worryAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, worryArrayList);
         worryList = findViewById(R.id.worryList);
         worryList.setAdapter(worryAdapter);
@@ -73,8 +67,8 @@ public class WhatsUpActivity extends AppCompatActivity {
                 //make sure there is something to add to list/database
                 if(null!= worryNameInput && worryNameInput.length() > 0) {
 
+
                     worryArrayList.add(worryNameInput);
-                    questionnaireDao.setSubject_ID(worryNameInput);
                     worryAdapter.notifyDataSetChanged();
 
                     nextQuestion = findViewById(R.id.next);
