@@ -6,7 +6,6 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.CountDownTimer;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -15,8 +14,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
 
-import com.google.firebase.database.DatabaseReference;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,7 +21,6 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Timer;
 
 public class SensedActivity extends AppCompatActivity {
 
@@ -44,7 +40,7 @@ public class SensedActivity extends AppCompatActivity {
         addAnxiety(anxietyEpisode, user_id);
 
         ListView episodeList = findViewById(R.id.episodeListView);
-        episodeList.setAdapter(new SensedAnxietyAdapter(SensedActivity.this, R.layout.list_view_items, anxietyEpisode));
+        episodeList.setAdapter(new SensedAnxietyAdapter(SensedActivity.this, R.layout.list_view_sensed_anxiety, anxietyEpisode));
 
     }
 
