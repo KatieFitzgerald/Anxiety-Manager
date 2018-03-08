@@ -1,19 +1,15 @@
 package com.example.katiefitzgerald.anxietymanager;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -24,7 +20,6 @@ import android.support.v7.widget.Toolbar;
 
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
@@ -53,7 +48,6 @@ public class WhatsUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_whatsup);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
-        //toolbar.setTitle("What's Up?");
         setSupportActionBar(toolbar);
 
 
@@ -74,8 +68,8 @@ public class WhatsUpActivity extends AppCompatActivity {
         try {
             db.open();
 
-            Cursor searchResult = db.selectSubjects();
-            cursorAdapter = new WhatsUpAdapter(WhatsUpActivity.this, searchResult);
+            Cursor subjects = db.selectSubjects();
+            cursorAdapter = new WhatsUpAdapter(WhatsUpActivity.this, subjects);
             worryList.setAdapter(cursorAdapter);
 
             db.close();
@@ -103,7 +97,7 @@ public class WhatsUpActivity extends AppCompatActivity {
                         startActivity(Thoughts);
                         overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
                     }
-                }, 3000);
+                }, 1000);
 
             }
         });

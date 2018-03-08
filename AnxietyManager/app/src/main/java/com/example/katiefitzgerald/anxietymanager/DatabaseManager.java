@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.sql.SQLException;
 
@@ -29,7 +30,11 @@ public class DatabaseManager {
     //Subject table column names
     private static final String KEY_SUBJECT_NAME = "SubjectName";
 
+    //Thought table column names
+    private static final String KEY_THOUGHT_NAME = "ThoughtName";
+
     private static final String CREATE_SUBJECT_TABLE = "CREATE TABLE " + TABLE_SUBJECT + "(_id INTEGER PRIMARY KEY autoincrement not null, SubjectName TEXT not null);";
+    private static final String CREATE_THOUGHT_TABLE = "CREATE TABLE " + TABLE_THOUGHT + "(_id INTEGER PRIMARY KEY autoincrement not null, ThoughtName TEXT not null);";
 
     private final Context context;
     private MyDatabaseHelper DBHelper;
@@ -49,8 +54,11 @@ public class DatabaseManager {
         @Override
         public void onCreate(SQLiteDatabase db) {
             db.execSQL(CREATE_SUBJECT_TABLE);
+            db.execSQL(CREATE_THOUGHT_TABLE);
+            Log.v("THIS", "CREATED TABLES");
 
             insertDefaultSubjects(db);
+            insertDefaultThoughts(db);
 
         }
 
@@ -58,6 +66,7 @@ public class DatabaseManager {
         public void onUpgrade(SQLiteDatabase db, int i, int i1) {
 
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_SUBJECT);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_THOUGHT);
 
             onCreate(db);
 
@@ -81,6 +90,26 @@ public class DatabaseManager {
             db.insert(TABLE_SUBJECT, null, chooseSubject);
 
         }
+
+        private void insertDefaultThoughts(SQLiteDatabase db) {
+
+            //insert static data to subject table
+            ContentValues chooseThought = new ContentValues();
+
+            chooseThought.put(KEY_THOUGHT_NAME, "Too many people in college");
+            db.insert(TABLE_THOUGHT, null, chooseThought);
+
+            chooseThought.put(KEY_THOUGHT_NAME, "Not going to have money to go out this weekend");
+            db.insert(TABLE_THOUGHT, null, chooseThought);
+
+            chooseThought.put(KEY_THOUGHT_NAME, "Having to sit on the bus beside a stranger");
+            db.insert(TABLE_THOUGHT, null, chooseThought);
+
+            chooseThought.put(KEY_THOUGHT_NAME, "Going to fail my assignment");
+            db.insert(TABLE_THOUGHT, null, chooseThought);
+
+        }
+
 
     }
 
@@ -119,8 +148,27 @@ public class DatabaseManager {
 
     }
 
+    //insert into request table from user input
+    public void insertThought(String thoughtName) {
 
+        ContentValues thought = new ContentValues();
 
+        thought.put(KEY_THOUGHT_NAME, thoughtName);
+        db.insert(TABLE_THOUGHT, null, thought);
 
+    }
+
+    //returns subjects
+    public Cursor selectThoughts()
+    {
+        Cursor mCursor = db.rawQuery("SELECT * FROM Thought;", null);
+
+        if (mCursor != null) {
+            mCursor.moveToFirst();
+        }
+
+        return mCursor;
+
+    }
 
 }

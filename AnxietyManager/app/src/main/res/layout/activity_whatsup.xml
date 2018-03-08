@@ -65,8 +65,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/addSituation"
-        android:layout_marginTop="43dp"
-        android:layout_toEndOf="@+id/warning" />
+        android:layout_marginTop="43dp"/>
 
     <TextView
         android:id="@+id/textView5"
@@ -82,8 +81,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/addSituation"
-        android:layout_marginStart="14dp"
-        android:layout_toEndOf="@+id/warning"
+        android:layout_marginStart="13dp"
         android:text="Previously added situations:" />
 
     <Button
@@ -98,8 +96,6 @@
         android:id="@+id/warning"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_below="@+id/worryName" />
-
 
 </RelativeLayout>

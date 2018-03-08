@@ -116,10 +116,6 @@ public class SensedActivity extends AppCompatActivity {
 
         try {
 
-
-
-
-
             while((line = reader.readLine()) != null) {
                 //Split by ","
                 String[] tokens = line.split(",");
