@@ -97,6 +97,10 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() { }
+
+
     private void addDataSet(PieChart chart) {
 
         ArrayList<PieEntry> yEntries = new ArrayList<>();

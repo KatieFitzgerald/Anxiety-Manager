@@ -33,8 +33,11 @@ public class DatabaseManager {
     //Thought table column names
     private static final String KEY_THOUGHT_NAME = "ThoughtName";
 
+    private static final String KEY_PHYSICAL_NAME = "PhysicalName";
+
     private static final String CREATE_SUBJECT_TABLE = "CREATE TABLE " + TABLE_SUBJECT + "(_id INTEGER PRIMARY KEY autoincrement not null, SubjectName TEXT not null);";
     private static final String CREATE_THOUGHT_TABLE = "CREATE TABLE " + TABLE_THOUGHT + "(_id INTEGER PRIMARY KEY autoincrement not null, ThoughtName TEXT not null);";
+    private static final String CREATE_PHYSICAL_TABLE = "CREATE TABLE " + TABLE_PHYSICAL + "(_id INTEGER PRIMARY KEY autoincrement not null, PhysicalName TEXT not null);";
 
     private final Context context;
     private MyDatabaseHelper DBHelper;
@@ -55,7 +58,7 @@ public class DatabaseManager {
         public void onCreate(SQLiteDatabase db) {
             db.execSQL(CREATE_SUBJECT_TABLE);
             db.execSQL(CREATE_THOUGHT_TABLE);
-            Log.v("THIS", "CREATED TABLES");
+            db.execSQL(CREATE_PHYSICAL_TABLE);
 
             insertDefaultSubjects(db);
             insertDefaultThoughts(db);
@@ -109,6 +112,44 @@ public class DatabaseManager {
             db.insert(TABLE_THOUGHT, null, chooseThought);
 
         }
+
+        private void insertPhysicalFeelings(SQLiteDatabase db) {
+
+            //insert static data to subject table
+            ContentValues physical = new ContentValues();
+
+            physical.put(KEY_PHYSICAL_NAME, "unusual breathing");
+            db.insert(TABLE_PHYSICAL, null, physical);
+
+            physical.put(KEY_PHYSICAL_NAME, "unusual heartbeat");
+            db.insert(TABLE_PHYSICAL, null, physical);
+
+            physical.put(KEY_PHYSICAL_NAME, "feeling hot");
+            db.insert(TABLE_PHYSICAL, null, physical);
+
+            physical.put(KEY_PHYSICAL_NAME, "excessive sweating");
+            db.insert(TABLE_PHYSICAL, null, physical);
+
+            physical.put(KEY_PHYSICAL_NAME, "excessive shaking");
+            db.insert(TABLE_PHYSICAL, null, physical);
+
+            physical.put(KEY_PHYSICAL_NAME, "frequent toilet trips");
+            db.insert(TABLE_PHYSICAL, null, physical);
+
+            physical.put(KEY_PHYSICAL_NAME, "unusual appetite");
+            db.insert(TABLE_PHYSICAL, null, physical);
+
+            physical.put(KEY_PHYSICAL_NAME, "nervous stomach");
+            db.insert(TABLE_PHYSICAL, null, physical);
+
+            physical.put(KEY_PHYSICAL_NAME, "headache");
+            db.insert(TABLE_PHYSICAL, null, physical);
+
+
+
+        }
+
+
 
 
     }

@@ -45,6 +45,8 @@ public class CreateAccountActivity extends SensedActivity {
         });
 
     }
+    @Override
+    public void onBackPressed() { }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
