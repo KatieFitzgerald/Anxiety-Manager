@@ -33,11 +33,16 @@ public class DatabaseManager {
     //Thought table column names
     private static final String KEY_THOUGHT_NAME = "ThoughtName";
 
+    //Physical table column names
     private static final String KEY_PHYSICAL_NAME = "PhysicalName";
+
+    //Mood table columns names
+    private static final String KEY_MOOD_NAME = "MoodName";
 
     private static final String CREATE_SUBJECT_TABLE = "CREATE TABLE " + TABLE_SUBJECT + "(_id INTEGER PRIMARY KEY autoincrement not null, SubjectName TEXT not null);";
     private static final String CREATE_THOUGHT_TABLE = "CREATE TABLE " + TABLE_THOUGHT + "(_id INTEGER PRIMARY KEY autoincrement not null, ThoughtName TEXT not null);";
     private static final String CREATE_PHYSICAL_TABLE = "CREATE TABLE " + TABLE_PHYSICAL + "(_id INTEGER PRIMARY KEY autoincrement not null, PhysicalName TEXT not null);";
+    private static final String CREATE_MOOD_TABLE = "CREATE TABLE " + TABLE_MOOD + "(_id INTEGER PRIMARY KEY autoincrement not null, MoodName TEXT not null);";
 
     private final Context context;
     private MyDatabaseHelper DBHelper;
@@ -59,9 +64,11 @@ public class DatabaseManager {
             db.execSQL(CREATE_SUBJECT_TABLE);
             db.execSQL(CREATE_THOUGHT_TABLE);
             db.execSQL(CREATE_PHYSICAL_TABLE);
+            db.execSQL(CREATE_MOOD_TABLE);
 
             insertDefaultSubjects(db);
             insertDefaultThoughts(db);
+            insertPhysicalFeelings(db);
 
         }
 
@@ -145,12 +152,41 @@ public class DatabaseManager {
             physical.put(KEY_PHYSICAL_NAME, "headache");
             db.insert(TABLE_PHYSICAL, null, physical);
 
-
-
         }
 
+        private void insertMoods(SQLiteDatabase db) {
 
+            //insert static data to subject table
+            ContentValues mood = new ContentValues();
 
+            mood.put(KEY_MOOD_NAME, "afraid");
+            db.insert(TABLE_MOOD, null, mood);
+
+            mood.put(KEY_MOOD_NAME, "angry");
+            db.insert(TABLE_MOOD, null, mood);
+
+            mood.put(KEY_MOOD_NAME, "sad");
+            db.insert(TABLE_MOOD, null, mood);
+
+            mood.put(KEY_MOOD_NAME, "lonely");
+            db.insert(TABLE_MOOD, null, mood);
+
+            mood.put(KEY_MOOD_NAME, "disgust");
+            db.insert(TABLE_MOOD, null, mood);
+
+            mood.put(KEY_MOOD_NAME, "embarrassed");
+            db.insert(TABLE_MOOD, null, mood);
+
+            mood.put(KEY_MOOD_NAME, "distracted");
+            db.insert(TABLE_MOOD, null, mood);
+
+            mood.put(KEY_MOOD_NAME, "annoyed");
+            db.insert(TABLE_MOOD, null, mood);
+
+            mood.put(KEY_MOOD_NAME, "nervous");
+            db.insert(TABLE_MOOD, null, mood);
+
+        }
 
     }
 

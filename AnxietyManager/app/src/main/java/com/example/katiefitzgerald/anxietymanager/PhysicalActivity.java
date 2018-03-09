@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Toast;
+
 
 /**
  * Created by Katie Fitzgerald on 26/01/2018.
@@ -137,7 +137,7 @@ public class PhysicalActivity extends AppCompatActivity {
     }
 
     void checkQuestions() {
-        if (questionCount < 2) {
+        if (questionCount < 1) {
             //do nothing
         }
         else {
@@ -152,16 +152,20 @@ public class PhysicalActivity extends AppCompatActivity {
             changeAppetite.setClickable(false);
             headache.setClickable(false);
 
-            nextQuestion = findViewById(R.id.next);
-            nextQuestion.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent Emotion = new Intent(getApplicationContext(), MoodActivity.class);
-                    startActivity(Emotion);
-                    overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
+            Intent Emotion = new Intent(getApplicationContext(), MoodActivity.class);
+            startActivity(Emotion);
+            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
 
-                }
-            });
+//            /*nextQuestion = findViewById(R.id.next);
+//            nextQuestion.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    Intent Emotion = new Intent(getApplicationContext(), MoodActivity.class);
+//                    startActivity(Emotion);
+//                    overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
+//
+//                }
+//            });*/
 
         }
     }

@@ -5,150 +5,161 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#81d4fa"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="13dp"
+            android:layout_gravity="center"
+            android:textColor="#424242"
+            android:text="Rate your mood"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+        <ImageButton
+            android:id="@+id/next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            app:srcCompat="@drawable/ic_arrow_forward_black_24dp" />
+
+        <ImageButton
+            android:id="@+id/previous"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="left"
+            android:layout_marginStart="11dp"
+            app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
+
+    </android.support.v7.widget.Toolbar>
+
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textView31"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="13dp"
-        android:textColor="#33BBFF"
-        android:text="Rate Mood"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
-
-    <ImageButton
-        android:id="@+id/next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        app:srcCompat="@drawable/ic_arrow_forward_black_24dp" />
-
-    <ImageButton
-        android:id="@+id/previous"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
-
-    <SeekBar
-        android:id="@+id/seekBarMoodOne"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/imageView13"
-        android:layout_marginTop="25dp" />
-
-    <TextView
-        android:id="@+id/seekBarValMoodOne"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/seekBarMoodOne"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="14dp" />
-
-    <ImageView
-        android:id="@+id/imageView13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView31"
-        android:layout_marginTop="25dp"
-        android:layout_toStartOf="@+id/textView31"
-        app:srcCompat="@drawable/distracted" />
-
-    <SeekBar
-        android:id="@+id/seekBarMoodTwo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/imageView14"
-        android:layout_marginTop="36dp" />
-
-    <TextView
-        android:id="@+id/seekBarValMoodTwo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/seekBarMoodTwo"
-        android:layout_marginTop="13dp"
-        android:layout_toEndOf="@+id/seekBarValMoodOne" />
-
-    <ImageView
-        android:id="@+id/imageView14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/imageView13"
-        android:layout_below="@+id/seekBarValMoodOne"
-        android:layout_marginTop="16dp"
-        app:srcCompat="@drawable/embarrassed" />
-
-    <TextView
-        android:id="@+id/textView22"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/seekBarValMoodTwo"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="18dp"
-        android:text="Overall Mood"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/toolbar"
+        android:text="How extreme were your moods?"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:textColor="#2286c3" />
 
     <SeekBar
         android:id="@+id/seekBarOverall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView22"
-        android:layout_marginTop="34dp" />
+        android:layout_width="300dp"
+        android:layout_height="30dp"
+        android:layout_above="@+id/moodBad"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/moodBad"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/textView22"
-        android:layout_below="@+id/seekBarOverall"
-        android:layout_marginTop="10dp"
+        android:layout_height="20dp"
+        android:layout_alignBaseline="@+id/moodGood"
+        android:layout_alignBottom="@+id/moodGood"
+        android:layout_alignStart="@+id/seekBarOverall"
         android:text="Bad"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
         android:id="@+id/moodGood"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/moodBad"
-        android:layout_alignBottom="@+id/moodBad"
-        android:layout_alignStart="@+id/next"
-        android:layout_marginStart="12dp"
+        android:layout_height="20dp"
+        android:layout_alignEnd="@+id/seekBarOverall"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="39dp"
         android:text="Good"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
-        android:id="@+id/textView29"
+        android:id="@+id/overallMood"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView13"
-        android:layout_marginBottom="19dp"
-        android:layout_toEndOf="@+id/seekBarValMoodOne"
-        android:text="Mood name" />
+        android:layout_above="@+id/seekBarOverall"
+        android:layout_alignStart="@+id/seekBarOverall"
+        android:layout_marginBottom="62dp"
+        android:text="Overall Mood"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     <TextView
         android:id="@+id/textView30"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView14"
-        android:layout_marginBottom="20dp"
-        android:layout_toEndOf="@+id/seekBarValMoodOne"
-        android:text="Mood name 2" />
+        android:layout_above="@+id/seekBarOverall"
+        android:layout_alignStart="@+id/seekBarOverall"
+        android:layout_marginBottom="24dp"
+        android:text="How was your overall feeling?" />
 
     <TextView
-        android:id="@+id/textView31"
+        android:id="@+id/moodTwoVal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/next"
+        android:layout_below="@+id/seekbarMoodOne"
+        android:layout_marginTop="14dp" />
+
+    <SeekBar
+        android:id="@+id/seekbarMoodOne"
+        android:layout_width="300dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/textView31"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp"
-        android:text="How did you react?"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        android:textColor="#FF9999" />
+        android:layout_marginTop="72dp" />
+
+    <TextView
+        android:id="@+id/mood_one"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/seekbarMoodOne"
+        android:layout_below="@+id/textView31"
+        android:layout_marginTop="24dp"
+        android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <TextView
+        android:id="@+id/mood_two"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/seekbarMoodOne"
+        android:layout_below="@+id/moodTwoVal"
+        android:layout_marginTop="18dp"
+        android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <SeekBar
+        android:id="@+id/seekbarMoodTwo"
+        android:layout_width="300dp"
+        android:layout_height="30dp"
+        android:layout_alignStart="@+id/mood_two"
+        android:layout_below="@+id/mood_two"
+        android:layout_marginTop="27dp" />
+
+    <TextView
+        android:id="@+id/moodOneValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/moodTwoVal"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/moodTwoValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/seekbarMoodTwo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp" />
 
 
 </RelativeLayout>

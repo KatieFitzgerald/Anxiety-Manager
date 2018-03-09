@@ -5,24 +5,54 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="13dp"
-        android:text="Thoughts?"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        android:textColor="#33BBFF" />
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#81d4fa"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="13dp"
+            android:layout_gravity="center"
+            android:textColor="#424242"
+            android:text="Thoughts?"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+        <ImageButton
+            android:id="@+id/next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            app:srcCompat="@drawable/ic_arrow_forward_black_24dp" />
+
+        <ImageButton
+            android:id="@+id/previous"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="left"
+            android:layout_marginStart="11dp"
+            app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
+
+    </android.support.v7.widget.Toolbar>
 
     <EditText
         android:id="@+id/thoughtName"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_below="@+id/textView5"
-        android:layout_marginTop="18dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="Enter your thoughts"
         android:inputType="text"
@@ -33,12 +63,12 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/next"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="53dp"
+        android:layout_alignEnd="@+id/textView5"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="26dp"
         android:text="What are you thinking about?"
         android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
-        android:textColor="#FF9999" />
+        android:textColor="#2286c3" />
 
     <ListView
         android:id="@+id/thoughtList"
@@ -46,14 +76,6 @@
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_marginTop="300dp" />
-
-    <ImageButton
-        android:id="@+id/next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        app:srcCompat="@drawable/ic_arrow_forward_black_24dp" />
 
     <TextView
         android:id="@+id/textView5"
@@ -69,17 +91,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/thoughtName"
-        android:layout_marginTop="41dp"
+        android:layout_below="@+id/addThought"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="32dp"
         android:text="Previously added thoughts:" />
 
-    <ImageButton
-        android:id="@+id/previous"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/textView4"
-        android:layout_toStartOf="@+id/textView4"
-        app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
 
     <TextView
         android:id="@+id/warning"
@@ -94,7 +110,7 @@
         android:id="@+id/addThought"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
+        android:layout_alignEnd="@+id/thoughtName"
         android:layout_below="@+id/thoughtName"
         android:text="Add" />
 </RelativeLayout>
