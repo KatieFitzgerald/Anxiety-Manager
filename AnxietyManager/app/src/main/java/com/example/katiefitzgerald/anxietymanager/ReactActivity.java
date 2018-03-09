@@ -46,7 +46,7 @@ public class ReactActivity extends AppCompatActivity {
             }
         });
 
-        previousQuestion = findViewById(R.id.previous);
+        /*previousQuestion = findViewById(R.id.previous);
         previousQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,7 +54,7 @@ public class ReactActivity extends AppCompatActivity {
                 startActivity(RateMood);
                 overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_right);
             }
-        });
+        });*/
 
     }
 

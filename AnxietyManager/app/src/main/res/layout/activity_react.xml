@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/gradient"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
@@ -17,22 +19,24 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_above="@+id/textView31"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="13dp"
             android:layout_gravity="center"
-            android:textColor="#424242"
+            android:layout_marginBottom="11dp"
             android:text="Your reaction"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textColor="#FFFFFF" />
 
-        <ImageButton
-            android:id="@+id/previous"
+        <Button
+            android:id="@+id/done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_gravity="left"
-            android:layout_marginStart="11dp"
-            app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
+            android:layout_alignBottom="@+id/toolbar"
+            android:layout_toEndOf="@+id/textView31"
+            android:background="@drawable/shape"
+            android:textColor="#FFFFFF"
+            android:layout_gravity="right"
+            android:text="Done" />
 
     </android.support.v7.widget.Toolbar>
 
@@ -45,7 +49,7 @@
         android:layout_marginTop="23dp"
         android:text="What was your reaction?"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        android:textColor="#2286c3" />
+        android:textColor="#FFFFFF" />
 
     <ImageView
         android:id="@+id/imageView11"
@@ -74,17 +78,21 @@
         android:layout_marginBottom="53dp"
         android:layout_marginStart="61dp"
         android:layout_toEndOf="@+id/imageView11"
+        android:textColor="#FFFFFF"
+        android:gravity="center"
         android:text="I stayed"
         android:textAppearance="@android:style/TextAppearance.Holo.Large" />
 
     <TextView
         android:id="@+id/left"
-        android:layout_width="match_parent"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/stayed"
         android:layout_below="@+id/imageView11"
-        android:layout_marginStart="22dp"
         android:layout_marginTop="45dp"
-        android:layout_toEndOf="@+id/imageView12"
-        android:text="I left when I felt anxious"
-        android:textAppearance="@android:style/TextAppearance.Holo.Large" />
+        android:gravity="center"
+        android:text="I left"
+        android:textAppearance="@android:style/TextAppearance.Holo.Large"
+        android:textColor="#FFFFFF" />
+
 </RelativeLayout>

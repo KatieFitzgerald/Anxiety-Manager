@@ -79,15 +79,15 @@ public class ThoughtsActivity extends AppCompatActivity {
         });
 
 
-        previousQuestion = findViewById(R.id.previous);
-        previousQuestion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent WhatsUp = new Intent(getApplicationContext(), WhatsUpActivity.class);
-                startActivity(WhatsUp);
-                overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_right);
-            }
-        });
+//        previousQuestion = findViewById(R.id.previous);
+//        previousQuestion.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent WhatsUp = new Intent(getApplicationContext(), WhatsUpActivity.class);
+//                startActivity(WhatsUp);
+//                overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_right);
+//            }
+//        });
 
         addThought = findViewById(R.id.addThought);
         addThought.setOnClickListener(new View.OnClickListener() {

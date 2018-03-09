@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient"
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
@@ -22,28 +23,9 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="13dp"
             android:layout_gravity="center"
-            android:textColor="#424242"
+            android:textColor="#FFFFFF"
             android:text="Physical Feelings?"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
-
-        <ImageButton
-            android:id="@+id/next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            app:srcCompat="@drawable/ic_arrow_forward_black_24dp" />
-
-        <ImageButton
-            android:id="@+id/previous"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_gravity="left"
-            android:layout_marginStart="11dp"
-            app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
 
     </android.support.v7.widget.Toolbar>
 
@@ -53,10 +35,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
         android:text="What physical symptoms are you feeling?"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        android:textColor="#2286c3"
+        android:textColor="#FFFFFF"
         tools:targetApi="lollipop" />
 
     <ImageView
@@ -65,7 +47,7 @@
         android:layout_height="80dp"
         android:layout_alignStart="@+id/textView4"
         android:layout_below="@+id/textView4"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
         android:clickable="true"
         app:srcCompat="@drawable/breath" />
 
@@ -75,7 +57,7 @@
         android:layout_height="80dp"
         android:layout_alignStart="@+id/textView8"
         android:layout_below="@+id/textView8"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="22dp"
         android:clickable="true"
         app:srcCompat="@drawable/heartbeat" />
 
@@ -85,7 +67,7 @@
         android:layout_height="80dp"
         android:layout_alignStart="@+id/textView11"
         android:layout_below="@+id/textView11"
-        android:layout_marginTop="39dp"
+        android:layout_marginTop="23dp"
         android:clickable="true"
         app:srcCompat="@drawable/fire" />
 
@@ -100,20 +82,20 @@
 
     <ImageView
         android:id="@+id/shakingIcon"
-        android:clickable = "true"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_alignStart="@+id/sweatingIcon"
+        android:layout_alignStart="@+id/textView9"
         android:layout_alignTop="@+id/heartbeatIcon"
+        android:clickable="true"
         app:srcCompat="@drawable/shaking" />
 
     <ImageView
         android:id="@+id/toiletIcon"
-        android:clickable = "true"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_alignStart="@+id/shakingIcon"
+        android:layout_alignStart="@+id/textView12"
         android:layout_alignTop="@+id/warmIcon"
+        android:clickable="true"
         app:srcCompat="@drawable/restroom" />
 
     <ImageView
@@ -150,17 +132,21 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/breathingIcon"
         android:layout_below="@+id/breathingIcon"
+        android:layout_marginTop="14dp"
         android:gravity="center"
-        android:text="Unusual breathing" />
+        android:text="Unusual breathing"
+        android:textColor="#FFFFFF" />
 
     <TextView
         android:id="@+id/textView9"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView8"
+        android:layout_alignBottom="@+id/textView8"
         android:layout_alignStart="@+id/sweatingIcon"
-        android:layout_below="@+id/sweatingIcon"
         android:gravity="center"
-        android:text="Excessive sweating" />
+        android:text="Excessive sweating"
+        android:textColor="#FFFFFF" />
 
     <TextView
         android:id="@+id/textView10"
@@ -170,6 +156,7 @@
         android:layout_alignBottom="@+id/textView9"
         android:layout_alignStart="@+id/hungerIcon"
         android:gravity="center"
+        android:textColor="#FFFFFF"
         android:text="Unusual appetite" />
 
     <TextView
@@ -178,8 +165,10 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/heartbeatIcon"
         android:layout_below="@+id/heartbeatIcon"
+        android:layout_marginTop="14dp"
         android:gravity="center"
-        android:text="Unusual heartbate" />
+        android:text="Unusual heartbate"
+        android:textColor="#FFFFFF" />
 
     <TextView
         android:id="@+id/textView12"
@@ -189,6 +178,7 @@
         android:layout_alignBottom="@+id/textView11"
         android:layout_alignStart="@+id/shakingIcon"
         android:gravity="center"
+        android:textColor="#FFFFFF"
         android:text="Excessive shaking" />
 
     <TextView
@@ -199,17 +189,19 @@
         android:layout_alignBottom="@+id/textView12"
         android:layout_alignStart="@+id/nervousIcon"
         android:gravity="center"
+        android:textColor="#FFFFFF"
         android:text="Nervous stomach" />
 
     <TextView
         android:id="@+id/textView15"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView16"
         android:layout_alignStart="@+id/warmIcon"
-        android:layout_below="@+id/warmIcon"
         android:gravity="center"
         android:paddingTop="2dp"
-        android:text="Feeling hot" />
+        android:text="Feeling hot"
+        android:textColor="#FFFFFF" />
 
     <TextView
         android:id="@+id/textView16"
@@ -219,17 +211,19 @@
         android:layout_below="@+id/toiletIcon"
         android:gravity="center"
         android:paddingTop="2dp"
+        android:textColor="#FFFFFF"
         android:text="Frequent toilet trips" />
 
     <TextView
         android:id="@+id/textView17"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView16"
         android:layout_alignStart="@+id/headacheIcon"
-        android:layout_below="@+id/headacheIcon"
         android:gravity="center"
         android:paddingTop="2dp"
-        android:text="Headache" />
+        android:text="Headache"
+        android:textColor="#FFFFFF" />
 
 
 </RelativeLayout>

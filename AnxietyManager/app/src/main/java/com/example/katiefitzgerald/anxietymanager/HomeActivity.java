@@ -116,9 +116,9 @@ public class HomeActivity extends AppCompatActivity {
 
         //add color to dataset
         ArrayList<Integer> color = new ArrayList<>();
-        color.add(Color.rgb(51,187,255));
-        color.add(Color.rgb(255,153,153));
-        color.add(Color.rgb(192,192,192));
+        color.add(Color.rgb(216,250,251));
+        color.add(Color.rgb(250,220,251));
+        color.add(Color.rgb(212,244,235));
 
         pieDataSet.setColors(color);
 
@@ -133,6 +133,7 @@ public class HomeActivity extends AppCompatActivity {
 
         Legend legend = chart.getLegend();
         legend.setForm(Legend.LegendForm.CIRCLE);
+        legend.setTextColor(Color.rgb(255,255,255));
         legend.setCustom(entries);
 
         PieData pieData = new PieData(pieDataSet);

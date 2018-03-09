@@ -30,7 +30,7 @@ public class RateMoodActivity extends AppCompatActivity {
 
         seekBarSetup();
 
-        nextQuestion = findViewById(R.id.next);
+        /*nextQuestion = findViewById(R.id.next);
         nextQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -39,9 +39,9 @@ public class RateMoodActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
 
             }
-        });
+        });*/
 
-        previousQuestion = findViewById(R.id.previous);
+        /*previousQuestion = findViewById(R.id.previous);
         previousQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,7 +49,7 @@ public class RateMoodActivity extends AppCompatActivity {
                 startActivity(Thoughts);
                 overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_right);
             }
-        });
+        });*/
 
     }
 

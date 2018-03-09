@@ -2,6 +2,7 @@ package com.example.katiefitzgerald.anxietymanager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -184,7 +185,7 @@ public class MoodActivity extends AppCompatActivity {
             }
         });
 
-        previousQuestion = findViewById(R.id.previous);
+       /* previousQuestion = findViewById(R.id.previous);
         previousQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -192,7 +193,7 @@ public class MoodActivity extends AppCompatActivity {
                 startActivity(Thoughts);
                 overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_right);
             }
-        });
+        });*/
 
     }
 
@@ -212,7 +213,17 @@ public class MoodActivity extends AppCompatActivity {
             annoyed.setClickable(false);
             nervous.setClickable(false);
 
-            nextQuestion = findViewById(R.id.next);
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    Intent RateMood = new Intent(getApplicationContext(), RateMoodActivity.class);
+                    RateMood.putExtra("chosenMoods", chosenMood);
+                    startActivity(RateMood);
+                    overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
+                }
+            }, 1000);
+
+            /*nextQuestion = findViewById(R.id.next);
             nextQuestion.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -221,7 +232,7 @@ public class MoodActivity extends AppCompatActivity {
                     startActivity(RateMood);
                     overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
                 }
-            });
+            });*/
 
         }
     }

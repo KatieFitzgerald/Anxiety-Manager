@@ -87,7 +87,7 @@ public class WhatsUpActivity extends AppCompatActivity {
                 Cursor returnedSubjectCursor = (Cursor) listView.getItemAtPosition(itemPosition);
                 subjectChosen = returnedSubjectCursor.getString(1);
 
-                Toast.makeText(getApplicationContext(), subjectChosen + " selected", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), subjectChosen + " selected", Toast.LENGTH_SHORT).show();
 
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
@@ -130,7 +130,7 @@ public class WhatsUpActivity extends AppCompatActivity {
                         Toast.makeText(WhatsUpActivity.this, "Error inserting into database", LENGTH_SHORT).show();
                     }
 
-                    nextQuestion = findViewById(R.id.next);
+                    /*nextQuestion = findViewById(R.id.next);
                     nextQuestion.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -139,7 +139,7 @@ public class WhatsUpActivity extends AppCompatActivity {
                             startActivity(Thoughts);
                             overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
                         }
-                    });
+                    });*/
                 }
                 else {
                     final TextView warning = findViewById(R.id.warning);
