@@ -36,6 +36,9 @@ public class DatabaseManager {
     //Physical table column names
     private static final String KEY_PHYSICAL_NAME = "PhysicalName";
 
+    //React table column names
+    private static final String KEY_REACTION_NAME = "ReactionName";
+
     //Mood table columns names
     private static final String KEY_MOOD_NAME = "MoodName";
 
@@ -43,6 +46,7 @@ public class DatabaseManager {
     private static final String CREATE_THOUGHT_TABLE = "CREATE TABLE " + TABLE_THOUGHT + "(_id INTEGER PRIMARY KEY autoincrement not null, ThoughtName TEXT not null);";
     private static final String CREATE_PHYSICAL_TABLE = "CREATE TABLE " + TABLE_PHYSICAL + "(_id INTEGER PRIMARY KEY autoincrement not null, PhysicalName TEXT not null);";
     private static final String CREATE_MOOD_TABLE = "CREATE TABLE " + TABLE_MOOD + "(_id INTEGER PRIMARY KEY autoincrement not null, MoodName TEXT not null);";
+    private static final String CREATE_REACT_TABLE = "CREATE TABLE " + TABLE_REACTION + "(_id INTEGER PRIMARY KEY autoincrement not null, ReactionName TEXT not null);";
 
     private final Context context;
     private MyDatabaseHelper DBHelper;
@@ -61,14 +65,18 @@ public class DatabaseManager {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
+
             db.execSQL(CREATE_SUBJECT_TABLE);
             db.execSQL(CREATE_THOUGHT_TABLE);
             db.execSQL(CREATE_PHYSICAL_TABLE);
             db.execSQL(CREATE_MOOD_TABLE);
+            db.execSQL(CREATE_REACT_TABLE);
 
             insertDefaultSubjects(db);
             insertDefaultThoughts(db);
             insertPhysicalFeelings(db);
+            insertMoods(db);
+            insertReactions(db);
 
         }
 
@@ -185,6 +193,19 @@ public class DatabaseManager {
 
             mood.put(KEY_MOOD_NAME, "nervous");
             db.insert(TABLE_MOOD, null, mood);
+
+        }
+
+        private void insertReactions(SQLiteDatabase db){
+
+            //insert static data to subject table
+            ContentValues reaction = new ContentValues();
+
+            reaction.put(KEY_REACTION_NAME, "stayed");
+            db.insert(TABLE_REACTION, null, reaction);
+
+            reaction.put(KEY_REACTION_NAME, "left");
+            db.insert(TABLE_REACTION, null, reaction);
 
         }
 
