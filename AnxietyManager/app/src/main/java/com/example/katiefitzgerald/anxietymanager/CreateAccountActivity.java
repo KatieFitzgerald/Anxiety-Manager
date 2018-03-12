@@ -1,9 +1,11 @@
 package com.example.katiefitzgerald.anxietymanager;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.ActivityCompat;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -37,10 +39,22 @@ public class CreateAccountActivity extends SensedActivity {
         chosenAccount = findViewById(R.id.isCounsellor);
         createAccount = findViewById(R.id.createBtn);
 
-        createAccount.setOnClickListener(new View.OnClickListener() {
+        createAccount.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View view) {
-                addUser();
+            public boolean onTouch(View view, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        createAccount.setBackgroundResource(R.drawable.pressed);
+                        createAccount.setTextColor(Color.GRAY);
+                        addUser();
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        createAccount.setBackgroundResource(R.drawable.shape);
+                        createAccount.setTextColor(Color.WHITE);
+                        return true;
+                    default:
+                        return false;
+                }
             }
         });
 

@@ -41,11 +41,12 @@ public class DatabaseManager {
 
     //Mood table columns names
     private static final String KEY_MOOD_NAME = "MoodName";
+    private static final String KEY_MOOD__USER_ADDED = "UserAdded";
 
     private static final String CREATE_SUBJECT_TABLE = "CREATE TABLE " + TABLE_SUBJECT + "(_id INTEGER PRIMARY KEY autoincrement not null, SubjectName TEXT not null);";
     private static final String CREATE_THOUGHT_TABLE = "CREATE TABLE " + TABLE_THOUGHT + "(_id INTEGER PRIMARY KEY autoincrement not null, ThoughtName TEXT not null);";
     private static final String CREATE_PHYSICAL_TABLE = "CREATE TABLE " + TABLE_PHYSICAL + "(_id INTEGER PRIMARY KEY autoincrement not null, PhysicalName TEXT not null);";
-    private static final String CREATE_MOOD_TABLE = "CREATE TABLE " + TABLE_MOOD + "(_id INTEGER PRIMARY KEY autoincrement not null, MoodName TEXT not null);";
+    private static final String CREATE_MOOD_TABLE = "CREATE TABLE " + TABLE_MOOD + "(_id INTEGER PRIMARY KEY autoincrement not null, MoodName TEXT not null, UserAdded TEXT);";
     private static final String CREATE_REACT_TABLE = "CREATE TABLE " + TABLE_REACTION + "(_id INTEGER PRIMARY KEY autoincrement not null, ReactionName TEXT not null);";
 
     private final Context context;
@@ -71,6 +72,12 @@ public class DatabaseManager {
             db.execSQL(CREATE_PHYSICAL_TABLE);
             db.execSQL(CREATE_MOOD_TABLE);
             db.execSQL(CREATE_REACT_TABLE);
+
+            ContentValues mood = new ContentValues();
+
+            mood.put(KEY_MOOD_NAME, "Confused");
+            mood.put(KEY_MOOD__USER_ADDED, "true");
+            db.insert(TABLE_MOOD, null, mood);
 
             insertDefaultSubjects(db);
             insertDefaultThoughts(db);
@@ -260,6 +267,30 @@ public class DatabaseManager {
     public Cursor selectThoughts()
     {
         Cursor mCursor = db.rawQuery("SELECT * FROM Thought;", null);
+
+        if (mCursor != null) {
+            mCursor.moveToFirst();
+        }
+
+        return mCursor;
+
+    }
+
+    //insert into request table from user input
+    public void insertMood(String moodName) {
+
+        ContentValues mood = new ContentValues();
+
+        mood.put(KEY_MOOD_NAME, moodName);
+        mood.put(KEY_MOOD__USER_ADDED, "true");
+        db.insert(TABLE_MOOD, null, mood);
+
+    }
+
+    //returns subjects
+    public Cursor selectMood()
+    {
+        Cursor mCursor = db.rawQuery("SELECT * FROM Mood WHERE UserAdded = 'true';", null);
 
         if (mCursor != null) {
             mCursor.moveToFirst();

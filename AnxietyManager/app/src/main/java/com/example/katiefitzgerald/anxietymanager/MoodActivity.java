@@ -1,16 +1,27 @@
 package com.example.katiefitzgerald.anxietymanager;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+import java.sql.SQLException;
+import java.util.List;
+
+import static android.widget.Toast.LENGTH_SHORT;
 
 /**
  * Created by Katie Fitzgerald on 26/01/2018.
@@ -25,13 +36,19 @@ public class MoodActivity extends AppCompatActivity {
     ImageView disgust;
     ImageView embarrassed;
     ImageView distracted;
-    ImageView annoyed;
     ImageView nervous;
+    ImageView other;
+
+    MoodDialogAdapter cursorAdapter;
+
+    DatabaseManager db = new DatabaseManager(this);
 
     String[] chosenMood = new String[2];
 
     ImageButton nextQuestion;
     ImageButton previousQuestion;
+
+    TextView warning;
 
     int questionCount = 0;
 
@@ -44,11 +61,11 @@ public class MoodActivity extends AppCompatActivity {
         angry = findViewById(R.id.angry);
         sad = findViewById(R.id.sad);
         lonely = findViewById(R.id.lonely);
-        disgust = findViewById(R.id.disgusted);
+        disgust = findViewById(R.id.worried);
         embarrassed = findViewById(R.id.embarrassed);
         distracted = findViewById(R.id.distracted);
-        annoyed = findViewById(R.id.annoyed);
         nervous = findViewById(R.id.nervous);
+        other = findViewById(R.id.other);
 
         afraid.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,18 +172,108 @@ public class MoodActivity extends AppCompatActivity {
             }
         });
 
-        annoyed.setOnClickListener(new View.OnClickListener() {
+        other.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                annoyed.setImageResource(R.drawable.chosen);
-                if (questionCount == 0) {
-                    chosenMood[0] = "Annoyed";
+
+                AlertDialog.Builder otherDialog = new AlertDialog.Builder(MoodActivity.this);
+                final View dialogView = getLayoutInflater().inflate(R.layout.mood_dialog, null);
+                final EditText addOther = dialogView.findViewById(R.id.otherEmotion);
+                final ListView emotionList = dialogView.findViewById(R.id.emotionList);
+                Button add = dialogView.findViewById(R.id.add);
+
+                try {
+                    db.open();
+
+                    Cursor moods = db.selectMood();
+                    cursorAdapter = new MoodDialogAdapter(MoodActivity.this, moods);
+                    emotionList.setAdapter(cursorAdapter);
+
+                    db.close();
+
+                    emotionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        public void onItemClick(AdapterView<?> listView, View itemView, int itemPosition, long itemId) {
+                            // Get the data associated with selected item
+
+                            Cursor returnedMoodCursor = (Cursor) listView.getItemAtPosition(itemPosition);
+                            String moodChosen = returnedMoodCursor.getString(1);
+
+                            Toast.makeText(getApplicationContext(), moodChosen + " selected", Toast.LENGTH_SHORT).show();
+
+                            Intent RateMood = new Intent(getApplicationContext(), RateMoodActivity.class);
+                            RateMood.putExtra("chosenMoods", chosenMood);
+                            startActivity(RateMood);
+                            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
+                        }
+
+                    });
+
                 }
-                else {
-                    chosenMood[1] = "Annoyed";
+                catch (SQLException e) {
+                    Toast.makeText(MoodActivity.this, "Error opening database", LENGTH_SHORT).show();
                 }
-                questionCount += 1;
-                checkQuestions();
+
+                add.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view){
+
+                        final String otherEmotion = addOther.getText().toString();
+
+                        if (!otherEmotion.isEmpty()) {
+                            addOther.setText("");
+
+                            try {
+                                db.open();
+
+                                db.insertMood(otherEmotion);
+
+                                Cursor moods = db.selectMood();
+                                cursorAdapter = new MoodDialogAdapter(MoodActivity.this, moods);
+                                cursorAdapter.notifyDataSetChanged();
+                                emotionList.setAdapter(cursorAdapter);
+
+                                db.close();
+
+                                Intent RateMood = new Intent(getApplicationContext(), RateMoodActivity.class);
+                                RateMood.putExtra("chosenMoods", chosenMood);
+                                startActivity(RateMood);
+                                overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
+
+                            }
+                            catch (SQLException e) {
+                                Toast.makeText(MoodActivity.this, "Error inserting into database", LENGTH_SHORT).show();
+                            }
+
+                        }
+                        else {
+                            warning = dialogView.findViewById(R.id.warning);
+                            warning.setTextColor(Color.RED);
+                            warning.setText("Please enter an emotion");
+
+                            addOther.addTextChangedListener(new TextWatcher()
+                            {
+                                @Override
+                                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                                }
+
+                                public void onTextChanged(CharSequence s, int start, int before, int count){
+                                    warning.setText("");
+                                }
+
+                                @Override
+                                public void afterTextChanged(Editable editable) {
+
+                                }
+                            });
+                        }
+
+                    }
+
+                });
+
+                otherDialog.setView(dialogView);
+                AlertDialog createDialog = otherDialog.create();
+                createDialog.show();
             }
         });
 
@@ -210,18 +317,13 @@ public class MoodActivity extends AppCompatActivity {
             disgust.setClickable(false);
             embarrassed.setClickable(false);
             distracted.setClickable(false);
-            annoyed.setClickable(false);
+            other.setClickable(false);
             nervous.setClickable(false);
 
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                public void run() {
-                    Intent RateMood = new Intent(getApplicationContext(), RateMoodActivity.class);
-                    RateMood.putExtra("chosenMoods", chosenMood);
-                    startActivity(RateMood);
-                    overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
-                }
-            }, 1000);
+            Intent RateMood = new Intent(getApplicationContext(), RateMoodActivity.class);
+            RateMood.putExtra("chosenMoods", chosenMood);
+            startActivity(RateMood);
+            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
 
             /*nextQuestion = findViewById(R.id.next);
             nextQuestion.setOnClickListener(new View.OnClickListener() {

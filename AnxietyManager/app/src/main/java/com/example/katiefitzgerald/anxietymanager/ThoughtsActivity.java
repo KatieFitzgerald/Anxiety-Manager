@@ -97,7 +97,7 @@ public class ThoughtsActivity extends AppCompatActivity {
                 final String thoughtNameInput = thoughtName.getText().toString();
 
                 //make sure there is something to add to list/database
-                if(null!= thoughtNameInput && thoughtNameInput.length() > 0) {
+                if(null != thoughtNameInput && thoughtNameInput.length() > 0) {
 
                     try {
                         db.open();
@@ -149,15 +149,9 @@ public class ThoughtsActivity extends AppCompatActivity {
 
     public void startNextActivity(){
 
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                Intent Physical = new Intent(getApplicationContext(), PhysicalActivity.class);
-                startActivity(Physical);
-                overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
-            }
-        }, 1000);
-
+        Intent Physical = new Intent(getApplicationContext(), PhysicalActivity.class);
+        startActivity(Physical);
+        overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
 
     }
 

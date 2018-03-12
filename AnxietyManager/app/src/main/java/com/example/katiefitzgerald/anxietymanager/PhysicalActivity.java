@@ -153,14 +153,11 @@ public class PhysicalActivity extends AppCompatActivity {
             changeAppetite.setClickable(false);
             headache.setClickable(false);
 
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                public void run() {
-                    Intent Emotion = new Intent(getApplicationContext(), MoodActivity.class);
-                    startActivity(Emotion);
-                    overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
-                }
-            }, 1000);
+
+            Intent Emotion = new Intent(getApplicationContext(), MoodActivity.class);
+            startActivity(Emotion);
+            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
+
 //            /*nextQuestion = findViewById(R.id.next);
 //            nextQuestion.setOnClickListener(new View.OnClickListener() {
 //                @Override

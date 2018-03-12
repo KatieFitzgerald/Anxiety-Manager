@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -13,7 +14,7 @@ import android.widget.ImageView;
 
 public class ReactActivity extends AppCompatActivity {
 
-    ImageButton previousQuestion;
+    Button done;
 
     ImageView stayed;
     ImageView left;
@@ -46,15 +47,14 @@ public class ReactActivity extends AppCompatActivity {
             }
         });
 
-        /*previousQuestion = findViewById(R.id.previous);
-        previousQuestion.setOnClickListener(new View.OnClickListener() {
+        done = findViewById(R.id.done);
+        done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent RateMood = new Intent(getApplicationContext(), RateMoodActivity.class);
-                startActivity(RateMood);
-                overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_right);
+                Intent home = new Intent(getApplicationContext(), HomeActivity.class);
+                startActivity(home);
             }
-        });*/
+        });
 
     }
 

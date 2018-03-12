@@ -89,15 +89,11 @@ public class WhatsUpActivity extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(), subjectChosen + " selected", Toast.LENGTH_SHORT).show();
 
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-                        Intent Thoughts = new Intent(getApplicationContext(), ThoughtsActivity.class);
-                        Thoughts.putExtra("questionnaireObj", questionnaireDao);
-                        startActivity(Thoughts);
-                        overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
-                    }
-                }, 1000);
+                Intent Thoughts = new Intent(getApplicationContext(), ThoughtsActivity.class);
+                Thoughts.putExtra("questionnaireObj", questionnaireDao);
+                startActivity(Thoughts);
+                overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
+
 
             }
         });
@@ -114,7 +110,6 @@ public class WhatsUpActivity extends AppCompatActivity {
                 if(null!= worryNameInput && worryNameInput.length() > 0) {
                     try {
                         db.open();
-
                         db.insertSubject(worryNameInput);
 
                         //refresh view
@@ -124,6 +119,11 @@ public class WhatsUpActivity extends AppCompatActivity {
                         worryList.setAdapter(cursorAdapter);
 
                         db.close();
+
+                        Intent Thoughts = new Intent(getApplicationContext(), ThoughtsActivity.class);
+                        Thoughts.putExtra("questionnaireObj", questionnaireDao);
+                        startActivity(Thoughts);
+                        overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
 
                     }
                     catch (SQLException e) {
