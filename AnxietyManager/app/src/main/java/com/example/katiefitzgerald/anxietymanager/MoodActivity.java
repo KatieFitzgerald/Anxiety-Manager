@@ -19,7 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.sql.SQLException;
-import java.util.List;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
@@ -198,12 +197,16 @@ public class MoodActivity extends AppCompatActivity {
                             Cursor returnedMoodCursor = (Cursor) listView.getItemAtPosition(itemPosition);
                             String moodChosen = returnedMoodCursor.getString(1);
 
-                            Toast.makeText(getApplicationContext(), moodChosen + " selected", Toast.LENGTH_SHORT).show();
-
-                            Intent RateMood = new Intent(getApplicationContext(), RateMoodActivity.class);
-                            RateMood.putExtra("chosenMoods", chosenMood);
-                            startActivity(RateMood);
-                            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
+                            if (questionCount == 1) {
+                                chosenMood[1] = moodChosen;
+                                questionCount += 1;
+                                checkQuestions();
+                            }
+                            else {
+                                chosenMood[0] = moodChosen;
+                                questionCount = 3;
+                                checkQuestions();
+                            }
                         }
 
                     });
@@ -220,8 +223,8 @@ public class MoodActivity extends AppCompatActivity {
                         final String otherEmotion = addOther.getText().toString();
 
                         if (!otherEmotion.isEmpty()) {
-                            addOther.setText("");
 
+                            addOther.setText("");
                             try {
                                 db.open();
 
@@ -234,10 +237,18 @@ public class MoodActivity extends AppCompatActivity {
 
                                 db.close();
 
-                                Intent RateMood = new Intent(getApplicationContext(), RateMoodActivity.class);
-                                RateMood.putExtra("chosenMoods", chosenMood);
-                                startActivity(RateMood);
-                                overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
+                                if (questionCount == 1) {
+                                    chosenMood[1] = otherEmotion;
+                                    questionCount += 1;
+                                    checkQuestions();
+                                }
+                                else {
+                                    chosenMood[0] = otherEmotion;
+                                    questionCount = 3;
+                                    checkQuestions();
+                                }
+
+
 
                             }
                             catch (SQLException e) {
@@ -305,10 +316,8 @@ public class MoodActivity extends AppCompatActivity {
     }
 
     void checkQuestions() {
-        if (questionCount < 2) {
-            //do nothing, moods chosen
-        }
-        else {
+
+        if (questionCount == 2) {
             //allow no other options to be chosen
             afraid.setClickable(false);
             angry.setClickable(false);
@@ -320,21 +329,21 @@ public class MoodActivity extends AppCompatActivity {
             other.setClickable(false);
             nervous.setClickable(false);
 
-            Intent RateMood = new Intent(getApplicationContext(), RateMoodActivity.class);
+            Toast.makeText(this, "Two QUESTIONS", Toast.LENGTH_SHORT).show();
+
+            Intent RateMood = new Intent(getApplicationContext(), RateTwoMoodActivity.class);
             RateMood.putExtra("chosenMoods", chosenMood);
             startActivity(RateMood);
             overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
+        }
+        else if (questionCount == 3) {
 
-            /*nextQuestion = findViewById(R.id.next);
-            nextQuestion.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent RateMood = new Intent(getApplicationContext(), RateMoodActivity.class);
-                    RateMood.putExtra("chosenMoods", chosenMood);
-                    startActivity(RateMood);
-                    overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
-                }
-            });*/
+            Toast.makeText(this, "THREE QUESTIONS", Toast.LENGTH_SHORT).show();
+
+            Intent RateMood = new Intent(getApplicationContext(), RateOneMoodActivity.class);
+            RateMood.putExtra("chosenMoods", chosenMood);
+            startActivity(RateMood);
+            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
 
         }
     }

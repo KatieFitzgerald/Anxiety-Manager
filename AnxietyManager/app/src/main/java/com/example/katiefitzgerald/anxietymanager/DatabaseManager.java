@@ -43,6 +43,7 @@ public class DatabaseManager {
     private static final String KEY_MOOD_NAME = "MoodName";
     private static final String KEY_MOOD__USER_ADDED = "UserAdded";
 
+    //Create tables
     private static final String CREATE_SUBJECT_TABLE = "CREATE TABLE " + TABLE_SUBJECT + "(_id INTEGER PRIMARY KEY autoincrement not null, SubjectName TEXT not null);";
     private static final String CREATE_THOUGHT_TABLE = "CREATE TABLE " + TABLE_THOUGHT + "(_id INTEGER PRIMARY KEY autoincrement not null, ThoughtName TEXT not null);";
     private static final String CREATE_PHYSICAL_TABLE = "CREATE TABLE " + TABLE_PHYSICAL + "(_id INTEGER PRIMARY KEY autoincrement not null, PhysicalName TEXT not null);";

@@ -29,7 +29,8 @@
             android:windowSoftInputMode="stateHidden" ></activity>
         <activity android:name=".PhysicalActivity"></activity>
         <activity android:name=".MoodActivity"></activity>
-        <activity android:name=".RateMoodActivity"></activity>
+        <activity android:name=".RateTwoMoodActivity"></activity>
+        <activity android:name=".RateOneMoodActivity"></activity>
         <activity android:name=".ReactActivity"></activity>
 
     </application>

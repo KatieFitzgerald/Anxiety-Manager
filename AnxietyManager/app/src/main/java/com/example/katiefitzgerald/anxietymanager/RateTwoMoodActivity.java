@@ -14,7 +14,7 @@ import android.widget.Toast;
  * Created by Katie Fitzgerald on 30/01/2018.
  */
 
-public class RateMoodActivity extends AppCompatActivity {
+public class RateTwoMoodActivity extends AppCompatActivity {
 
     ImageView nextQuestion;
 

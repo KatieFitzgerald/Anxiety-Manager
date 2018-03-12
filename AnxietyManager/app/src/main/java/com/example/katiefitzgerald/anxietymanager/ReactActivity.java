@@ -1,11 +1,9 @@
 package com.example.katiefitzgerald.anxietymanager;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 
 /**
@@ -26,8 +24,8 @@ public class ReactActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_react);
 
-        stayed = findViewById(R.id.imageView11);
-        left = findViewById(R.id.imageView12);
+        stayed = findViewById(R.id.stay);
+        left = findViewById(R.id.left);
 
         stayed.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,8 +49,7 @@ public class ReactActivity extends AppCompatActivity {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent home = new Intent(getApplicationContext(), HomeActivity.class);
-                startActivity(home);
+               //start calendar activity
             }
         });
 
@@ -63,7 +60,6 @@ public class ReactActivity extends AppCompatActivity {
             //do nothing
         }
         else {
-
             stayed.setClickable(false);
             left.setClickable(false);
         }
