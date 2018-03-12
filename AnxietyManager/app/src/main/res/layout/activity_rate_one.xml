@@ -42,10 +42,10 @@
         android:id="@+id/textView31"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp"
         android:layout_below="@+id/toolbar"
-        android:text="How extreme were your moods?"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="23dp"
+        android:text="How extreme was your mood?"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         android:textColor="#FFFFFF" />
 
@@ -54,7 +54,8 @@
         android:layout_width="300dp"
         android:layout_height="30dp"
         android:layout_above="@+id/moodBad"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="19dp" />
 
     <TextView
         android:id="@+id/moodBad"
@@ -82,12 +83,12 @@
         android:id="@+id/overallMood"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/seekBarOverall"
-        android:layout_alignStart="@+id/seekBarOverall"
-        android:layout_marginBottom="62dp"
-        android:textColor="#FFFFFF"
+        android:layout_above="@+id/textView30"
+        android:layout_alignStart="@+id/textView30"
+        android:layout_marginBottom="35dp"
         android:text="Overall Mood"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#FFFFFF" />
 
     <TextView
         android:id="@+id/textView30"
@@ -95,9 +96,9 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/seekBarOverall"
         android:layout_alignStart="@+id/seekBarOverall"
-        android:textColor="#FFFFFF"
-        android:layout_marginBottom="24dp"
-        android:text="How was your overall feeling?" />
+        android:layout_marginBottom="29dp"
+        android:text="How was your overall feeling?"
+        android:textColor="#FFFFFF" />
 
     <TextView
         android:id="@+id/moodTwoVal"
@@ -113,7 +114,7 @@
         android:layout_height="30dp"
         android:layout_alignStart="@+id/overallMood"
         android:layout_below="@+id/mood_one"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="46dp" />
 
     <TextView
         android:id="@+id/mood_one"
@@ -121,29 +122,10 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/seekbarMoodOne"
         android:layout_below="@+id/textView31"
-        android:layout_marginTop="33dp"
+        android:layout_marginTop="62dp"
         android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#FFFFFF" />
-
-    <TextView
-        android:id="@+id/mood_two"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/seekbarMoodOne"
-        android:layout_below="@+id/moodTwoVal"
-        android:layout_marginTop="18dp"
-        android:textColor="#FFFFFF"
-        android:text="TextView"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-    <SeekBar
-        android:id="@+id/seekbarMoodTwo"
-        android:layout_width="300dp"
-        android:layout_height="30dp"
-        android:layout_alignStart="@+id/mood_two"
-        android:layout_below="@+id/mood_two"
-        android:layout_marginTop="27dp" />
 
     <TextView
         android:id="@+id/moodOneValue"

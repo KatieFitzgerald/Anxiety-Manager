@@ -22,12 +22,15 @@
         <activity android:name=".SensedActivity"></activity>
         <activity android:name=".HomeActivity"></activity>
         <activity android:name=".WhatsUpActivity"
+            android:label=" "
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="stateHidden" ></activity>
         <activity android:name=".ThoughtsActivity"
             android:windowSoftInputMode="stateHidden" ></activity>
         <activity android:name=".PhysicalActivity"></activity>
         <activity android:name=".MoodActivity"></activity>
-        <activity android:name=".RateMoodActivity"></activity>
+        <activity android:name=".RateTwoMoodActivity"></activity>
+        <activity android:name=".RateOneMoodActivity"></activity>
         <activity android:name=".ReactActivity"></activity>
 
     </application>

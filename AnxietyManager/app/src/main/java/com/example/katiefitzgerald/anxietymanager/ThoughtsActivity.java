@@ -1,13 +1,15 @@
 package com.example.katiefitzgerald.anxietymanager;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -15,7 +17,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import java.sql.SQLException;
+
+import static android.widget.Toast.LENGTH_SHORT;
 
 /**
  * Created by Katie Fitzgerald on 24/01/2018.
@@ -23,13 +27,15 @@ import java.util.ArrayList;
 
 public class ThoughtsActivity extends AppCompatActivity {
 
-    ArrayAdapter<String> thoughtAdapter;
-    ArrayList<String> thoughtArrayList = new ArrayList<String>();
     EditText thoughtName;
     ImageButton nextQuestion;
     Button addThought;
     ImageButton previousQuestion;
     ListView thoughtList;
+    ThoughtsAdapter cursorAdapter;
+    String thoughtChosen;
+
+    DatabaseManager db = new DatabaseManager(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,24 +43,51 @@ public class ThoughtsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thoughts);
 
+        final QuestionnaireDao questionnaireDao = (QuestionnaireDao) getIntent().getSerializableExtra("questionnaireObj");
+
         //get user input
         thoughtName = findViewById(R.id.thoughtName);
-
-        thoughtAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, thoughtArrayList);
         thoughtList = findViewById(R.id.thoughtList);
-        thoughtList.setAdapter(thoughtAdapter);
 
-        final Toast toast = Toast.makeText(this, "Thought has been added", Toast.LENGTH_SHORT);
+        try {
+            db.open();
 
-        previousQuestion = findViewById(R.id.previous);
-        previousQuestion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent WhatsUp = new Intent(getApplicationContext(), WhatsUpActivity.class);
-                startActivity(WhatsUp);
-                overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_right);
+            Cursor thoughts = db.selectThoughts();
+            cursorAdapter = new ThoughtsAdapter(ThoughtsActivity.this, thoughts);
+            thoughtList.setAdapter(cursorAdapter);
+
+            db.close();
+
+        }
+        catch (SQLException e) {
+            Toast.makeText(ThoughtsActivity.this, "Error opening database", LENGTH_SHORT).show();
+        }
+
+        thoughtList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> listView, View itemView, int itemPosition, long itemId)
+            {
+                // Get the data associated with selected item
+
+                Cursor returnedThoughtCursor = (Cursor) listView.getItemAtPosition(itemPosition);
+                thoughtChosen = returnedThoughtCursor.getString(1);
+
+                Toast.makeText(getApplicationContext(), thoughtChosen + " selected", Toast.LENGTH_LONG).show();
+
+                startNextActivity();
+
             }
         });
+
+
+//        previousQuestion = findViewById(R.id.previous);
+//        previousQuestion.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent WhatsUp = new Intent(getApplicationContext(), WhatsUpActivity.class);
+//                startActivity(WhatsUp);
+//                overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_right);
+//            }
+//        });
 
         addThought = findViewById(R.id.addThought);
         addThought.setOnClickListener(new View.OnClickListener() {
@@ -64,29 +97,30 @@ public class ThoughtsActivity extends AppCompatActivity {
                 final String thoughtNameInput = thoughtName.getText().toString();
 
                 //make sure there is something to add to list/database
-                if(null!= thoughtNameInput && thoughtNameInput.length() > 0) {
+                if(null != thoughtNameInput && thoughtNameInput.length() > 0) {
 
-                    /**
-                     *
-                     *
-                     * add worry to db here
-                     **/
+                    try {
+                        db.open();
 
-                    thoughtArrayList.add(thoughtNameInput);
-                    thoughtAdapter.notifyDataSetChanged();
-                    toast.show();
+                        db.insertThought(thoughtNameInput);
 
-                    nextQuestion = findViewById(R.id.next);
-                    nextQuestion.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
+                        //refresh view
+                        Cursor thoughts = db.selectThoughts();
+                        cursorAdapter = new ThoughtsAdapter(ThoughtsActivity.this, thoughts);
+                        cursorAdapter.notifyDataSetChanged();
+                        thoughtList.setAdapter(cursorAdapter);
 
-                        Intent Physical = new Intent(getApplicationContext(), PhysicalActivity.class);
-                        startActivity(Physical);
-                        overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
+                        db.close();
 
-                        }
-                    });
+                        Toast.makeText(getApplicationContext(), thoughtNameInput + " added", Toast.LENGTH_LONG).show();
+
+                        startNextActivity();
+
+                    }
+                    catch (SQLException e) {
+                        Toast.makeText(ThoughtsActivity.this, "Error inserting into database", LENGTH_SHORT).show();
+                    }
+
                 }
                 else {
                     final TextView warning = findViewById(R.id.warning);
@@ -112,5 +146,14 @@ public class ThoughtsActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void startNextActivity(){
+
+        Intent Physical = new Intent(getApplicationContext(), PhysicalActivity.class);
+        startActivity(Physical);
+        overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
+
+    }
+
 
 }

@@ -24,12 +24,16 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
+    implementation 'pub.devrel:easypermissions:1.1.3' //handle Android 6.0 location permissions
     compile 'com.android.support:appcompat-v7:26.0.0'
-    compile 'com.google.firebase:firebase-core:11.4.0'
-    compile 'com.google.firebase:firebase-database:11.4.0'
+    implementation 'com.android.support:design:26.0.0'
+    compile 'com.google.firebase:firebase-core:11.8.0'
+    compile 'com.google.firebase:firebase-database:11.8.0'
+    //compile 'com.firebaseui:firebase-ui-database:2.3.0'
+    compile 'com.firebase:firebase-client-android:2.5.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     testCompile 'junit:junit:4.12'
-    implementation 'com.android.support:design:27.0.2'
 }
 
 apply plugin: 'com.google.gms.google-services'

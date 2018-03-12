@@ -33,7 +33,7 @@ public class SensedAnxietyAdapter  extends ArrayAdapter {
 
         if(row == null){
 
-            row = inflater.inflate(R.layout.list_view_items, parent, false);
+            row = inflater.inflate(R.layout.list_view_sensed_anxiety, parent, false);
         }
 
         AnxietyEpisode item = anxietyEpisode.get(position);

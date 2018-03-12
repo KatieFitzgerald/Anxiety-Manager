@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -24,7 +25,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private static String TAG = "HomeActivity";
 
-    String user_id;
+    String user;
     Button sensedAnxiety;
     Button addTodayAnxiety;
     Button calendarButton;
@@ -37,56 +38,124 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        user_id = getIntent().getStringExtra("userId");
-
         setContentView(R.layout.activity_home);
+
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                user = null;
+            } else {
+                user = extras.getString("user_id");
+            }
+        } else {
+            user = (String) savedInstanceState.getSerializable("user_id");
+        }
 
         PieChart chart = findViewById(R.id.worriesChart);
         addDataSet(chart);
 
-        sensedAnxiety = findViewById(R.id.sensedAnxiety);
-        sensedAnxiety.setOnClickListener(new View.OnClickListener() {
+        addTodayAnxiety = findViewById(R.id.addAnxiety);
+        addTodayAnxiety.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View view) {
-                Intent sensedActivity = new Intent(getApplicationContext(), SensedActivity.class);
-                sensedActivity.putExtra("userId", user_id);
-                startActivity(sensedActivity);
+            public boolean onTouch(View view, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        addTodayAnxiety.setBackgroundResource(R.drawable.pressed);
+                        addTodayAnxiety.setTextColor(Color.GRAY);
+                        Intent Questionnaire = new Intent(getApplicationContext(), WhatsUpActivity.class);
+                        Questionnaire.putExtra("user_id", user);
+                        startActivity(Questionnaire);
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        addTodayAnxiety.setBackgroundResource(R.drawable.shape);
+                        return true;
+                    default:
+                        return false;
+                }
             }
         });
 
-        addTodayAnxiety = findViewById(R.id.addAnxiety);
-        addTodayAnxiety.setOnClickListener(new View.OnClickListener() {
+        sensedAnxiety = findViewById(R.id.sensedAnxiety);
+        sensedAnxiety.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View view) {
-                Intent Questionnaire = new Intent(getApplicationContext(), WhatsUpActivity.class);
-                startActivity(Questionnaire);
+            public boolean onTouch(View view, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        sensedAnxiety.setBackgroundResource(R.drawable.pressed);
+                        sensedAnxiety.setTextColor(Color.GRAY);
+                        Intent sensedActivity = new Intent(getApplicationContext(), SensedActivity.class);
+                        //sensedActivity.putExtra("userId", user_id);
+                        startActivity(sensedActivity);
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        sensedAnxiety.setBackgroundResource(R.drawable.shape);
+                        return true;
+                    default:
+                        return false;
+                }
             }
         });
+
 
         calendarButton = findViewById(R.id.calendarButton);
-        calendarButton.setOnClickListener(new View.OnClickListener() {
+        calendarButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View view) {
+            public boolean onTouch(View view, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        calendarButton.setBackgroundResource(R.drawable.pressed);
+                        calendarButton.setTextColor(Color.GRAY);
 
+                    case MotionEvent.ACTION_UP:
+                        calendarButton.setBackgroundResource(R.drawable.shape);
+                        return true;
+                    default:
+                        return false;
+                }
             }
         });
 
         cycleButton = findViewById(R.id.cycleBtn);
-        cycleButton.setOnClickListener(new View.OnClickListener() {
+        cycleButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View view) {
+            public boolean onTouch(View view, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        cycleButton.setBackgroundResource(R.drawable.pressed);
+                        cycleButton.setTextColor(Color.GRAY);
 
+                    case MotionEvent.ACTION_UP:
+                        cycleButton.setBackgroundResource(R.drawable.shape);
+                        return true;
+                    default:
+                        return false;
+                }
             }
         });
 
+
         profileButton = findViewById(R.id.profileBtn);
-        profileButton.setOnClickListener(new View.OnClickListener(){
+        profileButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View view){
+            public boolean onTouch(View view, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        profileButton.setBackgroundResource(R.drawable.pressed);
+                        profileButton.setTextColor(Color.GRAY);
+
+                    case MotionEvent.ACTION_UP:
+                        profileButton.setBackgroundResource(R.drawable.shape);
+                        return true;
+                    default:
+                        return false;
+                }
             }
         });
     }
+
+    @Override
+    public void onBackPressed() { }
+
 
     private void addDataSet(PieChart chart) {
 
@@ -103,9 +172,9 @@ public class HomeActivity extends AppCompatActivity {
 
         //add color to dataset
         ArrayList<Integer> color = new ArrayList<>();
-        color.add(Color.rgb(51,187,255));
-        color.add(Color.rgb(255,153,153));
-        color.add(Color.rgb(192,192,192));
+        color.add(Color.rgb(216,250,251));
+        color.add(Color.rgb(250,220,251));
+        color.add(Color.rgb(212,244,235));
 
         pieDataSet.setColors(color);
 
@@ -120,6 +189,7 @@ public class HomeActivity extends AppCompatActivity {
 
         Legend legend = chart.getLegend();
         legend.setForm(Legend.LegendForm.CIRCLE);
+        legend.setTextColor(Color.rgb(255,255,255));
         legend.setCustom(entries);
 
         PieData pieData = new PieData(pieDataSet);

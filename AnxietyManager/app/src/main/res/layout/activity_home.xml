@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient"
     tools:context="com.example.katiefitzgerald.anxietymanager.HomeActivity">
 
     <Button
@@ -14,6 +15,7 @@
         android:layout_alignParentBottom="true"
         android:layout_toStartOf="@+id/profileBtn"
         android:text="Sensed"
+        android:background="@drawable/shape"
         tools:targetApi="m" />
 
     <Button
@@ -25,6 +27,7 @@
         android:layout_alignParentStart="true"
         android:layout_toStartOf="@+id/cycleBtn"
         android:text="Calendar"
+        android:background="@drawable/shape"
         tools:targetApi="m" />
 
     <Button
@@ -35,6 +38,7 @@
         android:layout_alignParentBottom="true"
         android:layout_toStartOf="@+id/sensedAnxiety"
         android:text="Cycle"
+        android:background="@drawable/shape"
         tools:targetApi="m" />
 
     <Button
@@ -45,18 +49,21 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:text="Profile"
+        android:background="@drawable/shape"
         tools:targetApi="m" />
 
     <Button
         android:id="@+id/addAnxiety"
         style="@android:style/Widget.Material.Button.Colored"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/worriesChart"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
+        android:background="@drawable/shape"
         android:elevation="0dp"
         android:text="Log Today's Anxiety Episode"
+        android:textColor="#FFFFFF"
         tools:targetApi="m" />
 
     <TextView
@@ -66,8 +73,10 @@
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/worriesChart"
         android:layout_marginTop="12dp"
+        android:fontFamily="sans-serif"
         android:text="Your current worries..."
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+        android:textSize="24sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title.Inverse" />
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/worriesChart"

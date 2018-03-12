@@ -1,21 +1,27 @@
 package com.example.katiefitzgerald.anxietymanager;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
 
-import java.util.ArrayList;
+
+import java.sql.SQLException;
+
+import static android.widget.Toast.LENGTH_SHORT;
 
 /**
  * Created by Katie Fitzgerald on 15/01/2018.
@@ -23,12 +29,17 @@ import java.util.ArrayList;
 
 public class WhatsUpActivity extends AppCompatActivity {
 
-    ArrayAdapter<String> worryAdapter;
-    ArrayList<String> worryArrayList = new ArrayList<String>();
     EditText worryName;
     ImageButton nextQuestion;
     Button addSituation;
     ListView worryList;
+    String user;
+    WhatsUpAdapter cursorAdapter;
+    String subjectChosen;
+
+    DatabaseManager db = new DatabaseManager(this);
+
+    QuestionnaireDao questionnaireDao = new QuestionnaireDao();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,44 +47,99 @@ public class WhatsUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_whatsup);
 
-        //get user input
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                user = null;
+            } else {
+                user = extras.getString("user_id");
+            }
+        } else {
+            user = (String) savedInstanceState.getSerializable("user_id");
+        }
+
         worryName = findViewById(R.id.worryName);
-
-        worryAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, worryArrayList);
         worryList = findViewById(R.id.worryList);
-        worryList.setAdapter(worryAdapter);
 
-        final Toast toast = Toast.makeText(this, "Situation has been added", Toast.LENGTH_SHORT);
+        try {
+            db.open();
+
+            Cursor subjects = db.selectSubjects();
+            cursorAdapter = new WhatsUpAdapter(WhatsUpActivity.this, subjects);
+            worryList.setAdapter(cursorAdapter);
+
+            db.close();
+
+        }
+        catch (SQLException e) {
+            Toast.makeText(WhatsUpActivity.this, "Error opening database", LENGTH_SHORT).show();
+        }
+
+        worryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> listView, View itemView, int itemPosition, long itemId)
+            {
+                // Get the data associated with selected item
+
+                Cursor returnedSubjectCursor = (Cursor) listView.getItemAtPosition(itemPosition);
+                subjectChosen = returnedSubjectCursor.getString(1);
+
+                Toast.makeText(getApplicationContext(), subjectChosen + " selected", Toast.LENGTH_SHORT).show();
+
+                Intent Thoughts = new Intent(getApplicationContext(), ThoughtsActivity.class);
+                Thoughts.putExtra("questionnaireObj", questionnaireDao);
+                startActivity(Thoughts);
+                overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
+
+
+            }
+        });
 
         addSituation = findViewById(R.id.addSituation);
         addSituation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                //get user input
                 final String worryNameInput = worryName.getText().toString();
 
                 //make sure there is something to add to list/database
                 if(null!= worryNameInput && worryNameInput.length() > 0) {
+                    try {
+                        db.open();
+                        db.insertSubject(worryNameInput);
 
-                    /**
-                     *
-                     *
-                     * add worry to db here
-                     **/
+                        //refresh view
+                        Cursor searchResult = db.selectSubjects();
+                        cursorAdapter = new WhatsUpAdapter(WhatsUpActivity.this, searchResult);
+                        cursorAdapter.notifyDataSetChanged();
+                        worryList.setAdapter(cursorAdapter);
 
-                    worryArrayList.add(worryNameInput);
-                    worryAdapter.notifyDataSetChanged();
-                    toast.show();
+                        db.close();
 
-                    nextQuestion = findViewById(R.id.next);
+                        Intent Thoughts = new Intent(getApplicationContext(), ThoughtsActivity.class);
+                        Thoughts.putExtra("questionnaireObj", questionnaireDao);
+                        startActivity(Thoughts);
+                        overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
+
+                    }
+                    catch (SQLException e) {
+                        Toast.makeText(WhatsUpActivity.this, "Error inserting into database", LENGTH_SHORT).show();
+                    }
+
+                    /*nextQuestion = findViewById(R.id.next);
                     nextQuestion.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             Intent Thoughts = new Intent(getApplicationContext(), ThoughtsActivity.class);
+                            Thoughts.putExtra("questionnaireObj", questionnaireDao);
                             startActivity(Thoughts);
                             overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
                         }
-                    });
+                    });*/
                 }
                 else {
                     final TextView warning = findViewById(R.id.warning);
@@ -98,8 +164,6 @@ public class WhatsUpActivity extends AppCompatActivity {
                 }
             }
         });
-
-
 
     }
 
