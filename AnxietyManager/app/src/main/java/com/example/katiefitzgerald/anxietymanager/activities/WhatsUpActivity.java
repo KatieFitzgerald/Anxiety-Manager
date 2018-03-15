@@ -1,4 +1,4 @@
-package com.example.katiefitzgerald.anxietymanager;
+package com.example.katiefitzgerald.anxietymanager.activities;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -18,6 +18,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
 
+
+import com.example.katiefitzgerald.anxietymanager.sql.DatabaseManager;
+import com.example.katiefitzgerald.anxietymanager.model.QuestionnaireDao;
+import com.example.katiefitzgerald.anxietymanager.R;
+import com.example.katiefitzgerald.anxietymanager.adapters.WhatsUpAdapter;
 
 import java.sql.SQLException;
 

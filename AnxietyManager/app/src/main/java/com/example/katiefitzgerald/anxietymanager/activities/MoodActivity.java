@@ -1,4 +1,4 @@
-package com.example.katiefitzgerald.anxietymanager;
+package com.example.katiefitzgerald.anxietymanager.activities;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -17,6 +17,10 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.katiefitzgerald.anxietymanager.R;
+import com.example.katiefitzgerald.anxietymanager.adapters.MoodDialogAdapter;
+import com.example.katiefitzgerald.anxietymanager.sql.DatabaseManager;
 
 import java.sql.SQLException;
 

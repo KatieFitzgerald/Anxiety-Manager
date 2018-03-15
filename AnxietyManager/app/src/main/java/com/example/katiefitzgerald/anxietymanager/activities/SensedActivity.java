@@ -1,4 +1,4 @@
-package com.example.katiefitzgerald.anxietymanager;
+package com.example.katiefitzgerald.anxietymanager.activities;
 
 import android.Manifest;
 import android.content.Intent;
@@ -13,6 +13,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
+
+import com.example.katiefitzgerald.anxietymanager.model.AnxietyEpisode;
+import com.example.katiefitzgerald.anxietymanager.R;
+import com.example.katiefitzgerald.anxietymanager.adapters.SensedAnxietyAdapter;
 
 import java.io.BufferedReader;
 import java.io.IOException;

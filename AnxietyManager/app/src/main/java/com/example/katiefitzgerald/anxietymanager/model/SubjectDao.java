@@ -1,4 +1,4 @@
-package com.example.katiefitzgerald.anxietymanager;
+package com.example.katiefitzgerald.anxietymanager.model;
 
 /**
  * Created by Katie Fitzgerald on 06/03/2018.
