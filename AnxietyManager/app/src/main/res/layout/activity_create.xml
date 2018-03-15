@@ -1,83 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@drawable/gradient"
-    tools:context="com.example.katiefitzgerald.anxietymanager.CreateAccountActivity">
+    android:background="@drawable/gradient">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="400dp"
-        android:layout_height="200dp"
-        android:layout_alignParentStart="true"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:layout_alignParentTop="true"
-        android:src="@drawable/logo2" />
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo2"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:backgroundTint="#FFFFFF"/>
+
+    <EditText
+        android:id="@+id/enterName"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Enter name"
+        android:inputType="textPersonName"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:backgroundTint="#FFFFFF"/>
 
     <EditText
         android:id="@+id/enterEmail"
         android:layout_width="400dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/imageView"
-        android:layout_marginTop="34dp"
-        android:backgroundTint="#FFFFFF"
+        android:layout_marginBottom="20dp"
         android:ems="10"
-        android:hint="Enter Email"
+        android:hint="Enter email"
         android:inputType="textEmailAddress"
-        android:selectAllOnFocus="true"
         android:textColor="#FFFFFF"
-        android:textColorHint="#FFFFFF" />
+        android:textColorHint="#FFFFFF"
+        android:backgroundTint="#FFFFFF"/>
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/enterPassword"
         android:layout_width="400dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/enterEmail"
-        android:layout_marginTop="17dp"
-        android:backgroundTint="#FFFFFF"
+        android:layout_marginBottom="20dp"
         android:ems="10"
-        android:hint="Enter Password"
+        android:hint="Enter password"
         android:inputType="textPassword"
         android:textColor="#FFFFFF"
-        android:textColorHint="#FFFFFF" />
+        android:textColorHint="#FFFFFF"
+        android:backgroundTint="#FFFFFF"/>
 
-    <Button
-        android:id="@+id/createBtn"
-        android:layout_width="200dp"
+    <EditText
+        android:id="@+id/confirmPassword"
+        android:layout_width="400dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/isCounsellor"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="26dp"
-        android:background="@drawable/shape"
-        android:fontFamily="sans-serif"
-        android:text="Create Account"
-        android:textColor="#FFFFFF" />
+        android:ems="10"
+        android:hint="Confirm password"
+        android:inputType="textPassword"
+        android:textColorHint="#FFFFFF"
+        android:backgroundTint="#FFFFFF"
+        android:textColor="#FFFFFF"/>
 
     <CheckBox
         android:id="@+id/isCounsellor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/password"
-        android:fontFamily="sans-serif"
-        android:text="I am a counsellor."
+        android:layout_gravity="right"
+        android:layout_marginBottom="20dp"
+        android:text="I am a counsellor"
         android:textColor="#FFFFFF"/>
+
+    <Button
+        android:id="@+id/createBtn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/shape"
+        android:textColor="#FFFFFF"
+        android:text="Register" />
 
     <TextView
         android:id="@+id/loginText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="23dp"
-        android:text="Got an account? Login here"
+        android:layout_gravity="center"
+        android:text="Got an account? Login"
+        android:textSize="16sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
         android:textColor="#FFFFFF" />
 
-</RelativeLayout>
+
+</LinearLayout>

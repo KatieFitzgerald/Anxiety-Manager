@@ -6,29 +6,45 @@ package com.example.katiefitzgerald.anxietymanager.model;
 
 public class UserDao {
 
-    String User_ID;
-    String userEmail;
-    String password;
+    private int id;
+    private String name;
+    private String email;
+    private String password;
+    private Boolean counsellor;
 
-    public UserDao() {
-
+    public int getId() {
+        return id;
     }
 
-    public UserDao(String user_ID, String userEmail, String password) {
-        this.User_ID = user_ID;
-        this.userEmail = userEmail;
-        this.password = password;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getUserID() {
-        return User_ID;
+    public String getName() {
+        return name;
     }
 
-    public String getUserEmail() {
-        return userEmail;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setCounsellor(Boolean counsellor){
+        this.counsellor = counsellor;
     }
 }

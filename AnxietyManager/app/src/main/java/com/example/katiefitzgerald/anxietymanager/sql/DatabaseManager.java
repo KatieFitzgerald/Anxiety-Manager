@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.katiefitzgerald.anxietymanager.model.UserDao;
+
 import java.sql.SQLException;
 
 /**
@@ -21,6 +23,7 @@ public class DatabaseManager {
 
     //define table names
     private static final String TABLE_QUESTIONNAIRE = "Questionnaire";
+    private static final String TABLE_USER = "User_Profile";
     private static final String TABLE_SUBJECT = "Subject";
     private static final String TABLE_THOUGHT = "Thought";
     private static final String TABLE_PHYSICAL = "Physical";
@@ -43,12 +46,20 @@ public class DatabaseManager {
     private static final String KEY_MOOD_NAME = "MoodName";
     private static final String KEY_MOOD__USER_ADDED = "UserAdded";
 
+    //User table column names
+    private static final String KEY_USER_ID = "user_id";
+    private static final String KEY_USER_NAME = "user_name";
+    private static final String KEY_USER_EMAIL = "user_email";
+    private static final String KEY_USER_PASSWORD = "password";
+
     //Create tables
     private static final String CREATE_SUBJECT_TABLE = "CREATE TABLE " + TABLE_SUBJECT + "(_id INTEGER PRIMARY KEY autoincrement not null, SubjectName TEXT not null);";
     private static final String CREATE_THOUGHT_TABLE = "CREATE TABLE " + TABLE_THOUGHT + "(_id INTEGER PRIMARY KEY autoincrement not null, ThoughtName TEXT not null);";
     private static final String CREATE_PHYSICAL_TABLE = "CREATE TABLE " + TABLE_PHYSICAL + "(_id INTEGER PRIMARY KEY autoincrement not null, PhysicalName TEXT not null);";
     private static final String CREATE_MOOD_TABLE = "CREATE TABLE " + TABLE_MOOD + "(_id INTEGER PRIMARY KEY autoincrement not null, MoodName TEXT not null, UserAdded TEXT);";
     private static final String CREATE_REACT_TABLE = "CREATE TABLE " + TABLE_REACTION + "(_id INTEGER PRIMARY KEY autoincrement not null, ReactionName TEXT not null);";
+    private static final String CREATE_USER_TABLE = "CREATE TABLE " + TABLE_USER + "(user_id INTEGER PRIMARY KEY autoincrement, user_name TEXT, user_email TEXT, password TEXT);";
+
 
     private final Context context;
     private MyDatabaseHelper DBHelper;
@@ -73,6 +84,7 @@ public class DatabaseManager {
             db.execSQL(CREATE_PHYSICAL_TABLE);
             db.execSQL(CREATE_MOOD_TABLE);
             db.execSQL(CREATE_REACT_TABLE);
+            db.execSQL(CREATE_USER_TABLE);
 
             ContentValues mood = new ContentValues();
 
@@ -93,6 +105,10 @@ public class DatabaseManager {
 
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_SUBJECT);
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_THOUGHT);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_PHYSICAL);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_MOOD);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_REACTION);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
 
             onCreate(db);
 
@@ -300,5 +316,46 @@ public class DatabaseManager {
         return mCursor;
 
     }
+
+    public void addUser(UserDao user) {
+
+        ContentValues userValues = new ContentValues();
+        userValues.put(KEY_USER_NAME, user.getName());
+        userValues.put(KEY_USER_EMAIL, user.getEmail());
+        userValues.put(KEY_USER_PASSWORD, user.getPassword());
+
+        db.insert(TABLE_USER, null, userValues);
+        db.close();
+
+    }
+
+    public void updateUser(UserDao user) {
+        //SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues userValues = new ContentValues();
+        userValues.put(KEY_USER_NAME, user.getName());
+        userValues.put(KEY_USER_EMAIL, user.getEmail());
+        userValues.put(KEY_USER_PASSWORD, user.getPassword());
+
+        // updating row
+        db.update(TABLE_USER, userValues, KEY_USER_ID + " = ?", new String[]{String.valueOf(user.getId())});
+        db.close();
+    }
+
+    //Code snippet from http://www.androidtutorialshub.com/android-login-and-register-with-sqlite-database-tutorial/
+    public boolean checkUser(String email, String password) {
+
+        db = DBHelper.getReadableDatabase();
+
+        Cursor mCursor = db.rawQuery("SELECT * FROM User_Profile WHERE user_name = '" + email + "' AND password = '" + password + "';", null );
+
+        if((mCursor != null) && (mCursor.getCount() > 0)) {
+            return true;
+        }
+
+        return false;
+
+    }
+
 
 }
