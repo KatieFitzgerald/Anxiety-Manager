@@ -1,4 +1,4 @@
-package com.example.katiefitzgerald.anxietymanager;
+package com.example.katiefitzgerald.anxietymanager.sql;
 
 import android.content.ContentValues;
 import android.content.Context;

@@ -1,10 +1,12 @@
-package com.example.katiefitzgerald.anxietymanager;
+package com.example.katiefitzgerald.anxietymanager.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import com.example.katiefitzgerald.anxietymanager.R;
 
 /**
  * Created by Katie Fitzgerald on 17/02/2018.

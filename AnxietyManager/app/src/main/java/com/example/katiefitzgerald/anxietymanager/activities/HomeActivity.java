@@ -1,4 +1,5 @@
-package com.example.katiefitzgerald.anxietymanager;
+package com.example.katiefitzgerald.anxietymanager.activities;
+
 
 //Pie chart tutorial used https://www.youtube.com/watch?v=8BcTXbwDGbg
 
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.katiefitzgerald.anxietymanager.R;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.LegendEntry;

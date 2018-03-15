@@ -1,4 +1,4 @@
-package com.example.katiefitzgerald.anxietymanager;
+package com.example.katiefitzgerald.anxietymanager.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.katiefitzgerald.anxietymanager.R;
 
 /**
  * Created by Katie Fitzgerald on 12/03/2018.

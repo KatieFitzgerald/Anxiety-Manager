@@ -1,4 +1,4 @@
-package com.example.katiefitzgerald.anxietymanager;
+package com.example.katiefitzgerald.anxietymanager.model;
 
 import java.io.Serializable;
 
