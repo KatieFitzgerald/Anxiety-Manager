@@ -28,11 +28,29 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <CalendarView
-        android:id="@+id/calendarView"
+    <TextView
+        android:id="@+id/monthText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textColor="#FFFFFF"
+        android:textAppearance="@android:style/TextAppearance.Material.Headline" />
+
+    <com.github.sundeepk.compactcalendarview.CompactCalendarView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/compactcalendar_view"
+        android:layout_width="fill_parent"
+        android:layout_marginTop="100dp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:layout_height="250dp"
+        app:compactCalendarTargetHeight="250dp"
+        app:compactCalendarTextSize="12sp"
+        app:compactCalendarBackgroundColor="#80bbdefb"
+        app:compactCalendarTextColor="#fff"
+        app:compactCalendarCurrentSelectedDayBackgroundColor="#536dfe"
+        app:compactCalendarCurrentDayBackgroundColor="#303f9f"
+        app:compactCalendarMultiEventIndicatorColor="#fff" />
 
 </RelativeLayout>
