@@ -3,8 +3,18 @@ package com.example.katiefitzgerald.anxietymanager.activities;
 
 //Pie chart tutorial used https://www.youtube.com/watch?v=8BcTXbwDGbg
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Build;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -12,6 +22,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.katiefitzgerald.anxietymanager.Manifest;
 import com.example.katiefitzgerald.anxietymanager.R;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -33,9 +44,14 @@ public class HomeActivity extends AppCompatActivity {
     Button calendarButton;
     Button cycleButton;
     Button profileButton;
+    double latitude, longitude;
 
     private int[] yData = {40, 30, 30};
     private String[] anxietyNamesData = {"College", "Social", "Money"};
+
+    private LocationManager locationManager;
+    private LocationListener listener;
+    private Location currentBestLocation = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +60,7 @@ public class HomeActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
-            if(extras == null) {
+            if (extras == null) {
                 user = null;
             } else {
                 user = extras.getString("user_id");
@@ -55,6 +71,9 @@ public class HomeActivity extends AppCompatActivity {
 
         PieChart chart = findViewById(R.id.worriesChart);
         addDataSet(chart);
+
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        setupLocation();
 
         addTodayAnxiety = findViewById(R.id.addAnxiety);
         addTodayAnxiety.setOnTouchListener(new View.OnTouchListener() {
@@ -86,7 +105,8 @@ public class HomeActivity extends AppCompatActivity {
                         sensedAnxiety.setBackgroundResource(R.drawable.pressed);
                         sensedAnxiety.setTextColor(Color.GRAY);
                         Intent sensedActivity = new Intent(getApplicationContext(), SensedActivity.class);
-                        //sensedActivity.putExtra("userId", user_id);
+                        sensedActivity.putExtra("Longitude", longitude);
+                        sensedActivity.putExtra("Latitude", latitude);
                         startActivity(sensedActivity);
                         return true;
                     case MotionEvent.ACTION_UP:
@@ -158,16 +178,16 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() { }
-
+    public void onBackPressed() {
+    }
 
     private void addDataSet(PieChart chart) {
 
         ArrayList<PieEntry> yEntries = new ArrayList<>();
         ArrayList<String> xEntries = new ArrayList<>();
 
-        for(int i = 0; i < yData.length; i++) {
-            yEntries.add(new PieEntry(yData[i],i));
+        for (int i = 0; i < yData.length; i++) {
+            yEntries.add(new PieEntry(yData[i], i));
         }
 
         PieDataSet pieDataSet = new PieDataSet(yEntries, "");
@@ -176,9 +196,9 @@ public class HomeActivity extends AppCompatActivity {
 
         //add color to dataset
         ArrayList<Integer> color = new ArrayList<>();
-        color.add(Color.rgb(216,250,251));
-        color.add(Color.rgb(250,220,251));
-        color.add(Color.rgb(212,244,235));
+        color.add(Color.rgb(216, 250, 251));
+        color.add(Color.rgb(250, 220, 251));
+        color.add(Color.rgb(212, 244, 235));
 
         pieDataSet.setColors(color);
 
@@ -193,7 +213,7 @@ public class HomeActivity extends AppCompatActivity {
 
         Legend legend = chart.getLegend();
         legend.setForm(Legend.LegendForm.CIRCLE);
-        legend.setTextColor(Color.rgb(255,255,255));
+        legend.setTextColor(Color.rgb(255, 255, 255));
         legend.setCustom(entries);
 
         PieData pieData = new PieData(pieDataSet);
@@ -208,4 +228,50 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+    public void setupLocation() {
+
+        listener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+
+                Toast.makeText(getApplicationContext(), "Done", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onStatusChanged(String s, int i, Bundle bundle) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String s) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String s) {
+
+                Intent i = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivity(i);
+            }
+        };
+
+        getLocation();
+    }
+
+    void getLocation() {
+
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        locationManager.requestLocationUpdates("gps", 20, 1, listener);
+
+    }
+
+    @Override
+    public void onPause(){
+        locationManager.removeUpdates(listener);
+        super.onPause();
+    }
 }
