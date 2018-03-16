@@ -6,17 +6,17 @@ package com.example.katiefitzgerald.anxietymanager.model;
 
 public class UserDao {
 
-    private int id;
+    private String id;
     private String name;
     private String email;
     private String password;
     private Boolean counsellor;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

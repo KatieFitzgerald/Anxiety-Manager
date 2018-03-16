@@ -15,6 +15,8 @@ import android.widget.Toast;
 import com.example.katiefitzgerald.anxietymanager.R;
 import com.example.katiefitzgerald.anxietymanager.model.UserDao;
 import com.example.katiefitzgerald.anxietymanager.sql.DatabaseManager;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.sql.SQLException;
 
@@ -30,9 +32,8 @@ public class CreateAccountActivity extends AppCompatActivity {
     Button createAccount;
     TextView login;
 
-    UserDao user = new UserDao();
-
     DatabaseManager db = new DatabaseManager(this);
+    DatabaseReference databaseUsers = FirebaseDatabase.getInstance().getReference("user_profile");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,8 +94,6 @@ public class CreateAccountActivity extends AppCompatActivity {
         String password = enterPassword.getText().toString().trim();
         String conPassword = confirmPassword.getText().toString().trim();
 
-        Intent home = new Intent(getApplicationContext(), HomeActivity.class);
-
         if(userEmail.matches("")){
             Toast.makeText(this, "Please fill in a email address", Toast.LENGTH_LONG).show();
         }
@@ -110,10 +109,17 @@ public class CreateAccountActivity extends AppCompatActivity {
         else {
             if(chosenAccount.isChecked()) {
 
+                UserDao user = new UserDao();
+
+                String user_id = databaseUsers.push().getKey();
+
+                user.setId(user_id);
                 user.setName(userName);
                 user.setEmail(userEmail);
                 user.setPassword(password);
                 user.setCounsellor(true);
+
+                databaseUsers.child(user_id).setValue(user);
 
                 try {
 
@@ -126,18 +132,43 @@ public class CreateAccountActivity extends AppCompatActivity {
                     Toast.makeText(CreateAccountActivity.this, "Error adding user into database", Toast.LENGTH_SHORT).show();
 
                 }
+
                 //start counsellor activity
+                Intent home = new Intent(getApplicationContext(), HomeActivity.class);
+                home.putExtra("user_id", user_id);
                 startActivity(home);
                 setContentView(R.layout.activity_home);
                 Toast.makeText(this, "Counsellor", Toast.LENGTH_LONG).show();
             }
             else {
+
+                UserDao user = new UserDao();
+
+                String user_id = databaseUsers.push().getKey();
+
+                user.setId(user_id);
                 user.setName(userName);
                 user.setEmail(userEmail);
                 user.setPassword(password);
                 user.setCounsellor(false);
 
-                //start counsellor activity
+                databaseUsers.child(user_id).setValue(user);
+
+                try {
+
+                    db.open();
+                    db.addUser(user);
+
+                }
+                catch (SQLException e){
+
+                    Toast.makeText(CreateAccountActivity.this, "Error adding user into database", Toast.LENGTH_SHORT).show();
+
+                }
+
+                //start home activity
+                Intent home = new Intent(getApplicationContext(), HomeActivity.class);
+                home.putExtra("user_id", user_id);
                 startActivity(home);
                 setContentView(R.layout.activity_home);
 
