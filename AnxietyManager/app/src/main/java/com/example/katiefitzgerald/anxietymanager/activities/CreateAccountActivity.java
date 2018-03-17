@@ -42,7 +42,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create);
 
         enterName = findViewById(R.id.enterName);
-        enterEmail = findViewById(R.id.enterUsername);
+        enterEmail = findViewById(R.id.enterEmail);
         enterPassword = findViewById(R.id.enterPassword);
         confirmPassword = findViewById(R.id.confirmPassword);
         chosenAccount = findViewById(R.id.isCounsellor);

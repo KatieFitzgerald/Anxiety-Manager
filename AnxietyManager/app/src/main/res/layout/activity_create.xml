@@ -32,16 +32,16 @@
         android:backgroundTint="#FFFFFF"/>
 
     <EditText
-        android:id="@+id/enterUsername"
+        android:id="@+id/enterEmail"
         android:layout_width="400dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
+        android:backgroundTint="#FFFFFF"
         android:ems="10"
         android:hint="Enter email"
         android:inputType="textEmailAddress"
         android:textColor="#FFFFFF"
-        android:textColorHint="#FFFFFF"
-        android:backgroundTint="#FFFFFF"/>
+        android:textColorHint="#FFFFFF" />
 
     <EditText
         android:id="@+id/enterPassword"
