@@ -1,147 +1,103 @@
 package com.example.katiefitzgerald.anxietymanager.activities;
 
-import android.Manifest;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.provider.Settings;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+import android.location.Address;
+import android.location.Geocoder;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.ListView;
+import android.widget.TextView;
 
-import com.example.katiefitzgerald.anxietymanager.model.AnxietyEpisode;
+import com.example.katiefitzgerald.anxietymanager.model.SensedAnxietyDao;
 import com.example.katiefitzgerald.anxietymanager.R;
-import com.example.katiefitzgerald.anxietymanager.adapters.SensedAnxietyAdapter;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Locale;
 
 public class SensedActivity extends AppCompatActivity {
 
-    private LocationManager locationManager;
-    private LocationListener locationListener;
-    int locationCount = 0;
+    int read = 1;
+
+    TextView value;
+    double longitude, latitude;
+    String user_id;
+    String address;
+
+    DatabaseReference SensedAnxietyDB = FirebaseDatabase.getInstance().getReference("sensed_anxiety");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        String user_id = getIntent().getStringExtra("userId");
+        setContentView(R.layout.activity_sensed);
 
-        setContentView(R.layout.activity_main);
+        Bundle extras = getIntent().getExtras();
+        longitude = extras.getDouble("Longitude");
+        latitude = extras.getDouble("Latitude");
+        user_id = extras.getString("user_id");
 
-        ArrayList<AnxietyEpisode> anxietyEpisode = new ArrayList<>();
-        addAnxiety(anxietyEpisode, user_id);
-
-        ListView episodeList = findViewById(R.id.episodeListView);
-        episodeList.setAdapter(new SensedAnxietyAdapter(SensedActivity.this, R.layout.list_view_sensed_anxiety, anxietyEpisode));
-
-    }
-
-    //Based on tutorial https://www.youtube.com/watch?v=i-TqNzUryn8
-
-    private BufferedReader getSensedAnxiety() {
-
-        //read in data
-        InputStream is = getResources().openRawResource(R.raw.sensed);
-        BufferedReader reader = new BufferedReader(
-                new InputStreamReader(is, Charset.forName("UTF-8"))
-        );
-
-        return reader;
-
-    }
-
-    private String getAnxietyLocation() {
-
-        final String[] locationText = new String[1];
-
-        //Based on tutorial https://www.youtube.com/watch?v=QNb_3QKSmMk
-        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        locationListener = new LocationListener() {
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
             @Override
-            public void onLocationChanged(Location location) {
-                locationText[0] = " " + location.getLatitude() + " " + location.getLongitude();
-            }
+            public void run() {
 
-            @Override
-            public void onStatusChanged(String s, int i, Bundle bundle) {
-
-            }
-
-            @Override
-            public void onProviderEnabled(String s) {
-
-            }
-
-            @Override
-            public void onProviderDisabled(String s) {
-                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                startActivity(intent);
-            }
-        };
-
-        if (locationCount != 1) {
-            if (ContextCompat.checkSelfPermission(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED) {
-
-                if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                        Manifest.permission.ACCESS_FINE_LOCATION)) {
-
-
-                } else {
-
-                    ActivityCompat.requestPermissions(this,
-                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                            0);
+                // Do something after 2 seconds testing
+                while (read > 0) {
+                    sensorData();
+                    read -= 1;
                 }
             }
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, locationListener);
-        }
+        }, 2000);
 
-        return Arrays.toString(locationText);
     }
 
-    private void addAnxiety(ArrayList<AnxietyEpisode> anxietyEpisode, String userId) {
+    private void sensorData() {
 
-        String line = "";
-        BufferedReader reader = getSensedAnxiety();
+        //get current time
+        SimpleDateFormat dateFormatDay = new SimpleDateFormat("E, d MMM yyyy", Locale.getDefault());
+        String currentTime = dateFormatDay.format(System.currentTimeMillis());
 
+        //get location
         try {
-
-            while((line = reader.readLine()) != null) {
-                //Split by ","
-                String[] tokens = line.split(",");
-
-                //Read the data
-                AnxietyEpisode episode = new AnxietyEpisode();
-                episode.setDate(tokens[0]);
-                episode.setTime(tokens[1]);
-                episode.setLocation(getAnxietyLocation());
-                episode.setUser_id(userId);
-
-                anxietyEpisode.add(episode);
-                locationCount = 1;
-
-            }
+            address = location();
         } catch (IOException e) {
-            Log.wtf("My Activity", "Error reading data file on line" + line, e);
             e.printStackTrace();
         }
 
+        String sensed_id = SensedAnxietyDB.push().getKey();
+
+        SensedAnxietyDao sensedEpisode = new SensedAnxietyDao(sensed_id, currentTime, address, user_id);
+
+        SensedAnxietyDB.child(sensed_id).setValue(sensedEpisode);
+
+        //update list view
+
     }
+
+    private String location() throws IOException {
+
+        Geocoder geocoder;
+        List<Address> addresses;
+        geocoder = new Geocoder(this, Locale.getDefault());
+
+        addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+
+        Address address = addresses.get(0);
+        String streetName = address.getThoroughfare();
+
+        if (streetName == null){
+            streetName =  "Location not found";
+        }
+
+        return streetName;
+
+    }
+
 }
+
 
 
 
