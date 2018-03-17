@@ -39,11 +39,6 @@ public class LoginActivity extends AppCompatActivity {
     TextView warning;
     CoordinatorLayout coordinatorLayout;
 
-    boolean userCorrect = false;
-    boolean passwordCorrect = false;
-
-    DatabaseManager databaseManager = new DatabaseManager(this);
-
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
