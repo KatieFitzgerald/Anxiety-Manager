@@ -1,42 +1,19 @@
 package com.example.katiefitzgerald.anxietymanager.activities;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Address;
-import android.location.Criteria;
 import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.Build;
 import android.os.Handler;
-import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.katiefitzgerald.anxietymanager.model.AnxietyEpisode;
+import com.example.katiefitzgerald.anxietymanager.model.SensedAnxietyDao;
 import com.example.katiefitzgerald.anxietymanager.R;
-import com.example.katiefitzgerald.anxietymanager.adapters.SensedAnxietyAdapter;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-import org.w3c.dom.Text;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -46,6 +23,10 @@ public class SensedActivity extends AppCompatActivity {
 
     TextView value;
     double longitude, latitude;
+    String user_id;
+    String address;
+
+    DatabaseReference SensedAnxietyDB = FirebaseDatabase.getInstance().getReference("sensed_anxiety");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,13 +37,13 @@ public class SensedActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         longitude = extras.getDouble("Longitude");
         latitude = extras.getDouble("Latitude");
-
-        value = findViewById(R.id.value);
+        user_id = extras.getString("user_id");
 
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+
                 // Do something after 2 seconds testing
                 while (read > 0) {
                     sensorData();
@@ -79,22 +60,24 @@ public class SensedActivity extends AppCompatActivity {
         SimpleDateFormat dateFormatDay = new SimpleDateFormat("E, d MMM yyyy", Locale.getDefault());
         String currentTime = dateFormatDay.format(System.currentTimeMillis());
 
-        String address = null;
-
         //get location
         try {
-            address = getLocation();
+            address = location();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        value.setText("Anxiety Sensed at " + currentTime + " at " + address);
+        String sensed_id = SensedAnxietyDB.push().getKey();
+
+        SensedAnxietyDao sensedEpisode = new SensedAnxietyDao(sensed_id, currentTime, address, user_id);
+
+        SensedAnxietyDB.child(sensed_id).setValue(sensedEpisode);
 
         //update list view
 
     }
 
-    private String getLocation() throws IOException {
+    private String location() throws IOException {
 
         Geocoder geocoder;
         List<Address> addresses;
@@ -104,6 +87,10 @@ public class SensedActivity extends AppCompatActivity {
 
         Address address = addresses.get(0);
         String streetName = address.getThoroughfare();
+
+        if (streetName == null){
+            streetName =  "Location not found";
+        }
 
         return streetName;
 
