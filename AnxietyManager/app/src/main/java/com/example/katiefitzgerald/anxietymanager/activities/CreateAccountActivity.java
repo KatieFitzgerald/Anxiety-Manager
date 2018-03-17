@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import com.example.katiefitzgerald.anxietymanager.R;
 import com.example.katiefitzgerald.anxietymanager.model.UserDao;
 import com.example.katiefitzgerald.anxietymanager.sql.DatabaseManager;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -33,7 +35,7 @@ public class CreateAccountActivity extends AppCompatActivity {
     TextView login;
 
     DatabaseManager db = new DatabaseManager(this);
-    DatabaseReference databaseUsers = FirebaseDatabase.getInstance().getReference("user_profile");
+    DatabaseReference UsersDB = FirebaseDatabase.getInstance().getReference("user_profile");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,17 +111,11 @@ public class CreateAccountActivity extends AppCompatActivity {
         else {
             if(chosenAccount.isChecked()) {
 
-                UserDao user = new UserDao();
+                String user_id = UsersDB.push().getKey();
 
-                String user_id = databaseUsers.push().getKey();
+                UserDao user = new UserDao(user_id, userName, userEmail, password, false);
 
-                user.setId(user_id);
-                user.setName(userName);
-                user.setEmail(userEmail);
-                user.setPassword(password);
-                user.setCounsellor(true);
-
-                databaseUsers.child(user_id).setValue(user);
+                UsersDB.child(user_id).setValue(user);
 
                 try {
 
@@ -137,22 +133,15 @@ public class CreateAccountActivity extends AppCompatActivity {
                 Intent home = new Intent(getApplicationContext(), HomeActivity.class);
                 home.putExtra("user_id", user_id);
                 startActivity(home);
-                setContentView(R.layout.activity_home);
                 Toast.makeText(this, "Counsellor", Toast.LENGTH_LONG).show();
             }
             else {
 
-                UserDao user = new UserDao();
+                String user_id = UsersDB.push().getKey();
 
-                String user_id = databaseUsers.push().getKey();
+                UserDao user = new UserDao(user_id, userName, userEmail, password, false);
 
-                user.setId(user_id);
-                user.setName(userName);
-                user.setEmail(userEmail);
-                user.setPassword(password);
-                user.setCounsellor(false);
-
-                databaseUsers.child(user_id).setValue(user);
+                UsersDB.child(user_id).setValue(user);
 
                 try {
 
@@ -170,8 +159,6 @@ public class CreateAccountActivity extends AppCompatActivity {
                 Intent home = new Intent(getApplicationContext(), HomeActivity.class);
                 home.putExtra("user_id", user_id);
                 startActivity(home);
-                setContentView(R.layout.activity_home);
-
             }
         }
     }

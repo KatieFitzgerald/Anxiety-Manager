@@ -43,9 +43,8 @@ public class HomeActivity extends AppCompatActivity {
     Button cycleButton;
     Button profileButton;
     TextView welcome;
-    UserDao userDao;
 
-    DatabaseReference database;
+    DatabaseReference usersDB;
 
     private int[] yData = {40, 30, 30};
     private String[] anxietyNamesData = {"College", "Social", "Money"};
@@ -60,25 +59,23 @@ public class HomeActivity extends AppCompatActivity {
 
         user = (String) getIntent().getSerializableExtra("user_id");
 
-        database = FirebaseDatabase.getInstance().getReference("user_profile");
+        usersDB = FirebaseDatabase.getInstance().getReference("user_profile");
 
-        DatabaseReference userReference = database.child(user);
-        Query query = userReference.equalTo(user);
-
-        query.addValueEventListener(new ValueEventListener() {
-
+        usersDB.child(user).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                retrieveData(dataSnapshot);
+
+                UserDao userFound = dataSnapshot.getValue(UserDao.class);
+
+                welcome.setText("Welcome, " + userFound.getName());
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
-                Log.v(TAG, "Failed to read value.", error.toException());
+                // Failed to read value
+                Log.w("DB", "Failed to read value.", error.toException());
             }
         });
-
-       //welcome.setText("Welcome, " + userDao.getName());
 
         PieChart chart = findViewById(R.id.worriesChart);
         addDataSet(chart);
@@ -232,18 +229,4 @@ public class HomeActivity extends AppCompatActivity {
         chart.invalidate();
 
     }
-
-    private void retrieveData(DataSnapshot dataSnapshot){
-
-        UserDao userData = new UserDao();
-
-        for (DataSnapshot ds: dataSnapshot.getChildren()){
-            userData.setName(ds.child(user).getValue(UserDao.class).getName());
-
-        }
-
-        Toast.makeText(this, "Welcome, " + userData.getName(), Toast.LENGTH_SHORT).show();
-
-    }
-
 }
