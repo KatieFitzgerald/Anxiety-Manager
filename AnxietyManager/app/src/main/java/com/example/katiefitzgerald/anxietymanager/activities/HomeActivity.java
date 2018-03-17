@@ -1,8 +1,8 @@
 package com.example.katiefitzgerald.anxietymanager.activities;
 
-
 //Pie chart tutorial used https://www.youtube.com/watch?v=8BcTXbwDGbg
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -14,19 +14,28 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.Manifest;
 
 import com.example.katiefitzgerald.anxietymanager.R;
+import com.example.katiefitzgerald.anxietymanager.model.UserDao;
+import com.google.firebase.database.DataSnapshot;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +49,9 @@ public class HomeActivity extends AppCompatActivity {
     Button cycleButton;
     Button profileButton;
     double latitude, longitude;
+    TextView welcome;
+
+    DatabaseReference usersDB;
 
     private int[] yData = {40, 30, 30};
     private String[] anxietyNamesData = {"College", "Social", "Money"};
@@ -52,8 +64,27 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Bundle extras = getIntent().getExtras();
-        user = extras.getString("user_id");
+        welcome = findViewById(R.id.welcomeText);
+
+        user = (String) getIntent().getSerializableExtra("user_id");
+
+        usersDB = FirebaseDatabase.getInstance().getReference("user_profile");
+
+        usersDB.child(user).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                UserDao userFound = dataSnapshot.getValue(UserDao.class);
+
+                welcome.setText("Welcome, " + userFound.getName());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("DB", "Failed to read value.", error.toException());
+            }
+        });
 
         PieChart chart = findViewById(R.id.worriesChart);
         addDataSet(chart);
@@ -262,4 +293,5 @@ public class HomeActivity extends AppCompatActivity {
         locationManager.removeUpdates(listener);
         super.onPause();
     }
+
 }
