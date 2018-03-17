@@ -33,6 +33,8 @@
         <activity android:name=".activities.RateTwoMoodActivity"></activity>
         <activity android:name=".activities.RateOneMoodActivity"></activity>
         <activity android:name=".activities.ReactActivity"></activity>
+        <activity android:name=".activities.CalendarActivity"></activity>
+
 
     </application>
 
