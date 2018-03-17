@@ -32,7 +32,7 @@
         android:backgroundTint="#FFFFFF"/>
 
     <EditText
-        android:id="@+id/enterEmail"
+        android:id="@+id/enterUsername"
         android:layout_width="400dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"

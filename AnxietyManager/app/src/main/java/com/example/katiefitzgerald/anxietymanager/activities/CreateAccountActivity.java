@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -43,7 +42,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create);
 
         enterName = findViewById(R.id.enterName);
-        enterEmail = findViewById(R.id.enterEmail);
+        enterEmail = findViewById(R.id.enterUsername);
         enterPassword = findViewById(R.id.enterPassword);
         confirmPassword = findViewById(R.id.confirmPassword);
         chosenAccount = findViewById(R.id.isCounsellor);
