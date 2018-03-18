@@ -2,16 +2,9 @@ package com.example.katiefitzgerald.anxietymanager.activities;
 
 //Pie chart tutorial used https://www.youtube.com/watch?v=8BcTXbwDGbg
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.provider.Settings;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,8 +12,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.Manifest;
 
 import com.example.katiefitzgerald.anxietymanager.R;
 import com.example.katiefitzgerald.anxietymanager.model.UserDao;
@@ -34,7 +25,6 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -48,16 +38,12 @@ public class HomeActivity extends AppCompatActivity {
     Button calendarButton;
     Button cycleButton;
     Button profileButton;
-    double latitude, longitude;
     TextView welcome;
 
     DatabaseReference usersDB;
 
     private int[] yData = {40, 30, 30};
     private String[] anxietyNamesData = {"College", "Social", "Money"};
-
-    private LocationManager locationManager;
-    private LocationListener listener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,9 +75,6 @@ public class HomeActivity extends AppCompatActivity {
         PieChart chart = findViewById(R.id.worriesChart);
         addDataSet(chart);
 
-        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        setupLocation();
-
         addTodayAnxiety = findViewById(R.id.addAnxiety);
         addTodayAnxiety.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -122,8 +105,6 @@ public class HomeActivity extends AppCompatActivity {
                         sensedAnxiety.setBackgroundResource(R.drawable.pressed);
                         sensedAnxiety.setTextColor(Color.GRAY);
                         Intent sensedActivity = new Intent(getApplicationContext(), SensedActivity.class);
-                        sensedActivity.putExtra("Longitude", longitude);
-                        sensedActivity.putExtra("Latitude", latitude);
                         sensedActivity.putExtra("user_id", user);
                         startActivity(sensedActivity);
                         return true;
@@ -246,52 +227,6 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-    public void setupLocation() {
 
-        listener = new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-                latitude = location.getLatitude();
-                longitude = location.getLongitude();
-
-                Toast.makeText(getApplicationContext(), "Done", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onStatusChanged(String s, int i, Bundle bundle) {
-
-            }
-
-            @Override
-            public void onProviderEnabled(String s) {
-
-            }
-
-            @Override
-            public void onProviderDisabled(String s) {
-                Intent i = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                startActivity(i);
-            }
-        };
-
-        getLocation();
-    }
-
-    void getLocation() {
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[] {
-                            Manifest.permission.ACCESS_FINE_LOCATION,
-                            Manifest.permission.ACCESS_COARSE_LOCATION }, 10);
-        }
-        locationManager.requestLocationUpdates("gps", 20, 1, listener);
-
-    }
-
-    @Override
-    public void onPause(){
-        locationManager.removeUpdates(listener);
-        super.onPause();
-    }
 
 }

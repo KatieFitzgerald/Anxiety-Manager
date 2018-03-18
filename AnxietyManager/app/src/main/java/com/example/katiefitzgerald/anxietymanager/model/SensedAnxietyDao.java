@@ -39,6 +39,11 @@ public class SensedAnxietyDao {
         return User_ID;
     }
 
+    public String toString() {
+        return this.Timestamp + " " + this.Location;
+
+    }
+
 
 
 }
