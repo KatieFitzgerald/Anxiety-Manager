@@ -82,7 +82,7 @@ public class HomeActivity extends AppCompatActivity {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         addTodayAnxiety.setBackgroundResource(R.drawable.pressed);
-                        addTodayAnxiety.setTextColor(Color.GRAY);
+
                         Intent Questionnaire = new Intent(getApplicationContext(), WhatsUpActivity.class);
                         Questionnaire.putExtra("user_id", user);
                         startActivity(Questionnaire);
@@ -104,12 +104,15 @@ public class HomeActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_DOWN:
                         sensedAnxiety.setBackgroundResource(R.drawable.pressed);
                         sensedAnxiety.setTextColor(Color.GRAY);
+
                         Intent sensedActivity = new Intent(getApplicationContext(), SensedActivity.class);
                         sensedActivity.putExtra("user_id", user);
                         startActivity(sensedActivity);
                         return true;
                     case MotionEvent.ACTION_UP:
                         sensedAnxiety.setBackgroundResource(R.drawable.shape);
+                        sensedAnxiety.setTextColor(Color.WHITE);
+
                         return true;
                     default:
                         return false;
@@ -131,6 +134,7 @@ public class HomeActivity extends AppCompatActivity {
 
                     case MotionEvent.ACTION_UP:
                         calendarButton.setBackgroundResource(R.drawable.shape);
+                        calendarButton.setTextColor(Color.WHITE);
                         return true;
                     default:
                         return false;
@@ -149,6 +153,8 @@ public class HomeActivity extends AppCompatActivity {
 
                     case MotionEvent.ACTION_UP:
                         cycleButton.setBackgroundResource(R.drawable.shape);
+                        cycleButton.setTextColor(Color.WHITE);
+
                         return true;
                     default:
                         return false;
