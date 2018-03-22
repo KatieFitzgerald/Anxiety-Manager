@@ -28,7 +28,7 @@ public class PhysicalActivity extends AppCompatActivity {
     ImageView changeAppetite;
     ImageView headache;
 
-    String questionnaire[] = new String[10];
+    String questionnaire[] = new String[11];
 
     int questionCount = 0;
 
@@ -137,7 +137,7 @@ public class PhysicalActivity extends AppCompatActivity {
 
     void checkQuestions(String symptom) {
 
-        questionnaire[3] = symptom;
+        questionnaire[4] = symptom;
 
         if (questionCount < 1) {
             //do nothing

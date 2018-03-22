@@ -38,7 +38,7 @@ public class ThoughtsActivity extends AppCompatActivity {
     ThoughtsAdapter cursorAdapter;
     String thoughtChosen, user;
 
-    String questionnaire[] = new String[10];
+    String questionnaire[] = new String[11];
 
     DatabaseManager db = new DatabaseManager(this);
 
@@ -77,7 +77,7 @@ public class ThoughtsActivity extends AppCompatActivity {
                 Cursor returnedThoughtCursor = (Cursor) listView.getItemAtPosition(itemPosition);
                 thoughtChosen = returnedThoughtCursor.getString(1);
 
-                questionnaire[2] = thoughtChosen;
+                questionnaire[3] = thoughtChosen;
 
                 Toast.makeText(getApplicationContext(), thoughtChosen + " selected", Toast.LENGTH_LONG).show();
 
@@ -109,7 +109,7 @@ public class ThoughtsActivity extends AppCompatActivity {
 
                         db.close();
 
-                        questionnaire[2] = thoughtNameInput;
+                        questionnaire[3] = thoughtNameInput;
 
                         Toast.makeText(getApplicationContext(), thoughtNameInput + " added", Toast.LENGTH_LONG).show();
 

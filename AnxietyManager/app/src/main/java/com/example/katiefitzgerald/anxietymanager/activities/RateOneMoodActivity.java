@@ -19,7 +19,7 @@ public class RateOneMoodActivity extends AppCompatActivity {
 
     ImageView nextQuestion;
 
-    String[] questionnaire = new String[10];
+    String[] questionnaire = new String[11];
     String[] chosenMoods = new String[2];
 
     SeekBar seekBarMoodOne;
@@ -41,9 +41,9 @@ public class RateOneMoodActivity extends AppCompatActivity {
 
         seekBarSetup();
 
-        questionnaire[6] = String.valueOf(seekBarMoodOne.getProgress());
-        questionnaire[7] = "Custom emotion chosen";
-        questionnaire[8] = String.valueOf(seekBarOverall.getProgress());
+        questionnaire[7] = String.valueOf(seekBarMoodOne.getProgress());
+        questionnaire[8] = "Custom emotion chosen";
+        questionnaire[9] = String.valueOf(seekBarOverall.getProgress());
 
         nextQuestion = findViewById(R.id.next);
         nextQuestion.setOnClickListener(new View.OnClickListener() {

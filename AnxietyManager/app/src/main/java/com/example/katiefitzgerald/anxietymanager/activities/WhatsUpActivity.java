@@ -19,12 +19,17 @@ import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
 
 
+import com.example.katiefitzgerald.anxietymanager.model.SensedAnxietyDao;
 import com.example.katiefitzgerald.anxietymanager.sql.DatabaseManager;
 import com.example.katiefitzgerald.anxietymanager.model.QuestionnaireDao;
 import com.example.katiefitzgerald.anxietymanager.R;
 import com.example.katiefitzgerald.anxietymanager.adapters.WhatsUpAdapter;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
@@ -39,11 +44,14 @@ public class WhatsUpActivity extends AppCompatActivity {
     ListView worryList;
     String user;
     WhatsUpAdapter cursorAdapter;
+    String sensed_id = null;
     String subjectChosen;
 
     DatabaseManager db = new DatabaseManager(this);
 
-    String questionnaire[] = new String[10];
+    DatabaseReference SensedAnxietyDB = FirebaseDatabase.getInstance().getReference("sensed_anxiety");
+
+    String questionnaire[] = new String[11];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,9 +64,24 @@ public class WhatsUpActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         user = extras.getString("user_id");
+        sensed_id = extras.getString("sensed_id");
 
-        questionnaire[0] = user;
+        if (sensed_id == null){
 
+            sensed_id = SensedAnxietyDB.push().getKey();
+
+            //Create a sensed_anxiety instances
+            SimpleDateFormat dateFormatDay = new SimpleDateFormat("E, d MMM yyyy", Locale.getDefault());
+            String currentTime = dateFormatDay.format(System.currentTimeMillis());
+
+            SensedAnxietyDao sensedEpisode = new SensedAnxietyDao(sensed_id, currentTime, "none", user);
+
+            SensedAnxietyDB.child(sensed_id).setValue(sensedEpisode);
+        }
+
+
+        questionnaire[0] = sensed_id;
+        questionnaire[1] = user;
 
         worryName = findViewById(R.id.worryName);
         worryList = findViewById(R.id.worryList);
@@ -85,7 +108,7 @@ public class WhatsUpActivity extends AppCompatActivity {
                 Cursor returnedSubjectCursor = (Cursor) listView.getItemAtPosition(itemPosition);
                 subjectChosen = returnedSubjectCursor.getString(1);
 
-                questionnaire[1] = subjectChosen;
+                questionnaire[2] = subjectChosen;
 
                 Toast.makeText(getApplicationContext(), subjectChosen + " selected", Toast.LENGTH_SHORT).show();
 
@@ -119,7 +142,7 @@ public class WhatsUpActivity extends AppCompatActivity {
                         cursorAdapter.notifyDataSetChanged();
                         worryList.setAdapter(cursorAdapter);
 
-                        questionnaire[1] = worryNameInput;
+                        questionnaire[2] = worryNameInput;
 
                         db.close();
 

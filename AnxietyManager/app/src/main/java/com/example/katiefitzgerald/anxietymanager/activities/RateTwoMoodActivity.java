@@ -20,7 +20,7 @@ public class RateTwoMoodActivity extends AppCompatActivity {
 
     ImageView nextQuestion;
 
-    String[] questionnaire = new String[10];
+    String questionnaire[] = new String[11];
     String[] chosenMoods = new String[2];
 
     SeekBar seekBarMoodOne;
@@ -70,7 +70,7 @@ public class RateTwoMoodActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 seekBarValueMoodOne.setText(String.valueOf(progress));
-                questionnaire[6] = String.valueOf(progress);
+                questionnaire[7] = String.valueOf(progress);
 
             }
 
@@ -95,7 +95,7 @@ public class RateTwoMoodActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 seekBarValueMoodTwo.setText(String.valueOf(progress));
-                questionnaire[7] = String.valueOf(progress);
+                questionnaire[8] = String.valueOf(progress);
 
             }
 
@@ -117,7 +117,7 @@ public class RateTwoMoodActivity extends AppCompatActivity {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                questionnaire[8] = String.valueOf(progress);
+                questionnaire[9] = String.valueOf(progress);
 
             }
 
