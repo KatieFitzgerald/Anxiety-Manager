@@ -2,11 +2,15 @@ package com.example.katiefitzgerald.anxietymanager.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.katiefitzgerald.anxietymanager.R;
+import com.example.katiefitzgerald.anxietymanager.model.QuestionnaireDao;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * Created by Katie Fitzgerald on 17/02/2018.
@@ -19,12 +23,19 @@ public class ReactActivity extends AppCompatActivity {
     ImageView stayed;
     ImageView left;
 
+    String[] questionnaireValues = new String[11];
+
     int questionCount = 0;
+
+    DatabaseReference QuestionnaireDB = FirebaseDatabase.getInstance().getReference("questionnaire");
 
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_react);
+
+        Bundle extras = getIntent().getExtras();
+        questionnaireValues = extras.getStringArray("questionnaireObj");
 
         stayed = findViewById(R.id.stay);
         left = findViewById(R.id.left);
@@ -33,6 +44,7 @@ public class ReactActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 stayed.setImageResource(R.drawable.chosen);
+                questionnaireValues[10] = "Stayed";
                 questionCount += 1;
                 checkQuestions();
             }
@@ -42,6 +54,7 @@ public class ReactActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 left.setImageResource(R.drawable.chosen);
+                questionnaireValues[10] = "Left";
                 questionCount += 1;
                 checkQuestions();
             }
@@ -51,7 +64,15 @@ public class ReactActivity extends AppCompatActivity {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               //start calendar activity
+
+                String questionnaire_id = QuestionnaireDB.push().getKey();
+
+                QuestionnaireDao questionnaire = new QuestionnaireDao(questionnaire_id, questionnaireValues[0], questionnaireValues[1], questionnaireValues[2],
+                                                                    questionnaireValues[3], questionnaireValues[4], questionnaireValues[5], questionnaireValues[6],
+                                                                    questionnaireValues[7], questionnaireValues[8], questionnaireValues[9], questionnaireValues[10]);
+
+                QuestionnaireDB.child(questionnaire_id).setValue(questionnaire);
+
             }
         });
 

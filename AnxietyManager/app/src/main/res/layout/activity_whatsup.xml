@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView5"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="41dp"
+        android:layout_marginTop="33dp"
         android:backgroundTint="#FFFFFF"
         android:ems="10"
         android:hint="Write a new name"
@@ -62,7 +62,9 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/addSituation"
         android:textColor="#FFFFFF"
-        android:layout_marginTop="43dp"/>
+        android:layout_marginTop="43dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"/>
 
     <TextView
         android:id="@+id/textView5"
@@ -78,10 +80,10 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/worryList"
         android:layout_below="@+id/addSituation"
-        android:layout_marginStart="13dp"
-        android:textColor="#FFFFFF"
-        android:text="Previously added situations:" />
+        android:text="Previously added situations:"
+        android:textColor="#FFFFFF" />
 
     <Button
         android:id="@+id/addSituation"

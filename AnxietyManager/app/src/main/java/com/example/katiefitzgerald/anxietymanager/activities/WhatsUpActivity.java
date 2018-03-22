@@ -19,12 +19,17 @@ import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
 
 
+import com.example.katiefitzgerald.anxietymanager.model.SensedAnxietyDao;
 import com.example.katiefitzgerald.anxietymanager.sql.DatabaseManager;
 import com.example.katiefitzgerald.anxietymanager.model.QuestionnaireDao;
 import com.example.katiefitzgerald.anxietymanager.R;
 import com.example.katiefitzgerald.anxietymanager.adapters.WhatsUpAdapter;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
@@ -35,16 +40,18 @@ import static android.widget.Toast.LENGTH_SHORT;
 public class WhatsUpActivity extends AppCompatActivity {
 
     EditText worryName;
-    ImageButton nextQuestion;
     Button addSituation;
     ListView worryList;
     String user;
     WhatsUpAdapter cursorAdapter;
+    String sensed_id = null;
     String subjectChosen;
 
     DatabaseManager db = new DatabaseManager(this);
 
-    QuestionnaireDao questionnaireDao = new QuestionnaireDao();
+    DatabaseReference SensedAnxietyDB = FirebaseDatabase.getInstance().getReference("sensed_anxiety");
+
+    String questionnaire[] = new String[11];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,17 +62,26 @@ public class WhatsUpActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Bundle extras = getIntent().getExtras();
+        user = extras.getString("user_id");
+        sensed_id = extras.getString("sensed_id");
 
-        if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
-            if(extras == null) {
-                user = null;
-            } else {
-                user = extras.getString("user_id");
-            }
-        } else {
-            user = (String) savedInstanceState.getSerializable("user_id");
+        if (sensed_id == null){
+
+            sensed_id = SensedAnxietyDB.push().getKey();
+
+            //Create a sensed_anxiety instances
+            SimpleDateFormat dateFormatDay = new SimpleDateFormat("E, d MMM yyyy", Locale.getDefault());
+            String currentTime = dateFormatDay.format(System.currentTimeMillis());
+
+            SensedAnxietyDao sensedEpisode = new SensedAnxietyDao(sensed_id, currentTime, "none", user);
+
+            SensedAnxietyDB.child(sensed_id).setValue(sensedEpisode);
         }
+
+
+        questionnaire[0] = sensed_id;
+        questionnaire[1] = user;
 
         worryName = findViewById(R.id.worryName);
         worryList = findViewById(R.id.worryList);
@@ -87,15 +103,17 @@ public class WhatsUpActivity extends AppCompatActivity {
         worryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> listView, View itemView, int itemPosition, long itemId)
             {
-                // Get the data associated with selected item
 
+                // Get the data associated with selected item
                 Cursor returnedSubjectCursor = (Cursor) listView.getItemAtPosition(itemPosition);
                 subjectChosen = returnedSubjectCursor.getString(1);
+
+                questionnaire[2] = subjectChosen;
 
                 Toast.makeText(getApplicationContext(), subjectChosen + " selected", Toast.LENGTH_SHORT).show();
 
                 Intent Thoughts = new Intent(getApplicationContext(), ThoughtsActivity.class);
-                Thoughts.putExtra("questionnaireObj", questionnaireDao);
+                Thoughts.putExtra("questionnaireObj", questionnaire);
                 startActivity(Thoughts);
                 overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
 
@@ -114,6 +132,7 @@ public class WhatsUpActivity extends AppCompatActivity {
                 //make sure there is something to add to list/database
                 if(null!= worryNameInput && worryNameInput.length() > 0) {
                     try {
+
                         db.open();
                         db.insertSubject(worryNameInput);
 
@@ -123,10 +142,12 @@ public class WhatsUpActivity extends AppCompatActivity {
                         cursorAdapter.notifyDataSetChanged();
                         worryList.setAdapter(cursorAdapter);
 
+                        questionnaire[2] = worryNameInput;
+
                         db.close();
 
                         Intent Thoughts = new Intent(getApplicationContext(), ThoughtsActivity.class);
-                        Thoughts.putExtra("questionnaireObj", questionnaireDao);
+                        Thoughts.putExtra("questionnaireObj", questionnaire);
                         startActivity(Thoughts);
                         overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
 
@@ -135,16 +156,6 @@ public class WhatsUpActivity extends AppCompatActivity {
                         Toast.makeText(WhatsUpActivity.this, "Error inserting into database", LENGTH_SHORT).show();
                     }
 
-                    /*nextQuestion = findViewById(R.id.next);
-                    nextQuestion.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Intent Thoughts = new Intent(getApplicationContext(), ThoughtsActivity.class);
-                            Thoughts.putExtra("questionnaireObj", questionnaireDao);
-                            startActivity(Thoughts);
-                            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
-                        }
-                    });*/
                 }
                 else {
                     final TextView warning = findViewById(R.id.warning);

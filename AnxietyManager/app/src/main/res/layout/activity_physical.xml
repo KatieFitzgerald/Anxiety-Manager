@@ -170,7 +170,7 @@
         android:layout_below="@+id/heartbeatIcon"
         android:layout_marginTop="14dp"
         android:gravity="center"
-        android:text="Unusual heartbate"
+        android:text="Unusual heartbeat"
         android:textColor="#FFFFFF" />
 
     <TextView
