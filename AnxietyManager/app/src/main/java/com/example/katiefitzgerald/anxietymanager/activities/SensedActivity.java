@@ -3,6 +3,7 @@ package com.example.katiefitzgerald.anxietymanager.activities;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -12,8 +13,12 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.katiefitzgerald.anxietymanager.model.SensedAnxietyDao;
@@ -39,6 +44,8 @@ public class SensedActivity extends AppCompatActivity {
     String address;
     double longitude, latitude;
     LocationManager mLocationManager;
+    ListView episodeList;
+    Button questionnareStart;
 
     DatabaseReference SensedAnxietyDB = FirebaseDatabase.getInstance().getReference("sensed_anxiety");
 
@@ -54,12 +61,21 @@ public class SensedActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         user_id = extras.getString("user_id");
 
+        episodeList = findViewById(R.id.episodeListView);
+
+        questionnareStart = findViewById(R.id.fillOutQuestionnaire);
+        questionnareStart.setVisibility(View.INVISIBLE);
+
+        View questionnaireDetails = findViewById(R.id.questionnaireDetails);
+        questionnaireDetails.setVisibility(View.INVISIBLE);
+
 //
 //        Location location = getLastKnownLocation();
 //        longitude = location.getLongitude();
 //        latitude = location.getLatitude();
 
         populateEpisodeList();
+        listCheck();
 
     }
 
@@ -67,8 +83,6 @@ public class SensedActivity extends AppCompatActivity {
 
         DatabaseReference sensedDB = FirebaseDatabase.getInstance().getReference();
         Query sensedAnxiety = sensedDB.child("sensed_anxiety").orderByChild("user_ID").equalTo(user_id);
-
-        final ListView episodeList = findViewById(R.id.episodeListView);
 
         sensedAnxiety.addListenerForSingleValueEvent(new ValueEventListener() {
 
@@ -80,16 +94,18 @@ public class SensedActivity extends AppCompatActivity {
                      for (DataSnapshot dsp : dataSnapshot.getChildren()) {
 
                          Map<String, Object> map = (Map<String, Object>) dsp.getValue();
-                         String timestamp = (String) map.get("timestamp");
+                         String timestampLong = (String) map.get("timestamp");
                          String location = (String) map.get("location");
 
-                         Log.v("Loc", "Location is " + location);
+                         //get current time
+                         SimpleDateFormat dateFormatDay = new SimpleDateFormat("E, d MMM yyyy", Locale.getDefault());
+                         String currentTime = dateFormatDay.format(Long.valueOf(timestampLong));
 
                          if(location.equals("none")){
-                             arrayList.add(timestamp + " from a questionnaire");
+                             arrayList.add(currentTime + " from questionnaire");
                          }
                          else {
-                             arrayList.add(timestamp + " at " + location);
+                             arrayList.add(currentTime + " at " + location);
                          }
 
 
@@ -122,9 +138,6 @@ public class SensedActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        TextView value = findViewById(R.id.value);
-        value.setText(address);
 
         String sensed_id = SensedAnxietyDB.push().getKey();
 
@@ -180,6 +193,29 @@ public class SensedActivity extends AppCompatActivity {
             }
         }
         return bestLocation;
+    }
+
+    private void listCheck() {
+
+        episodeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> listView, View itemView, int itemPosition, long itemId) {
+
+                // Get the data associated with selected item
+                String episode = (String) listView.getItemAtPosition(itemPosition);
+
+                String[] split = episode.split("\\s+");
+
+                String timestamp = split[0] + " "  + split[1] + " "  + split[2] + " "  + split[3];
+                String location = split[5] + " "  + split[6];
+
+                Log.v("TIME", "this " + timestamp);
+                Log.v("LOC", "this " + location);
+
+                questionnareStart.setVisibility(View.VISIBLE);
+            }
+
+        });
+
     }
 
 }
