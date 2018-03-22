@@ -39,9 +39,7 @@ public class PhysicalActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         questionnaire = extras.getStringArray("questionnaireObj");
-
-        Log.v("Q", "THIS IS THOUGHT " + questionnaire[1]);
-
+        
         breathing = findViewById(R.id.breathingIcon);
         heartbeat = findViewById(R.id.heartbeatIcon);
         sweating = findViewById(R.id.sweatingIcon);
