@@ -83,7 +83,15 @@ public class SensedActivity extends AppCompatActivity {
                          String timestamp = (String) map.get("timestamp");
                          String location = (String) map.get("location");
 
-                         arrayList.add(timestamp + " at " + location);
+                         Log.v("Loc", "Location is " + location);
+
+                         if(location.equals("none")){
+                             arrayList.add(timestamp + " from a questionnaire");
+                         }
+                         else {
+                             arrayList.add(timestamp + " at " + location);
+                         }
+
 
                          ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, arrayList);
                          episodeList.setAdapter(arrayAdapter);
