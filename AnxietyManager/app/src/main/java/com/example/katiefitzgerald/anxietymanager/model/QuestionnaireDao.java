@@ -10,17 +10,37 @@ public class QuestionnaireDao implements Serializable {
 
     String Questionnaire_ID;
     String User_ID;
-    String Subject_ID;
-    String Thought_ID;
-    String Physical_ID;
-    String Mood_ID1;
-    String Mood_ID2;
-    String Reaction_ID;
+    String Subject;
+    String Thought;
+    String Physical;
+    String Mood1;
+    String Mood2;
+    String Reaction;
     int Mood_Rating1;
     int Mood_Rating2;
     int Overall_Rating;
 
+
     public QuestionnaireDao(){
+
+    }
+
+
+    public QuestionnaireDao(String Questionnaire_ID, String User_ID, String Subject, String Thought,
+                            String Physical, String Mood1, String Mood2, String Reaction,
+                            int Mood_Rating1, int Mood_Rating2, int Overall_Rating){
+
+        this.Questionnaire_ID = Questionnaire_ID;
+        this.User_ID = User_ID;
+        this.Subject = Subject;
+        this.Thought = Thought;
+        this.Physical = Physical;
+        this.Mood1 = Mood1;
+        this.Mood2 = Mood2;
+        this.Mood_Rating1 = Mood_Rating1;
+        this.Mood_Rating2 = Mood_Rating2;
+        this.Overall_Rating = Overall_Rating;
+        this.Reaction = Reaction;
 
     }
 
@@ -40,52 +60,53 @@ public class QuestionnaireDao implements Serializable {
         User_ID = user_ID;
     }
 
-    public String getSubject_ID() {
-        return Subject_ID;
+    public String getSubject() {
+        return Subject;
     }
 
-    public void setSubject_ID(String subject_ID) {
-        Subject_ID = subject_ID;
+    public void setSubject(String Subject) {
+        Subject = Subject;
     }
 
-    public String getThought_ID() {
-        return Thought_ID;
+
+    public String getThought() {
+        return Thought;
     }
 
-    public void setThought_ID(String thought_ID) {
-        Thought_ID = thought_ID;
+    public void setThought(String thought) {
+        Thought = thought;
     }
 
-    public String getPhysical_ID() {
-        return Physical_ID;
+    public String getPhysical() {
+        return Physical;
     }
 
-    public void setPhysical_ID(String physical_ID) {
-        Physical_ID = physical_ID;
+    public void setPhysical(String physical) {
+        Physical = physical;
     }
 
-    public String getMood_ID1() {
-        return Mood_ID1;
+    public String getMood1() {
+        return Mood1;
     }
 
-    public void setMood_ID1(String mood_ID1) {
-        Mood_ID1 = mood_ID1;
+    public void setMood1(String mood1) {
+        Mood1 = mood1;
     }
 
-    public String getMood_ID2() {
-        return Mood_ID2;
+    public String getMood2() {
+        return Mood2;
     }
 
-    public void setMood_ID2(String mood_ID2) {
-        Mood_ID2 = mood_ID2;
+    public void setMood2(String mood2) {
+        Mood2 = mood2;
     }
 
-    public String getReaction_ID() {
-        return Reaction_ID;
+    public String getReaction() {
+        return Reaction;
     }
 
-    public void setReaction_ID(String reaction_ID) {
-        Reaction_ID = reaction_ID;
+    public void setReaction(String reaction) {
+        Reaction = reaction;
     }
 
     public int getMood_Rating1() {

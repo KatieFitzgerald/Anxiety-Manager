@@ -35,7 +35,6 @@ import static android.widget.Toast.LENGTH_SHORT;
 public class WhatsUpActivity extends AppCompatActivity {
 
     EditText worryName;
-    ImageButton nextQuestion;
     Button addSituation;
     ListView worryList;
     String user;
@@ -44,7 +43,7 @@ public class WhatsUpActivity extends AppCompatActivity {
 
     DatabaseManager db = new DatabaseManager(this);
 
-    QuestionnaireDao questionnaireDao = new QuestionnaireDao();
+    String questionnaire[] = new String[10];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,17 +54,11 @@ public class WhatsUpActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Bundle extras = getIntent().getExtras();
+        user = extras.getString("user_id");
 
-        if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
-            if(extras == null) {
-                user = null;
-            } else {
-                user = extras.getString("user_id");
-            }
-        } else {
-            user = (String) savedInstanceState.getSerializable("user_id");
-        }
+        questionnaire[0] = user;
+
 
         worryName = findViewById(R.id.worryName);
         worryList = findViewById(R.id.worryList);
@@ -87,15 +80,17 @@ public class WhatsUpActivity extends AppCompatActivity {
         worryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> listView, View itemView, int itemPosition, long itemId)
             {
-                // Get the data associated with selected item
 
+                // Get the data associated with selected item
                 Cursor returnedSubjectCursor = (Cursor) listView.getItemAtPosition(itemPosition);
                 subjectChosen = returnedSubjectCursor.getString(1);
+
+                questionnaire[1] = subjectChosen;
 
                 Toast.makeText(getApplicationContext(), subjectChosen + " selected", Toast.LENGTH_SHORT).show();
 
                 Intent Thoughts = new Intent(getApplicationContext(), ThoughtsActivity.class);
-                Thoughts.putExtra("questionnaireObj", questionnaireDao);
+                Thoughts.putExtra("questionnaireObj", questionnaire);
                 startActivity(Thoughts);
                 overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
 
@@ -114,6 +109,7 @@ public class WhatsUpActivity extends AppCompatActivity {
                 //make sure there is something to add to list/database
                 if(null!= worryNameInput && worryNameInput.length() > 0) {
                     try {
+
                         db.open();
                         db.insertSubject(worryNameInput);
 
@@ -123,10 +119,12 @@ public class WhatsUpActivity extends AppCompatActivity {
                         cursorAdapter.notifyDataSetChanged();
                         worryList.setAdapter(cursorAdapter);
 
+                        questionnaire[1] = worryNameInput;
+
                         db.close();
 
                         Intent Thoughts = new Intent(getApplicationContext(), ThoughtsActivity.class);
-                        Thoughts.putExtra("questionnaireObj", questionnaireDao);
+                        Thoughts.putExtra("questionnaireObj", questionnaire);
                         startActivity(Thoughts);
                         overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
 
@@ -135,16 +133,6 @@ public class WhatsUpActivity extends AppCompatActivity {
                         Toast.makeText(WhatsUpActivity.this, "Error inserting into database", LENGTH_SHORT).show();
                     }
 
-                    /*nextQuestion = findViewById(R.id.next);
-                    nextQuestion.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Intent Thoughts = new Intent(getApplicationContext(), ThoughtsActivity.class);
-                            Thoughts.putExtra("questionnaireObj", questionnaireDao);
-                            startActivity(Thoughts);
-                            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
-                        }
-                    });*/
                 }
                 else {
                     final TextView warning = findViewById(R.id.warning);

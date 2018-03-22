@@ -20,12 +20,25 @@ public class RateTwoMoodActivity extends AppCompatActivity {
 
     ImageView nextQuestion;
 
+    String[] questionnaire = new String[10];
+    String[] chosenMoods = new String[2];
+
+    SeekBar seekBarMoodOne;
+    SeekBar seekBarMoodTwo;
+    SeekBar seekBarOverall;
+
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rate);
 
-        String[] chosenMoods = (String[]) getIntent().getSerializableExtra("chosenMoods");
+        Bundle extras = getIntent().getExtras();
+        questionnaire = extras.getStringArray("questionnaireObj");
+        chosenMoods = extras.getStringArray("chosenMoods");
+
+        seekBarMoodOne = findViewById(R.id.seekbarMoodOne);
+        seekBarMoodTwo = findViewById(R.id.seekbarMoodTwo);
+        seekBarOverall = findViewById(R.id.seekBarOverall);
 
         setupMoodImages(chosenMoods);
 
@@ -35,33 +48,18 @@ public class RateTwoMoodActivity extends AppCompatActivity {
         nextQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent Emotion = new Intent(getApplicationContext(), ReactActivity.class);
-                startActivity(Emotion);
+                Intent Reaction = new Intent(getApplicationContext(), ReactActivity.class);
+                Reaction.putExtra("questionnaireObj", questionnaire);
+                startActivity(Reaction);
                 overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
 
             }
         });
 
-        /*previousQuestion = findViewById(R.id.previous);
-        previousQuestion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent Thoughts = new Intent(getApplicationContext(), MoodActivity.class);
-                startActivity(Thoughts);
-                overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_right);
-            }
-        });*/
-
     }
 
     private void seekBarSetup() {
 
-        SeekBar seekBarOverall = findViewById(R.id.seekBarOverall);
-        seekBarOverall.setProgress(1);
-        seekBarOverall.incrementProgressBy(1);
-        seekBarOverall.setMax(3);
-
-        SeekBar seekBarMoodOne = findViewById(R.id.seekbarMoodOne);
         seekBarMoodOne.incrementProgressBy(1);
         seekBarMoodOne.setMax(10);
 
@@ -72,6 +70,7 @@ public class RateTwoMoodActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 seekBarValueMoodOne.setText(String.valueOf(progress));
+                questionnaire[6] = String.valueOf(progress);
 
             }
 
@@ -86,8 +85,6 @@ public class RateTwoMoodActivity extends AppCompatActivity {
             }
         });
 
-        SeekBar seekBarMoodTwo = findViewById(R.id.seekbarMoodTwo);
-        seekBarMoodTwo.setProgress(0);
         seekBarMoodTwo.incrementProgressBy(1);
         seekBarMoodTwo.setMax(10);
 
@@ -98,6 +95,30 @@ public class RateTwoMoodActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 seekBarValueMoodTwo.setText(String.valueOf(progress));
+                questionnaire[7] = String.valueOf(progress);
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        seekBarOverall.incrementProgressBy(1);
+        seekBarOverall.setMax(5);
+
+        seekBarOverall.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                questionnaire[8] = String.valueOf(progress);
+
             }
 
             @Override
@@ -123,11 +144,6 @@ public class RateTwoMoodActivity extends AppCompatActivity {
 
         TextView moodTwoName = findViewById(R.id.mood_two);
         moodTwoName.setText(mood_two);
-
-        //ImageView moodOne = findViewById(R.id.moodOne);
-        //ImageView moodTwo = findViewById(R.id.moodTwo);
-
-        Toast.makeText(this, "Mood one: " + mood_one + " Mood two: " + mood_two, Toast.LENGTH_SHORT).show();
 
     }
 

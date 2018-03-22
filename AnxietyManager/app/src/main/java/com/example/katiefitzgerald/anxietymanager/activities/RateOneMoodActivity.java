@@ -19,23 +19,39 @@ public class RateOneMoodActivity extends AppCompatActivity {
 
     ImageView nextQuestion;
 
+    String[] questionnaire = new String[10];
+    String[] chosenMoods = new String[2];
+
+    SeekBar seekBarMoodOne;
+    SeekBar seekBarOverall;
+
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rate_one);
 
-        String[] chosenMoods = (String[]) getIntent().getSerializableExtra("chosenMoods");
+        Bundle extras = getIntent().getExtras();
+        questionnaire = extras.getStringArray("questionnaireObj");
+        chosenMoods = extras.getStringArray("chosenMoods");
+
+        seekBarMoodOne = findViewById(R.id.seekbarMoodOne);
+        seekBarOverall = findViewById(R.id.seekBarOverall);
 
         setupMoodImages(chosenMoods);
 
         seekBarSetup();
 
+        questionnaire[6] = String.valueOf(seekBarMoodOne.getProgress());
+        questionnaire[7] = "Custom emotion chosen";
+        questionnaire[8] = String.valueOf(seekBarOverall.getProgress());
+
         nextQuestion = findViewById(R.id.next);
         nextQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent Emotion = new Intent(getApplicationContext(), ReactActivity.class);
-                startActivity(Emotion);
+                Intent Reaction = new Intent(getApplicationContext(), ReactActivity.class);
+                Reaction.putExtra("questionnaireObj", questionnaire);
+                startActivity(Reaction);
                 overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
 
             }
@@ -45,12 +61,9 @@ public class RateOneMoodActivity extends AppCompatActivity {
 
     private void seekBarSetup() {
 
-        SeekBar seekBarOverall = findViewById(R.id.seekBarOverall);
-        seekBarOverall.setProgress(1);
         seekBarOverall.incrementProgressBy(1);
         seekBarOverall.setMax(3);
 
-        SeekBar seekBarMoodOne = findViewById(R.id.seekbarMoodOne);
         seekBarMoodOne.incrementProgressBy(1);
         seekBarMoodOne.setMax(10);
 
@@ -82,10 +95,6 @@ public class RateOneMoodActivity extends AppCompatActivity {
 
         TextView moodTwoOne = findViewById(R.id.mood_one);
         moodTwoOne.setText(mood_one);
-
-        //ImageView moodOne = findViewById(R.id.moodOne);
-        //ImageView moodTwo = findViewById(R.id.moodTwo);
-
     }
 
 }
