@@ -8,128 +8,86 @@ import java.io.Serializable;
 
 public class QuestionnaireDao implements Serializable {
 
-    String Questionnaire_ID;
-    String User_ID;
-    String Subject;
-    String Thought;
-    String Physical;
-    String Mood1;
-    String Mood2;
-    String Reaction;
-    int Mood_Rating1;
-    int Mood_Rating2;
-    int Overall_Rating;
+    private String questionnaire_id;
+    private String sensed_id;
+    private String user_id;
+    private String subject;
+    private String thought;
+    private String physical;
+    private String mood1;
+    private String mood2;
+    private String reaction;
+    private String mood_rating1;
+    private String mood_rating2;
+    private String overall_rating;
 
-
-    public QuestionnaireDao(){
+    public QuestionnaireDao() {
 
     }
 
 
-    public QuestionnaireDao(String Questionnaire_ID, String User_ID, String Subject, String Thought,
-                            String Physical, String Mood1, String Mood2, String Reaction,
-                            int Mood_Rating1, int Mood_Rating2, int Overall_Rating){
+    public QuestionnaireDao( String questionnaire_id, String sensed_id, String user_id, String subject,
+                            String thought, String physical, String mood1, String mood2,
+                            String reaction, String mood_rating1, String mood_rating2, String overall_rating){
 
-        this.Questionnaire_ID = Questionnaire_ID;
-        this.User_ID = User_ID;
-        this.Subject = Subject;
-        this.Thought = Thought;
-        this.Physical = Physical;
-        this.Mood1 = Mood1;
-        this.Mood2 = Mood2;
-        this.Mood_Rating1 = Mood_Rating1;
-        this.Mood_Rating2 = Mood_Rating2;
-        this.Overall_Rating = Overall_Rating;
-        this.Reaction = Reaction;
+        this.questionnaire_id = questionnaire_id;
+        this.sensed_id = sensed_id;
+        this.user_id = user_id;
+        this.subject = subject;
+        this.thought = thought;
+        this.physical = physical;
+        this.mood1 = mood1;
+        this.mood2 = mood2;
+        this.reaction = reaction;
+        this.mood_rating1 = mood_rating1;
+        this.mood_rating2 = mood_rating2;
+        this.overall_rating = overall_rating;
 
     }
 
     public String getQuestionnaire_ID() {
-        return Questionnaire_ID;
+        return questionnaire_id;
     }
 
-    public void setQuestionnaire_ID(String questionnaire_ID) {
-        Questionnaire_ID = questionnaire_ID;
-    }
+    public String getSensed_ID() { return sensed_id; }
 
     public String getUser_ID() {
-        return User_ID;
-    }
-
-    public void setUser_ID(String user_ID) {
-        User_ID = user_ID;
+        return user_id;
     }
 
     public String getSubject() {
-        return Subject;
+        return subject;
     }
-
-    public void setSubject(String Subject) {
-        Subject = Subject;
-    }
-
 
     public String getThought() {
-        return Thought;
-    }
-
-    public void setThought(String thought) {
-        Thought = thought;
+        return thought;
     }
 
     public String getPhysical() {
-        return Physical;
-    }
-
-    public void setPhysical(String physical) {
-        Physical = physical;
+        return physical;
     }
 
     public String getMood1() {
-        return Mood1;
-    }
-
-    public void setMood1(String mood1) {
-        Mood1 = mood1;
+        return mood1;
     }
 
     public String getMood2() {
-        return Mood2;
-    }
-
-    public void setMood2(String mood2) {
-        Mood2 = mood2;
+        return mood2;
     }
 
     public String getReaction() {
-        return Reaction;
+        return reaction;
     }
 
-    public void setReaction(String reaction) {
-        Reaction = reaction;
+    public String getMoodRating1() {
+        return mood_rating1;
     }
 
-    public int getMood_Rating1() {
-        return Mood_Rating1;
+    public String getMoodRating2() {
+        return mood_rating2;
     }
 
-    public void setMood_Rating1(int mood_Rating1) {
-        Mood_Rating1 = mood_Rating1;
-    }
-
-    public int getMood_Rating2() {
-        return Mood_Rating2;
-    }
-
-    public void setMood_Rating2(int mood_Rating2) {
-        Mood_Rating2 = mood_Rating2;
-    }
-
-    public int getOverall_Rating() {
-        return Overall_Rating;
-    }
-
-    public void setOverall_Rating(int overall_Rating) {
-        Overall_Rating = overall_Rating;
+    public String getOverallRating() {
+        return overall_rating;
     }
 }
