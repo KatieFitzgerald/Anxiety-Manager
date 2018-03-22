@@ -33,12 +33,12 @@ import static android.widget.Toast.LENGTH_SHORT;
 public class ThoughtsActivity extends AppCompatActivity {
 
     EditText thoughtName;
-    ImageButton nextQuestion;
     Button addThought;
-    ImageButton previousQuestion;
     ListView thoughtList;
     ThoughtsAdapter cursorAdapter;
-    String thoughtChosen;
+    String thoughtChosen, user;
+
+    String questionnaire[] = new String[11];
 
     DatabaseManager db = new DatabaseManager(this);
 
@@ -48,7 +48,8 @@ public class ThoughtsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thoughts);
 
-        final QuestionnaireDao questionnaireDao = (QuestionnaireDao) getIntent().getSerializableExtra("questionnaireObj");
+        Bundle extras = getIntent().getExtras();
+        questionnaire = extras.getStringArray("questionnaireObj");
 
         //get user input
         thoughtName = findViewById(R.id.thoughtName);
@@ -76,23 +77,14 @@ public class ThoughtsActivity extends AppCompatActivity {
                 Cursor returnedThoughtCursor = (Cursor) listView.getItemAtPosition(itemPosition);
                 thoughtChosen = returnedThoughtCursor.getString(1);
 
+                questionnaire[3] = thoughtChosen;
+
                 Toast.makeText(getApplicationContext(), thoughtChosen + " selected", Toast.LENGTH_LONG).show();
 
                 startNextActivity();
 
             }
         });
-
-
-//        previousQuestion = findViewById(R.id.previous);
-//        previousQuestion.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent WhatsUp = new Intent(getApplicationContext(), WhatsUpActivity.class);
-//                startActivity(WhatsUp);
-//                overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_right);
-//            }
-//        });
 
         addThought = findViewById(R.id.addThought);
         addThought.setOnClickListener(new View.OnClickListener() {
@@ -116,6 +108,8 @@ public class ThoughtsActivity extends AppCompatActivity {
                         thoughtList.setAdapter(cursorAdapter);
 
                         db.close();
+
+                        questionnaire[3] = thoughtNameInput;
 
                         Toast.makeText(getApplicationContext(), thoughtNameInput + " added", Toast.LENGTH_LONG).show();
 
@@ -155,6 +149,7 @@ public class ThoughtsActivity extends AppCompatActivity {
     public void startNextActivity(){
 
         Intent Physical = new Intent(getApplicationContext(), PhysicalActivity.class);
+        Physical.putExtra("questionnaireObj", questionnaire);
         startActivity(Physical);
         overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
 

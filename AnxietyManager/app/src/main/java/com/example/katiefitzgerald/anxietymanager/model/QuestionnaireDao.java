@@ -8,107 +8,86 @@ import java.io.Serializable;
 
 public class QuestionnaireDao implements Serializable {
 
-    String Questionnaire_ID;
-    String User_ID;
-    String Subject_ID;
-    String Thought_ID;
-    String Physical_ID;
-    String Mood_ID1;
-    String Mood_ID2;
-    String Reaction_ID;
-    int Mood_Rating1;
-    int Mood_Rating2;
-    int Overall_Rating;
+    private String questionnaire_id;
+    private String sensed_id;
+    private String user_id;
+    private String subject;
+    private String thought;
+    private String physical;
+    private String mood1;
+    private String mood2;
+    private String reaction;
+    private String mood_rating1;
+    private String mood_rating2;
+    private String overall_rating;
 
-    public QuestionnaireDao(){
+    public QuestionnaireDao() {
+
+    }
+
+
+    public QuestionnaireDao( String questionnaire_id, String sensed_id, String user_id, String subject,
+                            String thought, String physical, String mood1, String mood2,
+                            String reaction, String mood_rating1, String mood_rating2, String overall_rating){
+
+        this.questionnaire_id = questionnaire_id;
+        this.sensed_id = sensed_id;
+        this.user_id = user_id;
+        this.subject = subject;
+        this.thought = thought;
+        this.physical = physical;
+        this.mood1 = mood1;
+        this.mood2 = mood2;
+        this.reaction = reaction;
+        this.mood_rating1 = mood_rating1;
+        this.mood_rating2 = mood_rating2;
+        this.overall_rating = overall_rating;
 
     }
 
     public String getQuestionnaire_ID() {
-        return Questionnaire_ID;
+        return questionnaire_id;
     }
 
-    public void setQuestionnaire_ID(String questionnaire_ID) {
-        Questionnaire_ID = questionnaire_ID;
-    }
+    public String getSensed_ID() { return sensed_id; }
 
     public String getUser_ID() {
-        return User_ID;
+        return user_id;
     }
 
-    public void setUser_ID(String user_ID) {
-        User_ID = user_ID;
+    public String getSubject() {
+        return subject;
     }
 
-    public String getSubject_ID() {
-        return Subject_ID;
+    public String getThought() {
+        return thought;
     }
 
-    public void setSubject_ID(String subject_ID) {
-        Subject_ID = subject_ID;
+    public String getPhysical() {
+        return physical;
     }
 
-    public String getThought_ID() {
-        return Thought_ID;
+    public String getMood1() {
+        return mood1;
     }
 
-    public void setThought_ID(String thought_ID) {
-        Thought_ID = thought_ID;
+    public String getMood2() {
+        return mood2;
     }
 
-    public String getPhysical_ID() {
-        return Physical_ID;
+    public String getReaction() {
+        return reaction;
     }
 
-    public void setPhysical_ID(String physical_ID) {
-        Physical_ID = physical_ID;
+    public String getMoodRating1() {
+        return mood_rating1;
     }
 
-    public String getMood_ID1() {
-        return Mood_ID1;
+    public String getMoodRating2() {
+        return mood_rating2;
     }
 
-    public void setMood_ID1(String mood_ID1) {
-        Mood_ID1 = mood_ID1;
-    }
-
-    public String getMood_ID2() {
-        return Mood_ID2;
-    }
-
-    public void setMood_ID2(String mood_ID2) {
-        Mood_ID2 = mood_ID2;
-    }
-
-    public String getReaction_ID() {
-        return Reaction_ID;
-    }
-
-    public void setReaction_ID(String reaction_ID) {
-        Reaction_ID = reaction_ID;
-    }
-
-    public int getMood_Rating1() {
-        return Mood_Rating1;
-    }
-
-    public void setMood_Rating1(int mood_Rating1) {
-        Mood_Rating1 = mood_Rating1;
-    }
-
-    public int getMood_Rating2() {
-        return Mood_Rating2;
-    }
-
-    public void setMood_Rating2(int mood_Rating2) {
-        Mood_Rating2 = mood_Rating2;
-    }
-
-    public int getOverall_Rating() {
-        return Overall_Rating;
-    }
-
-    public void setOverall_Rating(int overall_Rating) {
-        Overall_Rating = overall_Rating;
+    public String getOverallRating() {
+        return overall_rating;
     }
 }

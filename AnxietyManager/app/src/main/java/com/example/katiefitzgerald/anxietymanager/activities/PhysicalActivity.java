@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -27,8 +28,7 @@ public class PhysicalActivity extends AppCompatActivity {
     ImageView changeAppetite;
     ImageView headache;
 
-    ImageButton nextQuestion;
-    ImageButton previousQuestion;
+    String questionnaire[] = new String[11];
 
     int questionCount = 0;
 
@@ -37,6 +37,9 @@ public class PhysicalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_physical);
 
+        Bundle extras = getIntent().getExtras();
+        questionnaire = extras.getStringArray("questionnaireObj");
+        
         breathing = findViewById(R.id.breathingIcon);
         heartbeat = findViewById(R.id.heartbeatIcon);
         sweating = findViewById(R.id.sweatingIcon);
@@ -52,7 +55,7 @@ public class PhysicalActivity extends AppCompatActivity {
             public void onClick(View view) {
                 breathing.setImageResource(R.drawable.chosen);
                 questionCount += 1;
-                checkQuestions();
+                checkQuestions("Breathing");
             }
         });
 
@@ -61,7 +64,7 @@ public class PhysicalActivity extends AppCompatActivity {
             public void onClick(View view) {
                 heartbeat.setImageResource(R.drawable.chosen);
                 questionCount += 1;
-                checkQuestions();
+                checkQuestions("Heartbeat");
             }
         });
 
@@ -70,7 +73,7 @@ public class PhysicalActivity extends AppCompatActivity {
             public void onClick(View view) {
                 sweating.setImageResource(R.drawable.chosen);
                 questionCount += 1;
-                checkQuestions();
+                checkQuestions("Sweating");
             }
         });
 
@@ -79,7 +82,7 @@ public class PhysicalActivity extends AppCompatActivity {
             public void onClick(View view) {
                 warm.setImageResource(R.drawable.chosen);
                 questionCount += 1;
-                checkQuestions();
+                checkQuestions("Warm");
             }
         });
 
@@ -88,7 +91,7 @@ public class PhysicalActivity extends AppCompatActivity {
             public void onClick(View view) {
                 nervousStomach.setImageResource(R.drawable.chosen);
                 questionCount += 1;
-                checkQuestions();
+                checkQuestions("Nervous stomach");
             }
         });
 
@@ -97,7 +100,7 @@ public class PhysicalActivity extends AppCompatActivity {
             public void onClick(View view) {
                 frequentToilet.setImageResource(R.drawable.chosen);
                 questionCount += 1;
-                checkQuestions();
+                checkQuestions("Frequent toilet trips");
             }
         });
 
@@ -106,7 +109,7 @@ public class PhysicalActivity extends AppCompatActivity {
             public void onClick(View view) {
                 shaking.setImageResource(R.drawable.chosen);
                 questionCount += 1;
-                checkQuestions();
+                checkQuestions("Shaking");
             }
         });
 
@@ -115,7 +118,7 @@ public class PhysicalActivity extends AppCompatActivity {
             public void onClick(View view) {
                 changeAppetite.setImageResource(R.drawable.chosen);
                 questionCount += 1;
-                checkQuestions();
+                checkQuestions("Change in appetite");
             }
         });
 
@@ -124,22 +127,16 @@ public class PhysicalActivity extends AppCompatActivity {
             public void onClick(View view) {
                 headache.setImageResource(R.drawable.chosen);
                 questionCount += 1;
-                checkQuestions();
+                checkQuestions("Headache");
             }
         });
 
-       /* previousQuestion = findViewById(R.id.previous);
-        previousQuestion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent Thoughts = new Intent(getApplicationContext(), ThoughtsActivity.class);
-                startActivity(Thoughts);
-                overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_right);
-            }
-        });*/
     }
 
-    void checkQuestions() {
+    void checkQuestions(String symptom) {
+
+        questionnaire[4] = symptom;
+
         if (questionCount < 1) {
             //do nothing
         }
@@ -157,19 +154,10 @@ public class PhysicalActivity extends AppCompatActivity {
 
 
             Intent Emotion = new Intent(getApplicationContext(), MoodActivity.class);
+            Emotion.putExtra("questionnaireObj", questionnaire);
             startActivity(Emotion);
             overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
 
-//            /*nextQuestion = findViewById(R.id.next);
-//            nextQuestion.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    Intent Emotion = new Intent(getApplicationContext(), MoodActivity.class);
-//                    startActivity(Emotion);
-//                    overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
-//
-//                }
-//            });*/
 
         }
     }

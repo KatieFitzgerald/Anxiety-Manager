@@ -130,6 +130,7 @@ public class HomeActivity extends AppCompatActivity {
                         calendarButton.setBackgroundResource(R.drawable.pressed);
                         calendarButton.setTextColor(Color.GRAY);
                         Intent calendar = new Intent(getApplicationContext(), CalendarActivity.class);
+                        calendar.putExtra("user_id", user);
                         startActivity(calendar);
 
                     case MotionEvent.ACTION_UP:
