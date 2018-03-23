@@ -46,7 +46,7 @@ public class MoodActivity extends AppCompatActivity {
     DatabaseManager db = new DatabaseManager(this);
 
     String[] chosenMood = new String[2];
-    String[] questionnaire = new String[11];
+    String questionnaire[] = new String[12];
 
     TextView warning;
 

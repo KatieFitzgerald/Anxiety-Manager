@@ -20,9 +20,11 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.katiefitzgerald.anxietymanager.model.SensedAnxietyDao;
 import com.example.katiefitzgerald.anxietymanager.R;
+import com.example.katiefitzgerald.anxietymanager.model.UserDao;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,17 +42,17 @@ import java.util.Map;
 
 public class SensedActivity extends AppCompatActivity {
 
-    String user_id;
+    String user_id, sensedID;
     String address;
     double longitude, latitude;
     LocationManager mLocationManager;
     ListView episodeList;
-    Button questionnareStart;
+    Button questionnaireStart;
+    View questionnaireDetails;
 
     DatabaseReference SensedAnxietyDB = FirebaseDatabase.getInstance().getReference("sensed_anxiety");
 
     final ArrayList<String> arrayList = new ArrayList<>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,10 +65,10 @@ public class SensedActivity extends AppCompatActivity {
 
         episodeList = findViewById(R.id.episodeListView);
 
-        questionnareStart = findViewById(R.id.fillOutQuestionnaire);
-        questionnareStart.setVisibility(View.INVISIBLE);
+        questionnaireStart = findViewById(R.id.fillOutQuestionnaire);
+        questionnaireStart.setVisibility(View.INVISIBLE);
 
-        View questionnaireDetails = findViewById(R.id.questionnaireDetails);
+        questionnaireDetails = findViewById(R.id.questionnaireDetails);
         questionnaireDetails.setVisibility(View.INVISIBLE);
 
 //
@@ -98,7 +100,7 @@ public class SensedActivity extends AppCompatActivity {
                          String location = (String) map.get("location");
 
                          //get current time
-                         SimpleDateFormat dateFormatDay = new SimpleDateFormat("E, d MMM yyyy", Locale.getDefault());
+                         SimpleDateFormat dateFormatDay = new SimpleDateFormat("d MMM yyyy, H:m", Locale.getDefault());
                          String currentTime = dateFormatDay.format(Long.valueOf(timestampLong));
 
                          if(location.equals("none")){
@@ -107,7 +109,6 @@ public class SensedActivity extends AppCompatActivity {
                          else {
                              arrayList.add(currentTime + " at " + location);
                          }
-
 
                          ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, arrayList);
                          episodeList.setAdapter(arrayAdapter);
@@ -123,7 +124,6 @@ public class SensedActivity extends AppCompatActivity {
 
         });
     }
-
 
     //use to put fake data into db
     public void inputSensorData() {
@@ -166,7 +166,6 @@ public class SensedActivity extends AppCompatActivity {
 
     }
 
-
     // https://stackoverflow.com/questions/20438627/getlastknownlocation-returns-null
     private Location getLastKnownLocation() {
 
@@ -206,23 +205,127 @@ public class SensedActivity extends AppCompatActivity {
                 String[] split = episode.split("\\s+");
 
                 String timestamp = split[0] + " "  + split[1] + " "  + split[2] + " "  + split[3];
-                String location = split[5] + " "  + split[6];
+                String location = new String();
 
-                Log.v("TIME", "this " + timestamp);
-                Log.v("LOC", "this " + location);
+                for(int i = 5; i < split.length; i++){
+                    location += split[i] + " ";
+                }
 
-                questionnareStart.setVisibility(View.VISIBLE);
+                if (location.equals("questionnaire")){
+                    questionnaireDetails.setVisibility(View.VISIBLE);
+                    questionnaireStart.setVisibility(View.INVISIBLE);
+                }
+                else {
+                    questionnaireAssoc(location.trim(), timestamp);
+                }
+
+
+
             }
 
         });
 
     }
 
+    private void questionnaireAssoc(String location, final String timestamp) {
+
+        final DatabaseReference sensedDB = FirebaseDatabase.getInstance().getReference();
+        Query userRef = sensedDB.child("sensed_anxiety").orderByChild("user_ID").equalTo(user_id);
+        final Query locationRef = sensedDB.child("sensed_anxiety").orderByChild("location").equalTo(location);
+
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                if(dataSnapshot.getValue() != null){
+
+                    locationRef.addListenerForSingleValueEvent(new ValueEventListener() {
+
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            if (dataSnapshot.getValue() != null) {
+
+                                Log.v("DS", "DS " + dataSnapshot.getValue());
+
+                                for (DataSnapshot episodeData : dataSnapshot.getChildren()) {
+
+                                    SensedAnxietyDao episode = episodeData.getValue(SensedAnxietyDao.class);
+                                    sensedID = episode.getSensedID();
+
+                                    final Query questionnaireSensedRef = sensedDB.child("questionnaire").orderByChild("sensed_ID").equalTo(sensedID);
+                                    final Query questionnaireTimestampRef = sensedDB.child("questionnaire").orderByChild("timestamp").equalTo(timestamp);
+
+                                    questionnaireSensedRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                            if (dataSnapshot.getValue() != null) {
+
+                                                questionnaireTimestampRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                                        if (dataSnapshot.getValue() != null) {
+
+                                                            questionnaireStart.setVisibility(View.INVISIBLE);
+                                                            questionnaireDetails.setVisibility(View.VISIBLE);
+
+                                                            Log.v("sensed", "ID " + sensedID);
+
+                                                        }
+                                                        else {
+                                                            questionnaireDetails.setVisibility(View.INVISIBLE);
+                                                            questionnaireStart.setVisibility(View.VISIBLE);
+
+                                                            Log.v("sensed", "ID " + sensedID);
+
+//                                                            questionnaireStart.setOnClickListener(new View.OnClickListener() {
+//                                                                @Override
+//                                                                public void onClick(View view) {
+//                                                                Intent Questionnaire = new Intent(getApplicationContext(), WhatsUpActivity.class);
+//                                                                Questionnaire.putExtra("user_id", user_id);
+//                                                                Questionnaire.putExtra("sensed_id", sensedID);
+//                                                                startActivity(Questionnaire);
+//                                                                }
+//                                                            });
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(DatabaseError databaseError) {
+
+                                                    }
+                                                });
+
+                                            }
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
+
+                                }
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 }
-
-
-
-
-
-
-

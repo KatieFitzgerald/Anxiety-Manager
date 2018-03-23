@@ -20,7 +20,7 @@ public class RateTwoMoodActivity extends AppCompatActivity {
 
     ImageView nextQuestion;
 
-    String questionnaire[] = new String[11];
+    String questionnaire[] = new String[12];
     String[] chosenMoods = new String[2];
 
     SeekBar seekBarMoodOne;
