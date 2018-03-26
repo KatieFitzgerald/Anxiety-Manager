@@ -46,7 +46,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="23dp"
+        android:layout_marginTop="40dp"
+        android:textStyle="bold"
         android:text="What was your reaction to the situation?"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         android:textColor="#FFFFFF" />
@@ -56,44 +57,39 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_alignStart="@+id/textView31"
-        android:layout_below="@+id/textView31"
-        android:layout_marginStart="27dp"
-        android:layout_marginTop="62dp"
-        android:layout_marginBottom="60dp"
+        android:layout_centerVertical="true"
+        android:layout_margin="20dp"
         app:srcCompat="@drawable/stay" />
 
     <ImageView
         android:id="@+id/left"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_alignStart="@+id/stay"
-        android:layout_below="@+id/stay"
-        android:layout_marginTop="25dp"
+        android:layout_alignEnd="@+id/textView31"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="22dp"
         app:srcCompat="@drawable/leave" />
 
     <TextView
-        android:id="@+id/stayed"
-        android:layout_width="80dp"
+        android:id="@+id/textView22"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/stay"
-        android:layout_alignEnd="@+id/textView31"
-        android:layout_marginBottom="34dp"
-        android:layout_marginEnd="50dp"
-        android:gravity="center"
-        android:text="I stayed"
-        android:textAppearance="@android:style/TextAppearance.Holo.Large"
-        android:textColor="#FFFFFF" />
+        android:layout_alignStart="@+id/stay"
+        android:layout_below="@+id/left"
+        android:layout_marginTop="31dp"
+        android:gravity="center_horizontal"
+        android:text="I stook around"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse" />
 
     <TextView
-        android:id="@+id/textView22"
-        android:layout_width="80dp"
+        android:id="@+id/textView27"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/left"
-        android:layout_alignStart="@+id/stayed"
-        android:layout_marginBottom="38dp"
-        android:gravity="center"
-        android:text="I left"
-        android:textAppearance="@android:style/TextAppearance.Holo.Large"
-        android:textColor="#FFFFFF"/>
+        android:layout_alignBaseline="@+id/textView22"
+        android:layout_alignBottom="@+id/textView22"
+        android:layout_alignStart="@+id/left"
+        android:gravity="center_horizontal"
+        android:text="I had to leave"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse" />
 
 </RelativeLayout>

@@ -22,6 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.katiefitzgerald.anxietymanager.model.QuestionnaireDao;
 import com.example.katiefitzgerald.anxietymanager.model.SensedAnxietyDao;
 import com.example.katiefitzgerald.anxietymanager.R;
 import com.example.katiefitzgerald.anxietymanager.model.UserDao;
@@ -31,6 +32,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -252,6 +255,7 @@ public class SensedActivity extends AppCompatActivity {
 
                                     SensedAnxietyDao episode = episodeData.getValue(SensedAnxietyDao.class);
                                     sensedID = episode.getSensedID();
+                                    final String loc = episode.getLocation();
 
                                     final Query questionnaireSensedRef = sensedDB.child("questionnaire").orderByChild("sensed_ID").equalTo(sensedID);
                                     final Query questionnaireTimestampRef = sensedDB.child("questionnaire").orderByChild("timestamp").equalTo(timestamp);
@@ -266,20 +270,34 @@ public class SensedActivity extends AppCompatActivity {
                                                     @Override
                                                     public void onDataChange(DataSnapshot dataSnapshot) {
 
+                                                        //if there is a questionnaire to display
                                                         if (dataSnapshot.getValue() != null) {
 
-                                                            questionnaireStart.setVisibility(View.INVISIBLE);
-                                                            questionnaireDetails.setVisibility(View.VISIBLE);
+                                                            for (DataSnapshot questionnaireData : dataSnapshot.getChildren()) {
 
-                                                            Log.v("sensed", "ID " + sensedID);
+                                                                QuestionnaireDao questionnaire = questionnaireData.getValue(QuestionnaireDao.class);
+                                                                String subject = questionnaire.getSubject();
+                                                                String physical = questionnaire.getPhysical();
+                                                                String thought = questionnaire.getThought();
+
+                                                                questionnaireStart.setVisibility(View.INVISIBLE);
+                                                                questionnaireDetails.setVisibility(View.VISIBLE);
+
+                                                                TextView location = questionnaireDetails.findViewById(R.id.location);
+                                                                location.setText(loc);
+                                                                TextView subjectTV = questionnaireDetails.findViewById(R.id.subject);
+                                                                subjectTV.setText(subject);
+                                                                TextView physicalTV = questionnaireDetails.findViewById(R.id.physical);
+                                                                physicalTV.setText(physical);
+                                                                TextView thoughtTV = questionnaireDetails.findViewById(R.id.thought);
+                                                                thoughtTV.setText(thought);
+                                                            }
 
                                                         }
                                                         else {
-                                                            questionnaireDetails.setVisibility(View.INVISIBLE);
-                                                            questionnaireStart.setVisibility(View.VISIBLE);
-
-                                                            Log.v("sensed", "ID " + sensedID);
-
+//                                                            questionnaireDetails.setVisibility(View.INVISIBLE);
+//                                                            questionnaireStart.setVisibility(View.VISIBLE);
+//
 //                                                            questionnaireStart.setOnClickListener(new View.OnClickListener() {
 //                                                                @Override
 //                                                                public void onClick(View view) {

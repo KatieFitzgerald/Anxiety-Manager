@@ -34,24 +34,26 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView5"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="33dp"
         android:backgroundTint="#FFFFFF"
         android:ems="10"
         android:hint="Enter your thoughts"
-        android:inputType="text"
+        android:inputType="text|textCapSentences"
         android:selectAllOnFocus="false"
         android:textAppearance="@android:style/TextAppearance.Holo.SearchResult.Subtitle"
         android:textColor="#FFFFFF"
-        android:textColorHint="#FFFFFF" />
+        android:textColorHint="#FFFFFF"
+        android:textSize="16sp"/>
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/textView5"
         android:layout_below="@+id/toolbar"
-        android:layout_marginTop="26dp"
-        android:text="What are you thinking about?"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:layout_marginTop="21dp"
+        android:text="What going through your mind?"
         android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
         android:textColor="#FFFFFF" />
 
@@ -71,7 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView4"
         android:layout_centerHorizontal="true"
-        android:text="Add a new thought, or choose a previous one"
+        android:text="Enter a new thought or choose one below"
         android:textColor="#FFFFFF"
         android:textStyle="italic" />
 
@@ -81,7 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/thoughtList"
         android:layout_below="@+id/addThought"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="12dp"
         android:text="Previously added thoughts:"
         android:textColor="#FFFFFF" />
 

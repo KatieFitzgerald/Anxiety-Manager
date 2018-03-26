@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient"
-    tools:context="com.example.katiefitzgerald.anxietymanager.HomeActivity">
+    tools:context="com.example.katiefitzgerald.anxietymanager.activities.HomeActivity">
 
     <Button
         android:id="@+id/sensedAnxiety"
@@ -59,10 +59,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/worriesChart"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/shape"
         android:elevation="0dp"
-        android:text="Log Today's Anxiety Episode"
+        android:text="Add a new questionnaire"
         android:textColor="#FFFFFF"
         tools:targetApi="m" />
 
@@ -81,9 +81,11 @@
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/worriesChart"
         android:layout_width="340dp"
-        android:layout_height="350dp"
+        android:layout_height="320dp"
         android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:gravity="center" />
 
     <TextView
         android:id="@+id/welcomeText"
