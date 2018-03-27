@@ -99,9 +99,9 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/textView13"
         android:layout_alignEnd="@+id/afraid"
-        android:textColor="#FFFFFF"
         android:gravity="center"
-        android:text="Afraid" />
+        android:text="Fear"
+        android:textColor="#FFFFFF" />
 
     <ImageView
         android:id="@+id/lonely"
