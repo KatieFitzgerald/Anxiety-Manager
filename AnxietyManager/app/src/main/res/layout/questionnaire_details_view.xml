@@ -20,14 +20,13 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
-
         <TextView
             android:id="@+id/location"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
+            android:layout_alignStart="@+id/subject"
             android:layout_below="@+id/textView26"
-            android:layout_toEndOf="@+id/textView28"
-            android:text="Kevin Street at 12pm"
+            android:text="x"
             android:textColor="#FFFFFF"
             android:textSize="15sp" />
 
@@ -48,28 +47,30 @@
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_below="@+id/textView28"
+            android:layout_marginStart="18dp"
             android:layout_toEndOf="@+id/textView28"
             android:text="Subject"
             android:textColor="#FFFFFF"
-            android:textSize="15sp"/>
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/physical"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:layout_alignStart="@+id/subject"
-            android:layout_below="@+id/subject"
+            android:layout_alignStart="@+id/thought"
+            android:layout_below="@+id/thought"
             android:text="Physical"
             android:textColor="#FFFFFF"
-            android:textSize="15sp"/>
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/thought"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/physical"
-            android:layout_below="@+id/physical"
+            android:layout_alignStart="@+id/subject"
+            android:layout_below="@+id/subject"
             android:text="Thought"
+            android:layout_marginBottom="5dp"
             android:textColor="#FFFFFF"
             android:textSize="15sp" />
 

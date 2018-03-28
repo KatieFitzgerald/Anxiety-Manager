@@ -214,9 +214,12 @@ public class SensedActivity extends AppCompatActivity {
                     location += split[i] + " ";
                 }
 
-                if (location.equals("questionnaire")){
-                    questionnaireDetails.setVisibility(View.VISIBLE);
-                    questionnaireStart.setVisibility(View.INVISIBLE);
+                Log.v("Location", "LOC 1" + location + "2");
+
+                if (location.equals("questionnaire ")){
+
+                    questionnaireAssoc("none", timestamp);
+
                 }
                 else {
                     questionnaireAssoc(location.trim(), timestamp);
@@ -248,8 +251,6 @@ public class SensedActivity extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
 
                             if (dataSnapshot.getValue() != null) {
-
-                                Log.v("DS", "DS " + dataSnapshot.getValue());
 
                                 for (DataSnapshot episodeData : dataSnapshot.getChildren()) {
 
@@ -284,19 +285,25 @@ public class SensedActivity extends AppCompatActivity {
                                                                 questionnaireDetails.setVisibility(View.VISIBLE);
 
                                                                 TextView location = questionnaireDetails.findViewById(R.id.location);
-                                                                location.setText(loc);
+                                                                if(loc == "none") {
+                                                                    location.setText("- Unknown");
+
+                                                                }
+                                                                else {
+                                                                    location.setText("- " + loc);
+                                                                }
                                                                 TextView subjectTV = questionnaireDetails.findViewById(R.id.subject);
-                                                                subjectTV.setText(subject);
+                                                                subjectTV.setText("- " + subject);
                                                                 TextView physicalTV = questionnaireDetails.findViewById(R.id.physical);
-                                                                physicalTV.setText(physical);
+                                                                physicalTV.setText("- " + physical);
                                                                 TextView thoughtTV = questionnaireDetails.findViewById(R.id.thought);
-                                                                thoughtTV.setText(thought);
+                                                                thoughtTV.setText("- " + thought);
                                                             }
 
                                                         }
                                                         else {
-//                                                            questionnaireDetails.setVisibility(View.INVISIBLE);
-//                                                            questionnaireStart.setVisibility(View.VISIBLE);
+                                                            questionnaireDetails.setVisibility(View.INVISIBLE);
+                                                            questionnaireStart.setVisibility(View.VISIBLE);
 //
 //                                                            questionnaireStart.setOnClickListener(new View.OnClickListener() {
 //                                                                @Override

@@ -30,22 +30,9 @@
     <ListView
         android:id="@+id/episodeListView"
         android:layout_width="wrap_content"
-        android:layout_height="240dp"
-        android:layout_below="@+id/textView24"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="11dp" />
-
-    <TextView
-        android:id="@+id/textView24"
-        android:layout_width="320dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="18dp"
-        android:gravity="center"
-        android:text="Click on an episode below to view it's details"
-        android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
-        android:textColor="#FFFFFF" />
+        android:layout_height="260dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView29" />
 
     <Button
         android:id="@+id/fillOutQuestionnaire"
@@ -65,6 +52,17 @@
         android:layout_height="200dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="28dp" />
+        android:layout_marginBottom="20dp" />
+
+    <TextView
+        android:id="@+id/textView29"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/toolbar"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:text="Previously added episode:" />
 
 </RelativeLayout>
