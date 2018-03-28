@@ -151,6 +151,8 @@ public class HomeActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_DOWN:
                         cycleButton.setBackgroundResource(R.drawable.pressed);
                         cycleButton.setTextColor(Color.GRAY);
+                        Intent cycle = new Intent(getApplicationContext(), InsightActivity.class);
+                        startActivity(cycle);
 
                     case MotionEvent.ACTION_UP:
                         cycleButton.setBackgroundResource(R.drawable.shape);

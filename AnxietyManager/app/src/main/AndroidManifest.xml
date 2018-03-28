@@ -37,8 +37,10 @@
         <activity android:name=".activities.RateOneMoodActivity"></activity>
         <activity android:name=".activities.ReactActivity"></activity>
         <activity android:name=".activities.CalendarActivity"></activity>
+        <activity android:name=".activities.InsightActivity"></activity>
 
 
-    </application>
+
+  </application>
 
 </manifest>
