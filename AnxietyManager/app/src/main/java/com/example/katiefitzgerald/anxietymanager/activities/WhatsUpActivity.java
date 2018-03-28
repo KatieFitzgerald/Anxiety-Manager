@@ -10,6 +10,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -24,12 +25,17 @@ import com.example.katiefitzgerald.anxietymanager.sql.DatabaseManager;
 import com.example.katiefitzgerald.anxietymanager.model.QuestionnaireDao;
 import com.example.katiefitzgerald.anxietymanager.R;
 import com.example.katiefitzgerald.anxietymanager.adapters.WhatsUpAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+import java.util.Map;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
@@ -45,13 +51,13 @@ public class WhatsUpActivity extends AppCompatActivity {
     String user;
     WhatsUpAdapter cursorAdapter;
     String sensed_id = null;
-    String subjectChosen;
+    String subjectChosen, currentTime;
 
     DatabaseManager db = new DatabaseManager(this);
 
     DatabaseReference SensedAnxietyDB = FirebaseDatabase.getInstance().getReference("sensed_anxiety");
 
-    String questionnaire[] = new String[11];
+    String questionnaire[] = new String[12];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,14 +77,52 @@ public class WhatsUpActivity extends AppCompatActivity {
             sensed_id = SensedAnxietyDB.push().getKey();
 
             //Create a sensed_anxiety instances
-            SimpleDateFormat dateFormatDay = new SimpleDateFormat("E, d MMM yyyy", Locale.getDefault());
-            String currentTime = dateFormatDay.format(System.currentTimeMillis());
+            String currentTime = String.valueOf(System.currentTimeMillis());
 
             SensedAnxietyDao sensedEpisode = new SensedAnxietyDao(sensed_id, currentTime, "none", user);
 
             SensedAnxietyDB.child(sensed_id).setValue(sensedEpisode);
-        }
 
+            SimpleDateFormat dateFormatDay = new SimpleDateFormat("d MMM yyyy, H:m", Locale.getDefault());
+            String cTime = dateFormatDay.format(System.currentTimeMillis());
+
+            questionnaire[11] = cTime;
+        }
+        else {
+
+            DatabaseReference sensedDB = FirebaseDatabase.getInstance().getReference();
+            Query sensedAnxiety = sensedDB.child("sensed_anxiety").orderByChild("sensedID").equalTo(sensed_id);
+
+            sensedAnxiety.addListenerForSingleValueEvent(new ValueEventListener() {
+
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    if (dataSnapshot.getValue() != null) {
+
+                        for (DataSnapshot dsp : dataSnapshot.getChildren()) {
+
+                            SensedAnxietyDao episode = dsp.getValue(SensedAnxietyDao.class);
+                            currentTime = episode.getTimestamp();
+
+                            SimpleDateFormat dateFormatDay = new SimpleDateFormat("d MMM yyyy, H:m", Locale.getDefault());
+                            String cTime = dateFormatDay.format(Long.valueOf(currentTime));
+
+                            questionnaire[11] = cTime;
+
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+
+            });
+
+        }
 
         questionnaire[0] = sensed_id;
         questionnaire[1] = user;

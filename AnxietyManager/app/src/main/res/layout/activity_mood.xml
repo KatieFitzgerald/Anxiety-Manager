@@ -39,6 +39,7 @@
         android:layout_marginTop="22dp"
         android:text="What emotions are you feeling?"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:textStyle="bold"
         android:textColor="#FFFFFF" />
 
     <ImageView
@@ -67,9 +68,8 @@
         android:layout_height="80dp"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textView4"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="30dp"
         app:srcCompat="@drawable/sad" />
 
     <TextView
@@ -99,9 +99,9 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/textView13"
         android:layout_alignEnd="@+id/afraid"
-        android:textColor="#FFFFFF"
         android:gravity="center"
-        android:text="Afraid" />
+        android:text="Fear"
+        android:textColor="#FFFFFF" />
 
     <ImageView
         android:id="@+id/lonely"
@@ -160,7 +160,6 @@
         android:text="Embarrassed"
         android:textColor="#FFFFFF" />
 
-
     <ImageView
         android:id="@+id/distracted"
         android:layout_width="80dp"
@@ -182,17 +181,18 @@
         android:id="@+id/textView23"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/otherText"
+        android:layout_alignBottom="@+id/otherText"
         android:layout_alignStart="@+id/nervous"
-        android:layout_below="@+id/nervous"
-        android:textColor="#FFFFFF"
         android:gravity="center"
-        android:layout_marginTop="17dp"
-        android:text="Nervous" />
+        android:text="Nervous"
+        android:textColor="#FFFFFF" />
 
     <TextView
         android:id="@+id/textView25"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/otherText"
         android:layout_alignBottom="@+id/otherText"
         android:layout_alignStart="@+id/distracted"
         android:gravity="center"
@@ -205,16 +205,17 @@
         android:layout_height="80dp"
         android:layout_alignStart="@+id/textView21"
         android:layout_alignTop="@+id/nervous"
+        android:layout_marginBottom="10dp"
         app:srcCompat="@drawable/other" />
 
     <TextView
         android:id="@+id/otherText"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView23"
         android:layout_alignStart="@+id/other"
+        android:layout_below="@+id/other"
         android:gravity="center"
-        android:text="Add your own"
+        android:text="Custom mood"
         android:textColor="#ffffff" />
 
 </RelativeLayout>

@@ -38,7 +38,7 @@ public class ThoughtsActivity extends AppCompatActivity {
     ThoughtsAdapter cursorAdapter;
     String thoughtChosen, user;
 
-    String questionnaire[] = new String[11];
+    String questionnaire[] = new String[12];
 
     DatabaseManager db = new DatabaseManager(this);
 

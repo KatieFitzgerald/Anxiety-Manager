@@ -3,6 +3,7 @@ package com.example.katiefitzgerald.anxietymanager.activities;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -12,18 +13,27 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.katiefitzgerald.anxietymanager.model.QuestionnaireDao;
 import com.example.katiefitzgerald.anxietymanager.model.SensedAnxietyDao;
 import com.example.katiefitzgerald.anxietymanager.R;
+import com.example.katiefitzgerald.anxietymanager.model.UserDao;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -35,15 +45,17 @@ import java.util.Map;
 
 public class SensedActivity extends AppCompatActivity {
 
-    String user_id;
+    String user_id, sensedID;
     String address;
     double longitude, latitude;
     LocationManager mLocationManager;
+    ListView episodeList;
+    Button questionnaireStart;
+    View questionnaireDetails;
 
     DatabaseReference SensedAnxietyDB = FirebaseDatabase.getInstance().getReference("sensed_anxiety");
 
     final ArrayList<String> arrayList = new ArrayList<>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +66,21 @@ public class SensedActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         user_id = extras.getString("user_id");
 
+        episodeList = findViewById(R.id.episodeListView);
+
+        questionnaireStart = findViewById(R.id.fillOutQuestionnaire);
+        questionnaireStart.setVisibility(View.INVISIBLE);
+
+        questionnaireDetails = findViewById(R.id.questionnaireDetails);
+        questionnaireDetails.setVisibility(View.INVISIBLE);
+
 //
 //        Location location = getLastKnownLocation();
 //        longitude = location.getLongitude();
 //        latitude = location.getLatitude();
 
         populateEpisodeList();
+        listCheck();
 
     }
 
@@ -67,8 +88,6 @@ public class SensedActivity extends AppCompatActivity {
 
         DatabaseReference sensedDB = FirebaseDatabase.getInstance().getReference();
         Query sensedAnxiety = sensedDB.child("sensed_anxiety").orderByChild("user_ID").equalTo(user_id);
-
-        final ListView episodeList = findViewById(R.id.episodeListView);
 
         sensedAnxiety.addListenerForSingleValueEvent(new ValueEventListener() {
 
@@ -80,18 +99,19 @@ public class SensedActivity extends AppCompatActivity {
                      for (DataSnapshot dsp : dataSnapshot.getChildren()) {
 
                          Map<String, Object> map = (Map<String, Object>) dsp.getValue();
-                         String timestamp = (String) map.get("timestamp");
+                         String timestampLong = (String) map.get("timestamp");
                          String location = (String) map.get("location");
 
-                         Log.v("Loc", "Location is " + location);
+                         //get current time
+                         SimpleDateFormat dateFormatDay = new SimpleDateFormat("d MMM yyyy, H:m", Locale.getDefault());
+                         String currentTime = dateFormatDay.format(Long.valueOf(timestampLong));
 
                          if(location.equals("none")){
-                             arrayList.add(timestamp + " from a questionnaire");
+                             arrayList.add(currentTime + " from questionnaire");
                          }
                          else {
-                             arrayList.add(timestamp + " at " + location);
+                             arrayList.add(currentTime + " at " + location);
                          }
-
 
                          ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, arrayList);
                          episodeList.setAdapter(arrayAdapter);
@@ -108,7 +128,6 @@ public class SensedActivity extends AppCompatActivity {
         });
     }
 
-
     //use to put fake data into db
     public void inputSensorData() {
 
@@ -122,9 +141,6 @@ public class SensedActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        TextView value = findViewById(R.id.value);
-        value.setText(address);
 
         String sensed_id = SensedAnxietyDB.push().getKey();
 
@@ -152,7 +168,6 @@ public class SensedActivity extends AppCompatActivity {
         return streetName;
 
     }
-
 
     // https://stackoverflow.com/questions/20438627/getlastknownlocation-returns-null
     private Location getLastKnownLocation() {
@@ -182,11 +197,160 @@ public class SensedActivity extends AppCompatActivity {
         return bestLocation;
     }
 
+    private void listCheck() {
+
+        episodeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> listView, View itemView, int itemPosition, long itemId) {
+
+                // Get the data associated with selected item
+                String episode = (String) listView.getItemAtPosition(itemPosition);
+
+                String[] split = episode.split("\\s+");
+
+                String timestamp = split[0] + " "  + split[1] + " "  + split[2] + " "  + split[3];
+                String location = new String();
+
+                for(int i = 5; i < split.length; i++){
+                    location += split[i] + " ";
+                }
+
+                Log.v("Location", "LOC 1" + location + "2");
+
+                if (location.equals("questionnaire ")){
+
+                    questionnaireAssoc("none", timestamp);
+
+                }
+                else {
+                    questionnaireAssoc(location.trim(), timestamp);
+                }
+
+
+
+            }
+
+        });
+
+    }
+
+    private void questionnaireAssoc(String location, final String timestamp) {
+
+        final DatabaseReference sensedDB = FirebaseDatabase.getInstance().getReference();
+        Query userRef = sensedDB.child("sensed_anxiety").orderByChild("user_ID").equalTo(user_id);
+        final Query locationRef = sensedDB.child("sensed_anxiety").orderByChild("location").equalTo(location);
+
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                if(dataSnapshot.getValue() != null){
+
+                    locationRef.addListenerForSingleValueEvent(new ValueEventListener() {
+
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            if (dataSnapshot.getValue() != null) {
+
+                                for (DataSnapshot episodeData : dataSnapshot.getChildren()) {
+
+                                    SensedAnxietyDao episode = episodeData.getValue(SensedAnxietyDao.class);
+                                    sensedID = episode.getSensedID();
+                                    final String loc = episode.getLocation();
+
+                                    final Query questionnaireSensedRef = sensedDB.child("questionnaire").orderByChild("sensed_ID").equalTo(sensedID);
+                                    final Query questionnaireTimestampRef = sensedDB.child("questionnaire").orderByChild("timestamp").equalTo(timestamp);
+
+                                    questionnaireSensedRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                            if (dataSnapshot.getValue() != null) {
+
+                                                questionnaireTimestampRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                                        //if there is a questionnaire to display
+                                                        if (dataSnapshot.getValue() != null) {
+
+                                                            for (DataSnapshot questionnaireData : dataSnapshot.getChildren()) {
+
+                                                                QuestionnaireDao questionnaire = questionnaireData.getValue(QuestionnaireDao.class);
+                                                                String subject = questionnaire.getSubject();
+                                                                String physical = questionnaire.getPhysical();
+                                                                String thought = questionnaire.getThought();
+
+                                                                questionnaireStart.setVisibility(View.INVISIBLE);
+                                                                questionnaireDetails.setVisibility(View.VISIBLE);
+
+                                                                TextView location = questionnaireDetails.findViewById(R.id.location);
+                                                                if(loc == "none") {
+                                                                    location.setText("- Unknown");
+
+                                                                }
+                                                                else {
+                                                                    location.setText("- " + loc);
+                                                                }
+                                                                TextView subjectTV = questionnaireDetails.findViewById(R.id.subject);
+                                                                subjectTV.setText("- " + subject);
+                                                                TextView physicalTV = questionnaireDetails.findViewById(R.id.physical);
+                                                                physicalTV.setText("- " + physical);
+                                                                TextView thoughtTV = questionnaireDetails.findViewById(R.id.thought);
+                                                                thoughtTV.setText("- " + thought);
+                                                            }
+
+                                                        }
+                                                        else {
+                                                            questionnaireDetails.setVisibility(View.INVISIBLE);
+                                                            questionnaireStart.setVisibility(View.VISIBLE);
+//
+//                                                            questionnaireStart.setOnClickListener(new View.OnClickListener() {
+//                                                                @Override
+//                                                                public void onClick(View view) {
+//                                                                Intent Questionnaire = new Intent(getApplicationContext(), WhatsUpActivity.class);
+//                                                                Questionnaire.putExtra("user_id", user_id);
+//                                                                Questionnaire.putExtra("sensed_id", sensedID);
+//                                                                startActivity(Questionnaire);
+//                                                                }
+//                                                            });
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(DatabaseError databaseError) {
+
+                                                    }
+                                                });
+
+                                            }
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
+
+                                }
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 }
-
-
-
-
-
-
-

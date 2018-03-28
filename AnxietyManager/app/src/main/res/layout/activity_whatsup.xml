@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@drawable/gradient"
     android:orientation="vertical">
 
@@ -53,18 +53,19 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
         android:text="Give this situation a name"
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
         android:textColor="#FFFFFF"
-        android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"/>
+        android:textStyle="bold" />
 
     <ListView
         android:id="@+id/worryList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/addSituation"
-        android:textColor="#FFFFFF"
-        android:layout_marginTop="43dp"
+        android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:layout_marginLeft="30dp"/>
+        android:layout_marginTop="43dp"
+        android:textColor="#FFFFFF" />
 
     <TextView
         android:id="@+id/textView5"
@@ -72,7 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView4"
         android:layout_centerHorizontal="true"
-        android:text="Add a new situation below, or choose a previous one"
+        android:text="Enter a new situation or choose one below"
         android:textColor="#FFFFFF"
         android:textStyle="italic" />
 
@@ -91,9 +92,9 @@
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/worryName"
         android:layout_below="@+id/worryName"
-        android:textColor="#FFFFFF"
         android:background="@drawable/shape"
-        android:text="Add" />
+        android:text="Add"
+        android:textColor="#FFFFFF" />
 
     <TextView
         android:id="@+id/warning"
@@ -101,6 +102,7 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/worryName"
         android:layout_alignTop="@+id/addSituation" />
+
 
 
 </RelativeLayout>

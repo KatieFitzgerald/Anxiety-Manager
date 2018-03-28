@@ -24,7 +24,7 @@
             android:layout_marginTop="13dp"
             android:layout_gravity="center"
             android:textColor="#FFFFFF"
-            android:text="Physical Feelings?"
+            android:text="Physical Feelings"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
     </android.support.v7.widget.Toolbar>
@@ -36,6 +36,7 @@
         android:layout_below="@+id/toolbar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
+        android:textStyle="bold"
         android:text="What physical symptoms are you feeling?"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         android:textColor="#FFFFFF"
@@ -199,6 +200,7 @@
         android:id="@+id/textView15"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView16"
         android:layout_alignBottom="@+id/textView16"
         android:layout_alignStart="@+id/warmIcon"
         android:gravity="center"
@@ -213,16 +215,17 @@
         android:layout_alignStart="@+id/toiletIcon"
         android:layout_below="@+id/toiletIcon"
         android:gravity="center"
-        android:paddingTop="2dp"
-        android:textColor="#FFFFFF"
-        android:text="Frequent toilet trips" />
+        android:paddingTop="4dp"
+        android:text="Frequent toilet trips"
+        android:textColor="#FFFFFF" />
 
     <TextView
         android:id="@+id/textView17"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView16"
         android:layout_alignBottom="@+id/textView16"
-        android:layout_alignStart="@+id/headacheIcon"
+        android:layout_alignEnd="@+id/textView4"
         android:gravity="center"
         android:paddingTop="2dp"
         android:text="Headache"

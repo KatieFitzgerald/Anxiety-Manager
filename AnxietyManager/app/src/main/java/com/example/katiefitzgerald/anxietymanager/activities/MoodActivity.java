@@ -31,7 +31,7 @@ import static android.widget.Toast.LENGTH_SHORT;
 
 public class MoodActivity extends AppCompatActivity {
 
-    ImageView afraid;
+    ImageView fear;
     ImageView angry;
     ImageView sad;
     ImageView lonely;
@@ -46,7 +46,7 @@ public class MoodActivity extends AppCompatActivity {
     DatabaseManager db = new DatabaseManager(this);
 
     String[] chosenMood = new String[2];
-    String[] questionnaire = new String[11];
+    String questionnaire[] = new String[12];
 
     TextView warning;
 
@@ -60,7 +60,7 @@ public class MoodActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         questionnaire = extras.getStringArray("questionnaireObj");
 
-        afraid = findViewById(R.id.afraid);
+        fear = findViewById(R.id.afraid);
         angry = findViewById(R.id.angry);
         sad = findViewById(R.id.sad);
         lonely = findViewById(R.id.lonely);
@@ -70,16 +70,16 @@ public class MoodActivity extends AppCompatActivity {
         nervous = findViewById(R.id.nervous);
         other = findViewById(R.id.other);
 
-        afraid.setOnClickListener(new View.OnClickListener() {
+        fear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                afraid.setImageResource(R.drawable.chosen);
+                fear.setImageResource(R.drawable.chosen);
                 if (questionCount == 0) {
-                    chosenMood[0] = "Afraid";
+                    chosenMood[0] = "Fear";
                     questionnaire[5] = chosenMood[0];
                 }
                 else {
-                    chosenMood[1] = "Afraid";
+                    chosenMood[1] = "Fear";
                     questionnaire[6] = chosenMood[1];
                 }
                 questionCount += 1;
@@ -335,7 +335,7 @@ public class MoodActivity extends AppCompatActivity {
         if (questionCount == 2) {
 
             //allow no other options to be chosen
-            afraid.setClickable(false);
+            fear.setClickable(false);
             angry.setClickable(false);
             sad.setClickable(false);
             lonely.setClickable(false);

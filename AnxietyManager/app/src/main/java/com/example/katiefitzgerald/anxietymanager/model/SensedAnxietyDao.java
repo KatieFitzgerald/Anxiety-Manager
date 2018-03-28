@@ -6,41 +6,41 @@ package com.example.katiefitzgerald.anxietymanager.model;
 
 public class SensedAnxietyDao {
 
-    private String Sensed_ID;
-    private String Timestamp;
-    private String Location;
-    private String User_ID;
+    private String sensedID;
+    private String timestamp;
+    private String location;
+    private String user_ID;
 
     public SensedAnxietyDao() {
 
     }
 
-    public SensedAnxietyDao(String Sensed_ID, String Timestamp, String Location, String User_ID) {
-        this.Sensed_ID = Sensed_ID;
-        this.Timestamp = Timestamp;
-        this.Location = Location;
-        this.User_ID = User_ID;
+    public SensedAnxietyDao(String sensed_ID, String timestamp, String location, String user_ID) {
+        this.sensedID = sensed_ID;
+        this.timestamp = timestamp;
+        this.location = location;
+        this.user_ID = user_ID;
 
     }
 
     public String getSensedID() {
-        return Sensed_ID;
+        return sensedID;
     }
 
     public String getTimestamp() {
-        return Timestamp;
+        return timestamp;
     }
 
     public String getLocation() {
-        return Location;
+        return location;
     }
 
     public String getUser_ID() {
-        return User_ID;
+        return user_ID;
     }
 
     public String toString() {
-        return this.Timestamp + " " + this.Location;
+        return this.timestamp + " " + this.location;
 
     }
 

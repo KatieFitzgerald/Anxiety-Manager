@@ -23,7 +23,7 @@ public class ReactActivity extends AppCompatActivity {
     ImageView stayed;
     ImageView left;
 
-    String[] questionnaireValues = new String[11];
+    String[] questionnaireValues = new String[12];
 
     int questionCount = 0;
 
@@ -68,10 +68,14 @@ public class ReactActivity extends AppCompatActivity {
                 String questionnaire_id = QuestionnaireDB.push().getKey();
 
                 QuestionnaireDao questionnaire = new QuestionnaireDao(questionnaire_id, questionnaireValues[0], questionnaireValues[1], questionnaireValues[2],
-                                                                    questionnaireValues[3], questionnaireValues[4], questionnaireValues[5], questionnaireValues[6],
-                                                                    questionnaireValues[7], questionnaireValues[8], questionnaireValues[9], questionnaireValues[10]);
+                                                                questionnaireValues[3], questionnaireValues[4], questionnaireValues[5], questionnaireValues[6],
+                                                                questionnaireValues[7], questionnaireValues[8], questionnaireValues[9], questionnaireValues[10], questionnaireValues[11]);
 
-                QuestionnaireDB.child(questionnaire_id).setValue(questionnaire);
+               QuestionnaireDB.child(questionnaire_id).setValue(questionnaire);
+
+                for(int i = 0; i < questionnaireValues.length; i ++){
+                    Log.v("This", "This " + i + questionnaireValues[i]);
+                }
 
             }
         });
