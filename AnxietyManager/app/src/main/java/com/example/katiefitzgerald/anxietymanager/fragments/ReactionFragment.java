@@ -49,17 +49,18 @@ public class ReactionFragment extends Fragment {
 
         ArrayList<Entry> entries = new ArrayList<Entry>();
 
-        entries.add(new Entry(0, 1));
-        entries.add(new Entry(1, 2));
-        entries.add(new Entry(2, 3));
-        entries.add(new Entry(3, 4));
+        entries.add(new Entry(0, 0));
+        entries.add(new Entry(1, 1));
+        entries.add(new Entry(2, 1.5f));
+        entries.add(new Entry(3, 1));
         entries.add(new Entry(4, 2));
         entries.add(new Entry(5, 3));
+        entries.add(new Entry(6, 3));
 
         LineDataSet lineDataSet = new LineDataSet(entries, "Correlation between mood and reaction");
         lineDataSet.setLineWidth(2);
         lineDataSet.setValueTextSize(12);
-        lineDataSet.setCircleColor(Color.WHITE);
+        lineDataSet.setDrawCircles(false);
         lineDataSet.setDrawValues(false);
 
         LineData lineData = new LineData(lineDataSet);
@@ -68,8 +69,7 @@ public class ReactionFragment extends Fragment {
         leftAxis.setEnabled(true);
         YAxis rightAxis = reactionChart.getAxisRight();
         rightAxis.setEnabled(false);
-        reactionChart.getDescription().setTextSize(12);
-        reactionChart.getDescription().setTextColor(Color.WHITE);
+        reactionChart.getDescription().setText(" ");
         reactionChart.setDrawMarkers(false);
         reactionChart.getAxisLeft().setDrawGridLines(false);
         reactionChart.getXAxis().setDrawGridLines(false);
