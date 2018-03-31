@@ -42,9 +42,6 @@ public class HomeActivity extends AppCompatActivity {
 
     DatabaseReference usersDB;
 
-    private int[] yData = {40, 30, 30};
-    private String[] anxietyNamesData = {"College", "Social", "Money"};
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -189,7 +186,10 @@ public class HomeActivity extends AppCompatActivity {
     public void onBackPressed() {
     }
 
-    private void addDataSet(PieChart chart) {
+    public static void addDataSet(PieChart chart) {
+
+        int[] yData = {40, 30, 30};
+        String[] anxietyNamesData = {"College", "Social", "Money"};
 
         ArrayList<PieEntry> yEntries = new ArrayList<>();
         ArrayList<String> xEntries = new ArrayList<>();
@@ -226,6 +226,7 @@ public class HomeActivity extends AppCompatActivity {
 
         PieData pieData = new PieData(pieDataSet);
 
+        chart.setTouchEnabled(false);
         chart.setData(pieData);
         chart.setTransparentCircleRadius(0);
         chart.setEnabled(true);
@@ -235,7 +236,4 @@ public class HomeActivity extends AppCompatActivity {
         chart.invalidate();
 
     }
-
-
-
 }

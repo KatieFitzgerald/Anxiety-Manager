@@ -1,5 +1,6 @@
 package com.example.katiefitzgerald.anxietymanager.activities;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -30,6 +31,7 @@ public class InsightActivity extends AppCompatActivity {
         setContentView(R.layout.activity_insight);
 
         tabLayout = findViewById(R.id.tabs);
+        tabLayout.setTabTextColors(Color.parseColor("#ffffff"), Color.parseColor("#0042d0"));
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
