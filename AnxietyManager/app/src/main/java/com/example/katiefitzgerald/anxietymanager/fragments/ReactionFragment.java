@@ -1,5 +1,6 @@
 package com.example.katiefitzgerald.anxietymanager.fragments;
 
+import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,6 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.katiefitzgerald.anxietymanager.R;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+
+import java.util.ArrayList;
 
 /**
  * Created by Katie Fitzgerald on 28/03/2018.
@@ -14,18 +25,58 @@ import com.example.katiefitzgerald.anxietymanager.R;
 
 public class ReactionFragment extends Fragment {
 
+    private LineChart reactionChart;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        View rootView = inflater.inflate(R.layout.reaction_fragment, container, false);
+
+        reactionChart = rootView.findViewById(R.id.reactionChart);
+        addDataSet();
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.reaction_fragment, container, false);
+        return rootView;
     }
 
+
+    private void addDataSet() {
+
+        ArrayList<Entry> entries = new ArrayList<Entry>();
+
+        entries.add(new Entry(0, 1));
+        entries.add(new Entry(1, 2));
+        entries.add(new Entry(2, 3));
+        entries.add(new Entry(3, 4));
+        entries.add(new Entry(4, 2));
+        entries.add(new Entry(5, 3));
+
+        LineDataSet lineDataSet = new LineDataSet(entries, "Correlation between mood and reaction");
+        lineDataSet.setLineWidth(2);
+        lineDataSet.setValueTextSize(12);
+        lineDataSet.setCircleColor(Color.WHITE);
+        lineDataSet.setDrawValues(false);
+
+        LineData lineData = new LineData(lineDataSet);
+
+        YAxis leftAxis = reactionChart.getAxisLeft();
+        leftAxis.setEnabled(true);
+        YAxis rightAxis = reactionChart.getAxisRight();
+        rightAxis.setEnabled(false);
+        reactionChart.getDescription().setTextSize(12);
+        reactionChart.getDescription().setTextColor(Color.WHITE);
+        reactionChart.setDrawMarkers(false);
+        reactionChart.getAxisLeft().setDrawGridLines(false);
+        reactionChart.getXAxis().setDrawGridLines(false);
+        reactionChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        reactionChart.getLegend().setTextColor(Color.WHITE);
+        reactionChart.setData(lineData);
+
+    }
 
 }
