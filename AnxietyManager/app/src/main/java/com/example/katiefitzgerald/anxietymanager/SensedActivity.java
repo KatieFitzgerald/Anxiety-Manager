@@ -1,8 +1,14 @@
 package com.example.katiefitzgerald.anxietymanager;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.hardware.usb.UsbDevice;
+import android.hardware.usb.UsbDeviceConnection;
+import android.hardware.usb.UsbEndpoint;
+import android.hardware.usb.UsbInterface;
+import android.hardware.usb.UsbManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -12,6 +18,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,7 +28,14 @@ public class SensedActivity extends AppCompatActivity {
     private LocationManager locationManager;
     private LocationListener locationListener;
     int locationCount = 0;
-    
+
+    private UsbManager usbManager;
+    private UsbDevice deviceFound;
+    private UsbDeviceConnection usbDeviceConnection;
+    private UsbInterface usbInterfaceFound = null;
+    private UsbEndpoint endpointOut = null;
+    private UsbEndpoint endpointIn = null;
+
     ArrayList<AnxietyEpisode> episode = new ArrayList<>();
 
     @Override
@@ -91,8 +105,61 @@ public class SensedActivity extends AppCompatActivity {
     }
 
     private void addAnxiety() {
-        Arduino arduino = new Arduino();
-        episode  = arduino.getAnxiety(this);
+
+        Intent intent = getIntent();
+        String action = intent.getAction();
+
+        UsbDevice device = intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+        if (UsbManager.ACTION_USB_DEVICE_ATTACHED.equals(action)) {
+
+            Arduino arduino = new Arduino(this);
+
+            arduino.setArduinoListener(new ArduinoListener(){
+
+                @Override
+                protected void onStart() {
+                    super.onStart();
+                    arduino.setArduinoListener(this);
+                }
+
+                @Override
+                protected void onDestroy() {
+                    super.onDestroy();
+                    arduino.unsetArduinoListener();
+                    arduino.close();
+                }
+
+                @Override
+                public void onArduinoAttached(UsbDevice device) {
+                    display("Arduino attached!");
+                    arduino.open(device);
+                }
+
+                @Override
+                public void onArduinoDetached() {
+                    display("Arduino detached");
+                }
+
+                @Override
+                public void onArduinoMessage(byte[] bytes) {
+                    display("Received: "+new String(bytes));
+                }
+
+                @Override
+                public void onArduinoOpened() {
+                    String str = "Hello World !";
+                    arduino.send(str.getBytes());
+                }
+
+
+            });
+
+        } else if (UsbManager.ACTION_USB_DEVICE_DETACHED.equals(action)) {
+            if (deviceFound != null && deviceFound.equals(device)) {
+                Toast.makeText(getApplicationContext(), "No sensor connected", Toast.LENGTH_SHORT).show();
+            }
+        }
+
         getAnxietyLocation();
     }
 }

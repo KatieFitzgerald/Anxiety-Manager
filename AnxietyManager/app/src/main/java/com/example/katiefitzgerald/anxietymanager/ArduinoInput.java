@@ -1,5 +1,12 @@
 package com.example.katiefitzgerald.anxietymanager;
 
+import android.content.Context;
+import android.content.Intent;
+import android.hardware.usb.UsbDevice;
+import android.hardware.usb.UsbDeviceConnection;
+import android.hardware.usb.UsbEndpoint;
+import android.hardware.usb.UsbInterface;
+import android.hardware.usb.UsbManager;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -13,7 +20,14 @@ import java.util.ArrayList;
  * Created by Katie Fitzgerald on 19/02/2018.
  */
 
-public class Arduino {
+public class ArduinoInput {
+
+    private UsbManager usbManager;
+    private UsbDevice deviceFound;
+    private UsbDeviceConnection usbDeviceConnection;
+    private UsbInterface usbInterfaceFound = null;
+    private UsbEndpoint endpointOut = null;
+    private UsbEndpoint endpointIn = null;
 
     ArrayList<AnxietyEpisode> anxietyEpisode = new ArrayList<>();
 
