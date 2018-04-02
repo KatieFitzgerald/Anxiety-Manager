@@ -2,9 +2,13 @@ package com.example.katiefitzgerald.anxietymanager.activities;
 
 //Pie chart tutorial used https://www.youtube.com/watch?v=8BcTXbwDGbg
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,10 +16,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import com.example.katiefitzgerald.anxietymanager.R;
 import com.example.katiefitzgerald.anxietymanager.model.UserDao;
+import com.example.katiefitzgerald.anxietymanager.recievers.AnxietyReceiver;
+import com.example.katiefitzgerald.anxietymanager.recievers.DailyReceiver;
 import com.google.firebase.database.DataSnapshot;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -29,6 +34,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
@@ -40,7 +46,7 @@ public class HomeActivity extends AppCompatActivity {
     Button cycleButton;
     Button profileButton;
     TextView welcome;
-    Toolbar toolbar;
+    int counter = 0;
 
     DatabaseReference usersDB;
 
@@ -73,6 +79,8 @@ public class HomeActivity extends AppCompatActivity {
 
         PieChart chart = findViewById(R.id.worriesChart);
         addDataSet(chart);
+
+        dailyNotification();
 
         addTodayAnxiety = findViewById(R.id.addAnxiety);
         addTodayAnxiety.setOnTouchListener(new View.OnTouchListener() {
@@ -164,7 +172,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-
         profileButton = findViewById(R.id.profileBtn);
         profileButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -182,6 +189,9 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }
         });
+
+        SensingAnxiety senseAnxiety = new SensingAnxiety();
+        senseAnxiety.execute();
     }
 
     @Override
@@ -231,11 +241,70 @@ public class HomeActivity extends AppCompatActivity {
         chart.setData(pieData);
         chart.setTransparentCircleRadius(0);
         chart.setEnabled(true);
-        chart.setDrawSliceText(false);
         chart.getDescription().setEnabled(false);
         chart.setRotationEnabled(false);
         chart.setHoleRadius(0);
         chart.invalidate();
 
     }
+
+    private class SensingAnxiety extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            final int[] arduinoVals = {12, 13, 12, 14, 26, 12};
+            final int threshold = 26;
+
+            //every 10 seconds read value from "ardunio"
+            //check if value is above threshold or not
+            while(counter < arduinoVals.length){
+
+                if(arduinoVals[counter] >= threshold){
+                    sendNotification();
+                }
+
+                counter +=1;
+
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+    }
+
+    private void sendNotification() {
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        Intent notificationIntent = new Intent(this, AnxietyReceiver.class);
+
+        PendingIntent broadcast = PendingIntent.getBroadcast(this, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Calendar cal = Calendar.getInstance();
+
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast);
+    }
+
+    private void dailyNotification() {
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        Intent notificationIntent = new Intent(this, DailyReceiver.class);
+
+        PendingIntent broadcast = PendingIntent.getBroadcast(this, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, 17);
+        cal.set(Calendar.MINUTE, 0);
+
+        //set repeating alarm manager once a day
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),alarmManager.INTERVAL_DAY, broadcast);
+
+    }
 }
+
+
