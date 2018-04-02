@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.example.katiefitzgerald.anxietymanager.R;
 import com.example.katiefitzgerald.anxietymanager.model.UserDao;
@@ -39,6 +40,7 @@ public class HomeActivity extends AppCompatActivity {
     Button cycleButton;
     Button profileButton;
     TextView welcome;
+    Toolbar toolbar;
 
     DatabaseReference usersDB;
 
@@ -47,7 +49,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        welcome = findViewById(R.id.welcomeText);
+        welcome = findViewById(R.id.textView3);
 
         user = (String) getIntent().getSerializableExtra("user_id");
 

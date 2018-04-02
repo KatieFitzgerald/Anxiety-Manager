@@ -7,6 +7,29 @@
     android:background="@drawable/gradient"
     tools:context="com.example.katiefitzgerald.anxietymanager.activities.HomeActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#81d4fa"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="11dp"
+            android:text="Anxiety Manager"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textColor="#FFFFFF" />
+
+    </android.support.v7.widget.Toolbar>
+
+
     <Button
         android:id="@+id/sensedAnxiety"
         style="@android:style/Widget.Material.Button.Colored"
@@ -59,7 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/worriesChart"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="13dp"
         android:background="@drawable/shape"
         android:elevation="0dp"
         android:text="Add a new questionnaire"
@@ -71,8 +94,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/worriesChart"
-        android:layout_below="@+id/welcomeText"
-        android:layout_marginTop="19dp"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="12dp"
         android:fontFamily="sans-serif"
         android:text="Your current worries..."
         android:textAppearance="@style/TextAppearance.AppCompat.Title.Inverse"
@@ -82,20 +105,8 @@
         android:id="@+id/worriesChart"
         android:layout_width="340dp"
         android:layout_height="320dp"
-        android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
+        android:layout_centerVertical="true"
         android:gravity="center" />
-
-    <TextView
-        android:id="@+id/welcomeText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/textView2"
-        android:layout_marginTop="12dp"
-        android:text="Welcome"
-        android:textColor="#FFFFFF"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
 </RelativeLayout>

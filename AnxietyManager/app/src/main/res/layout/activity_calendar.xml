@@ -53,4 +53,13 @@
         app:compactCalendarCurrentDayBackgroundColor="#303f9f"
         app:compactCalendarMultiEventIndicatorColor="#fff" />
 
+    <include
+        android:id="@+id/questionnaireDetails"
+        layout="@layout/questionnaire_details_view"
+        android:layout_width="250dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/compactcalendar_view"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

@@ -17,10 +17,13 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.katiefitzgerald.anxietymanager.R;
+import com.example.katiefitzgerald.anxietymanager.model.QuestionnaireDao;
+import com.example.katiefitzgerald.anxietymanager.model.SensedAnxietyDao;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
 import com.google.firebase.database.DataSnapshot;
@@ -31,6 +34,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -40,10 +44,11 @@ public class CalendarActivity extends AppCompatActivity {
 
     TextView month;
     CompactCalendarView compactCalendar;
-    String user_id;
+    String user_id, sensedID;
+    View questionnaireDetails;
 
     SimpleDateFormat dateFormatMonth = new SimpleDateFormat("MMMM - yyyy", Locale.getDefault());
-    SimpleDateFormat dateFormatDay = new SimpleDateFormat("E, d MMM yyyy", Locale.getDefault());
+    SimpleDateFormat dateFormatDay = new SimpleDateFormat("d MMM yyyy, H:m", Locale.getDefault());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,9 @@ public class CalendarActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         user_id = extras.getString("user_id");
+
+        questionnaireDetails = findViewById(R.id.questionnaireDetails);
+        questionnaireDetails.setVisibility(View.INVISIBLE);
 
         addToAppCalendar();
 
@@ -66,6 +74,8 @@ public class CalendarActivity extends AppCompatActivity {
         DatabaseReference sensedDB = FirebaseDatabase.getInstance().getReference();
         Query sensedAnxiety = sensedDB.child("sensed_anxiety").orderByChild("user_ID").equalTo(user_id);
 
+        final ArrayList<Long> timestamps = null;
+
         sensedAnxiety.addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
@@ -73,10 +83,9 @@ public class CalendarActivity extends AppCompatActivity {
 
                 if (dataSnapshot.getValue() != null) {
 
-                    for (DataSnapshot dsp : dataSnapshot.getChildren()) {
+                    for (DataSnapshot anxietyData : dataSnapshot.getChildren()) {
 
-                        Log.v("THIS", "THIS " + dsp);
-
+                        SensedAnxietyDao sensedAnxiety = anxietyData.getValue(SensedAnxietyDao.class);
 
                     }
                 }
@@ -91,28 +100,58 @@ public class CalendarActivity extends AppCompatActivity {
 
         compactCalendar.shouldDrawIndicatorsBelowSelectedDays(true);
 
-        Event ev1 = new Event(Color.RED, System.currentTimeMillis(), "Anxiety Episode");
-        compactCalendar.addEvent(ev1);
+        ArrayList<Event> events =  new ArrayList<>();
+        events.add(new Event(Color.RED, System.currentTimeMillis(), "Anxiety Episode"));
+        events.add(new Event(Color.RED, System.currentTimeMillis(), "Anxiety Episode"));
+        events.add(new Event(Color.RED, 1521747297801l, "Anxiety Episode"));
+        events.add(new Event(Color.RED, 1521564300000l, "Anxiety Episode"));
+        events.add(new Event(Color.RED, 1521804979122l, "Anxiety Episode"));
+        events.add(new Event(Color.RED, 1521813159970l, "Anxiety Episode"));
+        events.add(new Event(Color.RED, 1521482040000l, "Anxiety Episode"));
+        events.add(new Event(Color.RED, 1521891276134l, "Anxiety Episode"));
+        events.add(new Event(Color.RED, 1522673069436l, "Anxiety Episode"));
 
-        Event ev2 = new Event(Color.RED, System.currentTimeMillis(), "Anxiety Episode");
-        compactCalendar.addEvent(ev2);
+
+        events.add(new Event(Color.RED, 1520467200000l, "Anxiety Episode"));
+        events.add(new Event(Color.RED, 1520467200000l, "Anxiety Episode"));
+        events.add(new Event(Color.RED, 1520121600000l, "Anxiety Episode"));
+        events.add(new Event(Color.RED, 1522364400000l, "Anxiety Episode"));
+        events.add(new Event(Color.RED, 1520985600000l, "Anxiety Episode"));
+        events.add(new Event(Color.RED, 1520985600000l, "Anxiety Episode"));
+        events.add(new Event(Color.RED, 1520985600000l, "Anxiety Episode"));
+        events.add(new Event(Color.RED, 1521072000000l, "Anxiety Episode"));
+        events.add(new Event(Color.RED, 1521072000000l, "Anxiety Episode"));
+        events.add(new Event(Color.RED, 1521072000000l, "Anxiety Episode"));
+        events.add(new Event(Color.RED, 1521158400000l, "Anxiety Episode"));
+
+        compactCalendar.addEvents(events);
 
         // define a listener to receive callbacks when certain events happen.
         compactCalendar.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
-            public void onDayClick(Date dateClicked) {
+            public void onDayClick(final Date dateClicked) {
 
                 List<Event> events = compactCalendar.getEvents(dateClicked);
 
                 if (events.isEmpty()) {
 
+                    questionnaireDetails.setVisibility(View.INVISIBLE);
                     Toast.makeText(getApplicationContext(), "No anxiety sensed on " + dateFormatDay.format(dateClicked), Toast.LENGTH_SHORT).show();
 
                 }
                 else {
+                    questionnaireDetails.setVisibility(View.VISIBLE);
 
+                    //fill in default responses
+                    TextView location = questionnaireDetails.findViewById(R.id.location);
+                    location.setText("- " + "Kevin St");
 
-
+                    TextView subjectTV = questionnaireDetails.findViewById(R.id.subject);
+                    subjectTV.setText("- " + "Exam stress");
+                    TextView physicalTV = questionnaireDetails.findViewById(R.id.physical);
+                    physicalTV.setText("- " + "Shaking");
+                    TextView thoughtTV = questionnaireDetails.findViewById(R.id.thought);
+                    thoughtTV.setText("- " + "I don't have enough time to study everything");
                 }
             }
 
@@ -135,7 +174,6 @@ public class CalendarActivity extends AppCompatActivity {
         values.put(CalendarContract.Events.DESCRIPTION, "Anxiety Episode sensed");
         values.put(CalendarContract.Events.EVENT_COLOR, Color.BLUE);
 
-
         TimeZone currentTimeZone = TimeZone.getDefault();
         values.put(CalendarContract.Events.EVENT_TIMEZONE, currentTimeZone.getID());
 
@@ -147,7 +185,6 @@ public class CalendarActivity extends AppCompatActivity {
 
 
         //https://developer.android.com/training/permissions/requesting.html
-
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.READ_CALENDAR)
                 != PackageManager.PERMISSION_GRANTED) {
