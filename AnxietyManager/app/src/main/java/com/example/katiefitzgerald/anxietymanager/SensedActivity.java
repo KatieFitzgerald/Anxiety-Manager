@@ -106,6 +106,10 @@ public class SensedActivity extends AppCompatActivity {
 
     private void addAnxiety() {
 
+        //Code combination from
+        //https://causeyourestuck.io/2017/05/24/connect-android-arduino-usb/  and
+        //https://www.theengineeringprojects.com/2015/10/usb-communication-between-android-and-arduino.html
+
         Intent intent = getIntent();
         String action = intent.getAction();
 
