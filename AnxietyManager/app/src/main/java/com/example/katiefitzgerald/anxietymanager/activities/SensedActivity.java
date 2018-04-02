@@ -132,7 +132,7 @@ public class SensedActivity extends AppCompatActivity {
     public void inputSensorData() {
 
         //get current time
-        SimpleDateFormat dateFormatDay = new SimpleDateFormat("E, d MMM yyyy", Locale.getDefault());
+        SimpleDateFormat dateFormatDay = new SimpleDateFormat("d MMM yyyy, H:m", Locale.getDefault());
         String currentTime = dateFormatDay.format(1521019800000L);
 
         //get location
