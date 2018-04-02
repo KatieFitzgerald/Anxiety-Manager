@@ -1,5 +1,6 @@
 package com.example.katiefitzgerald.anxietymanager.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -73,10 +74,8 @@ public class ReactActivity extends AppCompatActivity {
 
                QuestionnaireDB.child(questionnaire_id).setValue(questionnaire);
 
-                for(int i = 0; i < questionnaireValues.length; i ++){
-                    Log.v("This", "This " + i + questionnaireValues[i]);
-                }
-
+                Intent calendar = new Intent(getApplicationContext(), CalendarActivity.class);
+                startActivity(calendar);
             }
         });
 

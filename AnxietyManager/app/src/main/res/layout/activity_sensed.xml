@@ -65,4 +65,13 @@
         android:layout_marginLeft="10dp"
         android:text="Previously added episode:" />
 
+    <TextView
+        android:id="@+id/textView32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView29"
+        android:layout_below="@+id/episodeListView"
+        android:text="Questionnaire details:"
+        android:textColor="#FFFFFF" />
+
 </RelativeLayout>

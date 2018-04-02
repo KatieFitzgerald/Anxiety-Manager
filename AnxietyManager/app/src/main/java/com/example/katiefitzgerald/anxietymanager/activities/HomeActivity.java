@@ -299,12 +299,10 @@ public class HomeActivity extends AppCompatActivity {
 
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.HOUR_OF_DAY, 17);
-        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.MINUTE, 30);
 
         //set repeating alarm manager once a day
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),alarmManager.INTERVAL_DAY, broadcast);
 
     }
 }
-
-

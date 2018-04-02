@@ -32,7 +32,7 @@ public class AnxietyReceiver extends BroadcastReceiver {
 
         Notification.Builder builder = new Notification.Builder(context);
 
-        Notification notification = builder.setContentTitle("Anxiety Manager")
+        Notification notification = builder.setContentTitle("Everything is okay - Anxiety Manager")
                 .setContentText("Want to track what you're feeling?")
                 .setTicker("New Message Alert!")
                 .setSmallIcon(R.drawable.launcher)
