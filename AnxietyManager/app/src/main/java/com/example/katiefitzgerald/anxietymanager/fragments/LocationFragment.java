@@ -12,6 +12,7 @@ import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -22,6 +23,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Katie Fitzgerald on 28/03/2018.
@@ -51,29 +53,59 @@ public class LocationFragment extends Fragment {
 
     private void addDataSet() {
 
-        ArrayList<BarEntry> entries = new ArrayList<>();
-        entries.add(new BarEntry(3, 9));
-        entries.add(new BarEntry(2, 6));
-        entries.add(new BarEntry(1, 4));
+        ArrayList<BarEntry> points = new ArrayList<>();
+        points.add(new BarEntry(3, 9));
+        points.add(new BarEntry(2, 6));
+        points.add(new BarEntry(1, 4));
 
-        int[] colors = new int[] {Color.rgb(11, 94, 237), Color.rgb(42, 188, 237), Color.rgb(111, 224, 226)};
         String[] labels = new String[] {"Kevin St", "Questionnaire", "Forest Park"};
 
-        BarDataSet barDataSet = new BarDataSet(entries, "");
-        barDataSet.setColors(colors);
+        BarDataSet barDataSet = new BarDataSet(points, "");
         barDataSet.setDrawValues(false);
+
+        //add color to dataset
+        ArrayList<Integer> color = new ArrayList<>();
+        color.add(Color.rgb(145, 243, 247));
+        color.add(Color.rgb(250, 220, 251));
+        color.add(Color.rgb(174, 249, 228));
+
+        barDataSet.setColors(color);
+
+        List<LegendEntry> entries = new ArrayList<>();
+
+        for (int i = 0; i < labels.length; i++) {
+            LegendEntry entry = new LegendEntry();
+            entry.formColor = color.get(i);
+            entry.label = labels[i];
+            entries.add(entry);
+        }
+
+        Legend legend = locationChart.getLegend();
+        legend.setForm(Legend.LegendForm.CIRCLE);
+        legend.setTextColor(Color.rgb(255, 255, 255));
+        legend.setTextSize(12);
+        legend.setCustom(entries);
 
         BarData barData = new BarData(barDataSet);
         barData.setBarWidth(0.4f);
 
         YAxis leftAxis = locationChart.getAxisLeft();
         leftAxis.setEnabled(false);
+
         YAxis rightAxis = locationChart.getAxisRight();
         rightAxis.setEnabled(true);
+        rightAxis.setAxisLineColor(Color.WHITE);
+        rightAxis.setTextColor(Color.WHITE);
+        rightAxis.setAxisMinimum(0.0f);
+        rightAxis.setAxisMaximum(10.0f);
         rightAxis.setDrawGridLines(false);
+
         XAxis xAxis = locationChart.getXAxis();
+        xAxis.setAxisLineColor(Color.WHITE);
+        xAxis.setTextColor(Color.WHITE);
         xAxis.setEnabled(true);
         xAxis.setDrawGridLines(false);
+        xAxis.setAxisMaximum(3.5f);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 
         locationChart.getDescription().setEnabled(false);
@@ -83,10 +115,6 @@ public class LocationFragment extends Fragment {
         locationChart.setDoubleTapToZoomEnabled(false);
         locationChart.setData(barData);
 
-        Legend legend = locationChart.getLegend();
-        legend.setEnabled(true);
-        legend.setTextColor(Color.WHITE);
-        legend.setExtra(colors, labels);
     }
 
 }

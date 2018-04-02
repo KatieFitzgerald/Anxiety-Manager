@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.example.katiefitzgerald.anxietymanager.R;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -67,14 +68,26 @@ public class ReactionFragment extends Fragment {
 
         YAxis leftAxis = reactionChart.getAxisLeft();
         leftAxis.setEnabled(true);
+        leftAxis.setAxisLineColor(Color.WHITE);
+        leftAxis.setTextColor(Color.WHITE);
+        leftAxis.setDrawGridLines(false);
         YAxis rightAxis = reactionChart.getAxisRight();
         rightAxis.setEnabled(false);
+
+        Legend legend = reactionChart.getLegend();
+        legend.setForm(Legend.LegendForm.CIRCLE);
+        legend.setTextColor(Color.rgb(255, 255, 255));
+        legend.setTextSize(12);
+
+        XAxis xAxis = reactionChart.getXAxis();
+        xAxis.setDrawGridLines(false);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setAxisLineColor(Color.WHITE);
+        xAxis.setTextColor(Color.WHITE);
+
         reactionChart.getDescription().setText(" ");
         reactionChart.setDrawMarkers(false);
         reactionChart.getAxisLeft().setDrawGridLines(false);
-        reactionChart.getXAxis().setDrawGridLines(false);
-        reactionChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-        reactionChart.getLegend().setTextColor(Color.WHITE);
         reactionChart.setData(lineData);
 
     }

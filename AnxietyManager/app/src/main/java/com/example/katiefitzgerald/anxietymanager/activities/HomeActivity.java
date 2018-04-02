@@ -192,7 +192,6 @@ public class HomeActivity extends AppCompatActivity {
         String[] anxietyNamesData = {"College", "Social", "Money"};
 
         ArrayList<PieEntry> yEntries = new ArrayList<>();
-        ArrayList<String> xEntries = new ArrayList<>();
 
         for (int i = 0; i < yData.length; i++) {
             yEntries.add(new PieEntry(yData[i], i));
@@ -204,9 +203,9 @@ public class HomeActivity extends AppCompatActivity {
 
         //add color to dataset
         ArrayList<Integer> color = new ArrayList<>();
-        color.add(Color.rgb(216, 250, 251));
+        color.add(Color.rgb(145, 243, 247));
         color.add(Color.rgb(250, 220, 251));
-        color.add(Color.rgb(212, 244, 235));
+        color.add(Color.rgb(174, 249, 228));
 
         pieDataSet.setColors(color);
 
@@ -230,6 +229,7 @@ public class HomeActivity extends AppCompatActivity {
         chart.setData(pieData);
         chart.setTransparentCircleRadius(0);
         chart.setEnabled(true);
+        chart.setDrawSliceText(false);
         chart.getDescription().setEnabled(false);
         chart.setRotationEnabled(false);
         chart.setHoleRadius(0);
