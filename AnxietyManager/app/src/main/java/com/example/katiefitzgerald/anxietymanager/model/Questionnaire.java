@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by Katie Fitzgerald on 05/03/2018.
  */
 
-public class QuestionnaireDao implements Serializable {
+public class Questionnaire implements Serializable {
 
     private String questionnaire_id;
     private String sensed_id;
@@ -22,14 +22,14 @@ public class QuestionnaireDao implements Serializable {
     private String overall_rating;
     private String timestamp;
 
-    public QuestionnaireDao() {
+    public Questionnaire() {
 
     }
 
 
-    public QuestionnaireDao(String questionnaire_id, String sensed_id, String user_id, String subject,
-                            String thought, String physical, String mood1, String mood2, String mood_rating1, String mood_rating2,
-                            String overall_rating,  String reaction, String timestamp){
+    public Questionnaire(String questionnaire_id, String sensed_id, String user_id, String subject,
+                         String thought, String physical, String mood1, String mood2, String mood_rating1, String mood_rating2,
+                         String overall_rating, String reaction, String timestamp){
 
         this.questionnaire_id = questionnaire_id;
         this.sensed_id = sensed_id;

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,13 +11,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.katiefitzgerald.anxietymanager.sql.DatabaseManager;
-import com.example.katiefitzgerald.anxietymanager.model.QuestionnaireDao;
 import com.example.katiefitzgerald.anxietymanager.R;
 import com.example.katiefitzgerald.anxietymanager.adapters.ThoughtsAdapter;
 
@@ -72,8 +69,8 @@ public class ThoughtsActivity extends AppCompatActivity {
         thoughtList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> listView, View itemView, int itemPosition, long itemId)
             {
-                // Get the data associated with selected item
 
+                // Get the data associated with selected item
                 Cursor returnedThoughtCursor = (Cursor) listView.getItemAtPosition(itemPosition);
                 thoughtChosen = returnedThoughtCursor.getString(1);
 
@@ -154,6 +151,5 @@ public class ThoughtsActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
 
     }
-
 
 }

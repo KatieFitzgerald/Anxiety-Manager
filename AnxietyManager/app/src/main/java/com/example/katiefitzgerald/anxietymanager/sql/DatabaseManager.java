@@ -5,9 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
-import com.example.katiefitzgerald.anxietymanager.model.UserDao;
+import com.example.katiefitzgerald.anxietymanager.model.User;
 
 import java.sql.SQLException;
 
@@ -22,7 +21,6 @@ public class DatabaseManager {
     private static final String DATABASE_NAME = "AnxietyManager";
 
     //define table names
-    private static final String TABLE_QUESTIONNAIRE = "Questionnaire";
     private static final String TABLE_USER = "User_Profile";
     private static final String TABLE_SUBJECT = "Subject";
     private static final String TABLE_THOUGHT = "Thought";
@@ -188,7 +186,7 @@ public class DatabaseManager {
 
         private void insertMoods(SQLiteDatabase db) {
 
-            //insert static data to subject table
+            //insert static data to mood table
             ContentValues mood = new ContentValues();
 
             mood.put(KEY_MOOD_NAME, "afraid");
@@ -222,7 +220,7 @@ public class DatabaseManager {
 
         private void insertReactions(SQLiteDatabase db){
 
-            //insert static data to subject table
+            //insert static data to reaction table
             ContentValues reaction = new ContentValues();
 
             reaction.put(KEY_REACTION_NAME, "stayed");
@@ -280,7 +278,7 @@ public class DatabaseManager {
 
     }
 
-    //returns subjects
+    //returns thoughts
     public Cursor selectThoughts()
     {
         Cursor mCursor = db.rawQuery("SELECT * FROM Thought;", null);
@@ -317,7 +315,7 @@ public class DatabaseManager {
 
     }
 
-    public void addUser(UserDao user) {
+    public void addUser(User user) {
 
         ContentValues userValues = new ContentValues();
         userValues.put(KEY_USER_NAME, user.getName());
@@ -329,7 +327,7 @@ public class DatabaseManager {
 
     }
 
-    public void updateUser(UserDao user) {
+    public void updateUser(User user) {
         //SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues userValues = new ContentValues();
@@ -356,6 +354,5 @@ public class DatabaseManager {
         return false;
 
     }
-
 
 }

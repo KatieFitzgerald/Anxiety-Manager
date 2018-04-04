@@ -13,16 +13,13 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.katiefitzgerald.anxietymanager.R;
-import com.example.katiefitzgerald.anxietymanager.model.UserDao;
-import com.example.katiefitzgerald.anxietymanager.sql.DatabaseManager;
+import com.example.katiefitzgerald.anxietymanager.model.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -64,6 +61,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void checkLogin(){
+
+        login.setBackgroundResource(R.drawable.shape);
+        login.setTextColor(Color.WHITE);
 
         login.setOnClickListener(new View.OnClickListener() {
 
@@ -138,7 +138,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                             for(DataSnapshot userData: dataSnapshot.getChildren()) {
 
-                                                UserDao user = userData.getValue(UserDao.class);
+                                                User user = userData.getValue(User.class);
 
                                                 String user_id = user.getId();
 

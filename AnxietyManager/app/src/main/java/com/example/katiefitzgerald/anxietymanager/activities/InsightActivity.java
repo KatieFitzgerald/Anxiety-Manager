@@ -53,14 +53,11 @@ public class InsightActivity extends AppCompatActivity {
 
             switch (position){
                 case 0:
-                    ReactionFragment reactionFragment = new ReactionFragment();
-                    return reactionFragment;
+                    return new ReactionFragment();
                 case 1:
-                    LocationFragment locationFragment = new LocationFragment();
-                    return locationFragment;
+                    return new LocationFragment();
                 case 2:
-                    SubjectFragment subjectFragment = new SubjectFragment();
-                    return subjectFragment;
+                    return new SubjectFragment();
             }
             return null;
         }

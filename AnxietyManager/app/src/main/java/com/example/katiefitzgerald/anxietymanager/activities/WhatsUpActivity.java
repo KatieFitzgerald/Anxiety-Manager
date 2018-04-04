@@ -4,25 +4,21 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
 
 
-import com.example.katiefitzgerald.anxietymanager.model.SensedAnxietyDao;
+import com.example.katiefitzgerald.anxietymanager.model.SensedAnxiety;
 import com.example.katiefitzgerald.anxietymanager.sql.DatabaseManager;
-import com.example.katiefitzgerald.anxietymanager.model.QuestionnaireDao;
 import com.example.katiefitzgerald.anxietymanager.R;
 import com.example.katiefitzgerald.anxietymanager.adapters.WhatsUpAdapter;
 import com.google.firebase.database.DataSnapshot;
@@ -35,7 +31,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
-import java.util.Map;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
@@ -79,7 +74,7 @@ public class WhatsUpActivity extends AppCompatActivity {
             //Create a sensed_anxiety instances
             String currentTime = String.valueOf(System.currentTimeMillis());
 
-            SensedAnxietyDao sensedEpisode = new SensedAnxietyDao(sensed_id, currentTime, "none", user);
+            SensedAnxiety sensedEpisode = new SensedAnxiety(sensed_id, currentTime, "none", user);
 
             SensedAnxietyDB.child(sensed_id).setValue(sensedEpisode);
 
@@ -102,7 +97,7 @@ public class WhatsUpActivity extends AppCompatActivity {
 
                         for (DataSnapshot dsp : dataSnapshot.getChildren()) {
 
-                            SensedAnxietyDao episode = dsp.getValue(SensedAnxietyDao.class);
+                            SensedAnxiety episode = dsp.getValue(SensedAnxiety.class);
                             currentTime = episode.getTimestamp();
 
                             SimpleDateFormat dateFormatDay = new SimpleDateFormat("d MMM yyyy, H:m", Locale.getDefault());

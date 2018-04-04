@@ -4,7 +4,7 @@ package com.example.katiefitzgerald.anxietymanager.model;
  * Created by Katie Fitzgerald on 28/11/2017.
  */
 
-public class UserDao {
+public class User {
 
     private String id;
     private String name;
@@ -12,10 +12,10 @@ public class UserDao {
     private String password;
     private Boolean counsellor;
 
-    public UserDao() {
+    public User() {
     }
 
-    public UserDao(String id, String name, String email, String password, Boolean counsellor) {
+    public User(String id, String name, String email, String password, Boolean counsellor) {
         this.id = id;
         this.name = name;
         this.email = email;

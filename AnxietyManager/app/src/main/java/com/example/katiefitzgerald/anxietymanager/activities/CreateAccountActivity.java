@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.katiefitzgerald.anxietymanager.R;
-import com.example.katiefitzgerald.anxietymanager.model.UserDao;
+import com.example.katiefitzgerald.anxietymanager.model.User;
 import com.example.katiefitzgerald.anxietymanager.sql.DatabaseManager;
 
 import com.google.firebase.database.DatabaseReference;
@@ -77,6 +77,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         });
 
     }
+
     @Override
     public void onBackPressed() { }
 
@@ -112,7 +113,7 @@ public class CreateAccountActivity extends AppCompatActivity {
 
                 String user_id = UsersDB.push().getKey();
 
-                UserDao user = new UserDao(user_id, userName, userEmail, password, false);
+                User user = new User(user_id, userName, userEmail, password, false);
 
                 UsersDB.child(user_id).setValue(user);
 
@@ -138,7 +139,7 @@ public class CreateAccountActivity extends AppCompatActivity {
 
                 String user_id = UsersDB.push().getKey();
 
-                UserDao user = new UserDao(user_id, userName, userEmail, password, false);
+                User user = new User(user_id, userName, userEmail, password, false);
 
                 UsersDB.child(user_id).setValue(user);
 

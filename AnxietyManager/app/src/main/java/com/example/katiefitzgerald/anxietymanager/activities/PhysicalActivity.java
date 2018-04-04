@@ -2,11 +2,8 @@ package com.example.katiefitzgerald.anxietymanager.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.example.katiefitzgerald.anxietymanager.R;
@@ -141,6 +138,7 @@ public class PhysicalActivity extends AppCompatActivity {
             //do nothing
         }
         else {
+
             //allow no other options to be chosen
             breathing.setClickable(false);
             heartbeat.setClickable(false);
@@ -152,12 +150,10 @@ public class PhysicalActivity extends AppCompatActivity {
             changeAppetite.setClickable(false);
             headache.setClickable(false);
 
-
             Intent Emotion = new Intent(getApplicationContext(), MoodActivity.class);
             Emotion.putExtra("questionnaireObj", questionnaire);
             startActivity(Emotion);
             overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
-
 
         }
     }

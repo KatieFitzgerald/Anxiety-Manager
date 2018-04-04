@@ -74,7 +74,6 @@ public class RateOneMoodActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 seekBarValueMoodOne.setText(String.valueOf(progress));
-
             }
 
             @Override

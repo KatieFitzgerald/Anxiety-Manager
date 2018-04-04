@@ -4,18 +4,18 @@ package com.example.katiefitzgerald.anxietymanager.model;
  * Created by Katie Fitzgerald on 20/11/2017.
  */
 
-public class SensedAnxietyDao {
+public class SensedAnxiety {
 
     private String sensedID;
     private String timestamp;
     private String location;
     private String user_ID;
 
-    public SensedAnxietyDao() {
+    public SensedAnxiety() {
 
     }
 
-    public SensedAnxietyDao(String sensed_ID, String timestamp, String location, String user_ID) {
+    public SensedAnxiety(String sensed_ID, String timestamp, String location, String user_ID) {
         this.sensedID = sensed_ID;
         this.timestamp = timestamp;
         this.location = location;

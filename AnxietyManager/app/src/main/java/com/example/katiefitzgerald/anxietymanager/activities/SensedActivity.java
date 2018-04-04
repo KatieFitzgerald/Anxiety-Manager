@@ -1,13 +1,10 @@
 package com.example.katiefitzgerald.anxietymanager.activities;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -18,22 +15,17 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.katiefitzgerald.anxietymanager.model.QuestionnaireDao;
-import com.example.katiefitzgerald.anxietymanager.model.SensedAnxietyDao;
+import com.example.katiefitzgerald.anxietymanager.model.Questionnaire;
+import com.example.katiefitzgerald.anxietymanager.model.SensedAnxiety;
 import com.example.katiefitzgerald.anxietymanager.R;
-import com.example.katiefitzgerald.anxietymanager.model.UserDao;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -144,7 +136,7 @@ public class SensedActivity extends AppCompatActivity {
 
         String sensed_id = SensedAnxietyDB.push().getKey();
 
-        SensedAnxietyDao sensedEpisode = new SensedAnxietyDao(sensed_id, currentTime, address, user_id);
+        SensedAnxiety sensedEpisode = new SensedAnxiety(sensed_id, currentTime, address, user_id);
 
         SensedAnxietyDB.child(sensed_id).setValue(sensedEpisode);
 
@@ -225,8 +217,6 @@ public class SensedActivity extends AppCompatActivity {
                     questionnaireAssoc(location.trim(), timestamp);
                 }
 
-
-
             }
 
         });
@@ -254,7 +244,7 @@ public class SensedActivity extends AppCompatActivity {
 
                                 for (DataSnapshot episodeData : dataSnapshot.getChildren()) {
 
-                                    SensedAnxietyDao episode = episodeData.getValue(SensedAnxietyDao.class);
+                                    SensedAnxiety episode = episodeData.getValue(SensedAnxiety.class);
                                     sensedID = episode.getSensedID();
                                     final String loc = episode.getLocation();
 
@@ -276,7 +266,7 @@ public class SensedActivity extends AppCompatActivity {
 
                                                             for (DataSnapshot questionnaireData : dataSnapshot.getChildren()) {
 
-                                                                QuestionnaireDao questionnaire = questionnaireData.getValue(QuestionnaireDao.class);
+                                                                Questionnaire questionnaire = questionnaireData.getValue(Questionnaire.class);
                                                                 String subject = questionnaire.getSubject();
                                                                 String physical = questionnaire.getPhysical();
                                                                 String thought = questionnaire.getThought();
@@ -302,18 +292,10 @@ public class SensedActivity extends AppCompatActivity {
 
                                                         }
                                                         else {
+
                                                             questionnaireDetails.setVisibility(View.INVISIBLE);
                                                             questionnaireStart.setVisibility(View.VISIBLE);
 //
-//                                                            questionnaireStart.setOnClickListener(new View.OnClickListener() {
-//                                                                @Override
-//                                                                public void onClick(View view) {
-//                                                                Intent Questionnaire = new Intent(getApplicationContext(), WhatsUpActivity.class);
-//                                                                Questionnaire.putExtra("user_id", user_id);
-//                                                                Questionnaire.putExtra("sensed_id", sensedID);
-//                                                                startActivity(Questionnaire);
-//                                                                }
-//                                                            });
                                                         }
                                                     }
 

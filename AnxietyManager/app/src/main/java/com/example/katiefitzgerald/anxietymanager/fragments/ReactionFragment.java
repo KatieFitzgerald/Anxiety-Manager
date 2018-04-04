@@ -45,7 +45,6 @@ public class ReactionFragment extends Fragment {
         return rootView;
     }
 
-
     private void addDataSet() {
 
         ArrayList<Entry> entries = new ArrayList<Entry>();
