@@ -42,10 +42,11 @@
         android:id="@+id/textView31"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="12dp"
-        android:layout_below="@+id/toolbar"
-        android:text="How extreme were your moods?"
+        android:textStyle="bold"
+        android:text="How extreme were your emotions?"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         android:textColor="#FFFFFF" />
 
@@ -86,6 +87,7 @@
         android:layout_alignStart="@+id/seekBarOverall"
         android:layout_marginBottom="62dp"
         android:textColor="#FFFFFF"
+        android:textStyle="bold"
         android:text="Overall Mood"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
@@ -161,6 +163,5 @@
         android:layout_below="@+id/seekbarMoodTwo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp" />
-
 
 </RelativeLayout>

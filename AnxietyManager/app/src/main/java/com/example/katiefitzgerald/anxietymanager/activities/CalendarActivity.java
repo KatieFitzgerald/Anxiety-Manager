@@ -7,6 +7,7 @@ package com.example.katiefitzgerald.anxietymanager.activities;
 import android.Manifest;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
@@ -61,6 +62,14 @@ public class CalendarActivity extends AppCompatActivity {
         addToAppCalendar();
 
 //        addToDeviceCalendar();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        Intent home = new Intent(getApplicationContext(), HomeActivity.class);
+        home.putExtra("user_id", user_id);
+        startActivity(home);
     }
 
     private void addToAppCalendar() {

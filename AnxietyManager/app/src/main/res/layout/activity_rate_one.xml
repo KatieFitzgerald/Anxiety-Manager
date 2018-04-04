@@ -45,6 +45,7 @@
         android:layout_below="@+id/toolbar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="23dp"
+        android:textStyle="bold"
         android:text="How extreme was your mood?"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         android:textColor="#FFFFFF" />
@@ -86,6 +87,7 @@
         android:layout_above="@+id/textView30"
         android:layout_alignStart="@+id/textView30"
         android:layout_marginBottom="35dp"
+        android:textStyle="bold"
         android:text="Overall Mood"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#FFFFFF" />

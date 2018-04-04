@@ -37,7 +37,7 @@
         android:layout_below="@+id/toolbar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="22dp"
-        android:text="What emotions are you feeling?"
+        android:text="How are you feeling?"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         android:textStyle="bold"
         android:textColor="#FFFFFF" />
@@ -100,7 +100,7 @@
         android:layout_alignBottom="@+id/textView13"
         android:layout_alignEnd="@+id/afraid"
         android:gravity="center"
-        android:text="Fear"
+        android:text="Afraid"
         android:textColor="#FFFFFF" />
 
     <ImageView

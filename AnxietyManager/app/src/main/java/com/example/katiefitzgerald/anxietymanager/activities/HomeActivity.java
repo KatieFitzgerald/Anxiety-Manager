@@ -37,7 +37,7 @@ public class HomeActivity extends AppCompatActivity {
     Button sensedAnxiety;
     Button addTodayAnxiety;
     Button calendarButton;
-    Button cycleButton;
+    Button insightButton;
     Button profileButton;
     TextView welcome;
     int counter = 0;
@@ -157,23 +157,23 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        cycleButton = findViewById(R.id.cycleBtn);
-        cycleButton.setOnTouchListener(new View.OnTouchListener() {
+        insightButton = findViewById(R.id.insightsBtn);
+        insightButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
 
-                        cycleButton.setBackgroundResource(R.drawable.pressed);
-                        cycleButton.setTextColor(Color.GRAY);
+                        insightButton.setBackgroundResource(R.drawable.pressed);
+                        insightButton.setTextColor(Color.GRAY);
 
                         Intent cycle = new Intent(getApplicationContext(), InsightActivity.class);
                         startActivity(cycle);
 
                     case MotionEvent.ACTION_UP:
 
-                        cycleButton.setBackgroundResource(R.drawable.shape);
-                        cycleButton.setTextColor(Color.WHITE);
+                        insightButton.setBackgroundResource(R.drawable.shape);
+                        insightButton.setTextColor(Color.WHITE);
 
                         return true;
                     default:

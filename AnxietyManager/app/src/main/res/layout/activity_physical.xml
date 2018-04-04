@@ -37,7 +37,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:textStyle="bold"
-        android:text="What physical symptoms are you feeling?"
+        android:text="How are you physically feeling?"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         android:textColor="#FFFFFF"
         tools:targetApi="lollipop" />
@@ -46,11 +46,10 @@
         android:id="@+id/breathingIcon"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_alignParentStart="true"
         android:layout_below="@+id/textView4"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="35dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_toStartOf="@+id/sweatingIcon"
         android:clickable="true"
         app:srcCompat="@drawable/breath" />
 
@@ -107,8 +106,9 @@
         android:id="@+id/hungerIcon"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_alignEnd="@+id/textView4"
         android:layout_alignTop="@+id/sweatingIcon"
+        android:layout_marginStart="17dp"
+        android:layout_toEndOf="@+id/sweatingIcon"
         android:clickable="true"
         app:srcCompat="@drawable/hunger" />
 
@@ -225,7 +225,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView16"
         android:layout_alignBottom="@+id/textView16"
-        android:layout_alignEnd="@+id/textView4"
+        android:layout_alignStart="@+id/headacheIcon"
         android:gravity="center"
         android:paddingTop="2dp"
         android:text="Headache"

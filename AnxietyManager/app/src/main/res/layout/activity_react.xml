@@ -44,13 +44,13 @@
         android:id="@+id/textView31"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
+        android:layout_above="@+id/stay"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:textStyle="bold"
+        android:layout_marginBottom="47dp"
         android:text="What was your reaction to the situation?"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        android:textColor="#FFFFFF" />
+        android:textColor="#FFFFFF"
+        android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/stay"

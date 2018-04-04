@@ -31,7 +31,7 @@ public class InsightActivity extends AppCompatActivity {
         setContentView(R.layout.activity_insight);
 
         tabLayout = findViewById(R.id.tabs);
-        tabLayout.setTabTextColors(Color.parseColor("#ffffff"), Color.parseColor("#0042d0"));
+        tabLayout.setTabTextColors(Color.parseColor("#508cf5"), Color.parseColor("#ffffff"));
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 

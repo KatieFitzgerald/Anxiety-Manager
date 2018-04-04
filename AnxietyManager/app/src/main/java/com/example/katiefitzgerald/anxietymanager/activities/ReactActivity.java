@@ -74,6 +74,7 @@ public class ReactActivity extends AppCompatActivity {
                QuestionnaireDB.child(questionnaire_id).setValue(questionnaire);
 
                 Intent calendar = new Intent(getApplicationContext(), CalendarActivity.class);
+                calendar.putExtra("user_id", questionnaireValues[1]);
                 startActivity(calendar);
             }
         });
