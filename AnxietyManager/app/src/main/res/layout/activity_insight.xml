@@ -26,7 +26,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_gravity="center"
                 android:layout_marginTop="11dp"
-                android:text="Anxiety Cycle"
+                android:text="Anxiety Insights"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                 android:textColor="#FFFFFF" />
 
