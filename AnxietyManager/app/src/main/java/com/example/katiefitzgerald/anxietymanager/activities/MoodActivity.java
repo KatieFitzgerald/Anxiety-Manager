@@ -45,7 +45,7 @@ public class MoodActivity extends AppCompatActivity {
 
     DatabaseManager db = new DatabaseManager(this);
 
-    String[] chosenMood = new String[2];
+    String[] chosenEmotion = new String[2];
     String questionnaire[] = new String[12];
 
     TextView warning;
@@ -75,12 +75,12 @@ public class MoodActivity extends AppCompatActivity {
             public void onClick(View view) {
                 fear.setImageResource(R.drawable.chosen);
                 if (questionCount == 0) {
-                    chosenMood[0] = "Fear";
-                    questionnaire[5] = chosenMood[0];
+                    chosenEmotion[0] = "Fear";
+                    questionnaire[5] = chosenEmotion[0];
                 }
                 else {
-                    chosenMood[1] = "Fear";
-                    questionnaire[6] = chosenMood[1];
+                    chosenEmotion[1] = "Fear";
+                    questionnaire[6] = chosenEmotion[1];
                 }
                 questionCount += 1;
                 checkQuestions();
@@ -92,12 +92,12 @@ public class MoodActivity extends AppCompatActivity {
             public void onClick(View view) {
                 angry.setImageResource(R.drawable.chosen);
                 if (questionCount == 0) {
-                    chosenMood[0] = "Angry";
-                    questionnaire[5] = chosenMood[0];
+                    chosenEmotion[0] = "Angry";
+                    questionnaire[5] = chosenEmotion[0];
                 }
                 else {
-                    chosenMood[1] = "Angry";
-                    questionnaire[6] = chosenMood[1];
+                    chosenEmotion[1] = "Angry";
+                    questionnaire[6] = chosenEmotion[1];
                 }
                 questionCount += 1;
                 checkQuestions();
@@ -109,12 +109,12 @@ public class MoodActivity extends AppCompatActivity {
             public void onClick(View view) {
                 sad.setImageResource(R.drawable.chosen);
                 if (questionCount == 0) {
-                    chosenMood[0] = "Sad";
-                    questionnaire[5] = chosenMood[0];
+                    chosenEmotion[0] = "Sad";
+                    questionnaire[5] = chosenEmotion[0];
                 }
                 else {
-                    chosenMood[1] = "Sad";
-                    questionnaire[6] = chosenMood[1];
+                    chosenEmotion[1] = "Sad";
+                    questionnaire[6] = chosenEmotion[1];
                 }
                 questionCount += 1;
                 checkQuestions();
@@ -126,12 +126,12 @@ public class MoodActivity extends AppCompatActivity {
             public void onClick(View view) {
                 lonely.setImageResource(R.drawable.chosen);
                 if (questionCount == 0) {
-                    chosenMood[0] = "Lonely";
-                    questionnaire[5] = chosenMood[0];
+                    chosenEmotion[0] = "Lonely";
+                    questionnaire[5] = chosenEmotion[0];
                 }
                 else {
-                    chosenMood[1] = "Lonely";
-                    questionnaire[6] = chosenMood[1];
+                    chosenEmotion[1] = "Lonely";
+                    questionnaire[6] = chosenEmotion[1];
                 }
                 questionCount += 1;
                 checkQuestions();
@@ -143,12 +143,12 @@ public class MoodActivity extends AppCompatActivity {
             public void onClick(View view) {
                 worried.setImageResource(R.drawable.chosen);
                 if (questionCount == 0) {
-                    chosenMood[0] = "Worried";
-                    questionnaire[5] = chosenMood[0];
+                    chosenEmotion[0] = "Worried";
+                    questionnaire[5] = chosenEmotion[0];
                 }
                 else {
-                    chosenMood[1] = "Worried";
-                    questionnaire[6] = chosenMood[1];
+                    chosenEmotion[1] = "Worried";
+                    questionnaire[6] = chosenEmotion[1];
                 }
                 questionCount += 1;
                 checkQuestions();
@@ -160,12 +160,12 @@ public class MoodActivity extends AppCompatActivity {
             public void onClick(View view) {
                 embarrassed.setImageResource(R.drawable.chosen);
                 if (questionCount == 0) {
-                    chosenMood[0] = "Embarrassed";
-                    questionnaire[5] = chosenMood[0];
+                    chosenEmotion[0] = "Embarrassed";
+                    questionnaire[5] = chosenEmotion[0];
                 }
                 else {
-                    chosenMood[1] = "Embarrassed";
-                    questionnaire[6] = chosenMood[1];
+                    chosenEmotion[1] = "Embarrassed";
+                    questionnaire[6] = chosenEmotion[1];
                 }
                 questionCount += 1;
                 checkQuestions();
@@ -177,12 +177,12 @@ public class MoodActivity extends AppCompatActivity {
             public void onClick(View view) {
                 distracted.setImageResource(R.drawable.chosen);
                 if (questionCount == 0) {
-                    chosenMood[0] = "Distracted";
-                    questionnaire[5] = chosenMood[0];
+                    chosenEmotion[0] = "Distracted";
+                    questionnaire[5] = chosenEmotion[0];
                 }
                 else {
-                    chosenMood[1] = "Distracted";
-                    questionnaire[6] = chosenMood[1];
+                    chosenEmotion[1] = "Distracted";
+                    questionnaire[6] = chosenEmotion[1];
                 }
                 questionCount += 1;
                 checkQuestions();
@@ -194,12 +194,12 @@ public class MoodActivity extends AppCompatActivity {
             public void onClick(View view) {
                 nervous.setImageResource(R.drawable.chosen);
                 if (questionCount == 0) {
-                    chosenMood[0] = "Nervous";
-                    questionnaire[5] = chosenMood[0];
+                    chosenEmotion[0] = "Nervous";
+                    questionnaire[5] = chosenEmotion[0];
                 }
                 else {
-                    chosenMood[1] = "Nervous";
-                    questionnaire[6] = chosenMood[1];
+                    chosenEmotion[1] = "Nervous";
+                    questionnaire[6] = chosenEmotion[1];
 
                 }
                 questionCount += 1;
@@ -234,14 +234,14 @@ public class MoodActivity extends AppCompatActivity {
                             String moodChosen = returnedMoodCursor.getString(1);
 
                             if (questionCount == 1) {
-                                chosenMood[1] = moodChosen;
-                                questionnaire[5] = chosenMood[1];
+                                chosenEmotion[1] = moodChosen;
+                                questionnaire[5] = chosenEmotion[1];
                                 questionCount += 1;
                                 checkQuestions();
                             }
                             else {
-                                chosenMood[0] = moodChosen;
-                                questionnaire[5] = chosenMood[0];
+                                chosenEmotion[0] = moodChosen;
+                                questionnaire[5] = chosenEmotion[0];
                                 questionnaire[6] = "Custom emotion chosen";
                                 questionCount = 3;
                                 checkQuestions();
@@ -277,14 +277,14 @@ public class MoodActivity extends AppCompatActivity {
                                 db.close();
 
                                 if (questionCount == 1) {
-                                    chosenMood[1] = otherEmotion;
-                                    questionnaire[5] = chosenMood[1];
+                                    chosenEmotion[1] = otherEmotion;
+                                    questionnaire[5] = chosenEmotion[1];
                                     questionCount += 1;
                                     checkQuestions();
                                 }
                                 else {
-                                    chosenMood[0] = otherEmotion;
-                                    questionnaire[5] = chosenMood[0];
+                                    chosenEmotion[0] = otherEmotion;
+                                    questionnaire[5] = chosenEmotion[0];
                                     questionnaire[6] = "Custom emotion chosen";
                                     questionCount = 3;
                                     checkQuestions();
@@ -349,7 +349,7 @@ public class MoodActivity extends AppCompatActivity {
 
             Intent RateMood = new Intent(getApplicationContext(), RateTwoMoodActivity.class);
             RateMood.putExtra("questionnaireObj", questionnaire);
-            RateMood.putExtra("chosenMoods", chosenMood);
+            RateMood.putExtra("chosenMoods", chosenEmotion);
             startActivity(RateMood);
             overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
         }
@@ -359,7 +359,7 @@ public class MoodActivity extends AppCompatActivity {
 
             Intent RateMood = new Intent(getApplicationContext(), RateOneMoodActivity.class);
             RateMood.putExtra("questionnaireObj", questionnaire);
-            RateMood.putExtra("chosenMoods", chosenMood);
+            RateMood.putExtra("chosenMoods", chosenEmotion);
             startActivity(RateMood);
             overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
 

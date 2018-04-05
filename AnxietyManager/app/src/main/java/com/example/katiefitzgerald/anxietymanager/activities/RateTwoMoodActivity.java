@@ -19,7 +19,7 @@ public class RateTwoMoodActivity extends AppCompatActivity {
     ImageView nextQuestion;
 
     String questionnaire[] = new String[12];
-    String[] chosenMoods = new String[2];
+    String[] chosenEmotions = new String[2];
 
     SeekBar seekBarMoodOne;
     SeekBar seekBarMoodTwo;
@@ -32,13 +32,13 @@ public class RateTwoMoodActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         questionnaire = extras.getStringArray("questionnaireObj");
-        chosenMoods = extras.getStringArray("chosenMoods");
+        chosenEmotions = extras.getStringArray("chosenMoods");
 
         seekBarMoodOne = findViewById(R.id.seekbarMoodOne);
         seekBarMoodTwo = findViewById(R.id.seekbarMoodTwo);
         seekBarOverall = findViewById(R.id.seekBarOverall);
 
-        setupMoodImages(chosenMoods);
+        setupMoodImages(chosenEmotions);
 
         seekBarSetup();
 
@@ -132,10 +132,10 @@ public class RateTwoMoodActivity extends AppCompatActivity {
 
     }
 
-    private void setupMoodImages(String[] chosenMoods) {
+    private void setupMoodImages(String[] chosenEmotions) {
 
-        String mood_one = chosenMoods[0];
-        String mood_two = chosenMoods[1];
+        String mood_one = chosenEmotions[0];
+        String mood_two = chosenEmotions[1];
 
         TextView moodTwoOne = findViewById(R.id.mood_one);
         moodTwoOne.setText(mood_one);

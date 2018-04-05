@@ -10,4 +10,16 @@
         android:layout_width="400dp"
         android:layout_height="400dp" />
 
+    <TextView
+        android:id="@+id/textView32"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/reactionChart"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textStyle="italic"
+        android:textColor="#FFFFFF"
+        android:text="Your mood is improving cause you're sticking around. Well done!"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium" />
+
 </RelativeLayout>

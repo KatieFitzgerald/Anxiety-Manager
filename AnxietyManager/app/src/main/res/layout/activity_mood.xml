@@ -24,9 +24,9 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
             android:layout_marginTop="13dp"
-            android:text="Mood?"
+            android:text="Emotions?"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:textColor="#FFFFFF"/>
+            android:textColor="#FFFFFF" />
 
     </android.support.v7.widget.Toolbar>
 
@@ -215,7 +215,7 @@
         android:layout_alignStart="@+id/other"
         android:layout_below="@+id/other"
         android:gravity="center"
-        android:text="Custom mood"
+        android:text="Custom emotion"
         android:textColor="#ffffff" />
 
 </RelativeLayout>

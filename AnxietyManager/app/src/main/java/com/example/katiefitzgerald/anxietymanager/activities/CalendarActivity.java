@@ -61,7 +61,7 @@ public class CalendarActivity extends AppCompatActivity {
 
         addToAppCalendar();
 
-//        addToDeviceCalendar();
+        //addToDeviceCalendar();
     }
 
     @Override
@@ -77,10 +77,12 @@ public class CalendarActivity extends AppCompatActivity {
         month = findViewById(R.id.monthText);
         compactCalendar = findViewById(R.id.compactcalendar_view);
 
+        month.setText(dateFormatMonth.format(System.currentTimeMillis()));
+
         DatabaseReference sensedDB = FirebaseDatabase.getInstance().getReference();
         Query sensedAnxiety = sensedDB.child("sensed_anxiety").orderByChild("user_ID").equalTo(user_id);
 
-        final ArrayList<Long> timestamps = null;
+        final ArrayList<Long> timestamps = new ArrayList<Long>();
 
         sensedAnxiety.addListenerForSingleValueEvent(new ValueEventListener() {
 
@@ -93,7 +95,24 @@ public class CalendarActivity extends AppCompatActivity {
 
                         SensedAnxiety sensedAnxiety = anxietyData.getValue(SensedAnxiety.class);
 
+                        if (sensedAnxiety.getTimestamp() != null) {
+
+                            //get timestamps from sensed anxiety
+                            timestamps.add(Long.parseLong(sensedAnxiety.getTimestamp()));
+
+                        }
+
                     }
+
+                    if (!timestamps.isEmpty()){
+
+                        for(int i = 0; i < timestamps.size(); i++){
+
+                            compactCalendar.addEvent(new Event(Color.RED, timestamps.get(i), "Anxiety Episode"));
+
+                        }
+                    }
+
                 }
             }
 
@@ -106,7 +125,7 @@ public class CalendarActivity extends AppCompatActivity {
 
         compactCalendar.shouldDrawIndicatorsBelowSelectedDays(true);
 
-        compactCalendar.addEvents(getEvents());
+        //compactCalendar.addEvents(getEvents());
 
         // define a listener to receive when data click or month swipe occurs
         compactCalendar.setListener(new CompactCalendarView.CompactCalendarViewListener() {
@@ -144,33 +163,6 @@ public class CalendarActivity extends AppCompatActivity {
         });
     }
 
-    private ArrayList<Event> getEvents() {
-
-        ArrayList<Event> events = new ArrayList<>();
-        events.add(new Event(Color.RED, System.currentTimeMillis(), "Anxiety Episode"));
-        events.add(new Event(Color.RED, System.currentTimeMillis(), "Anxiety Episode"));
-        events.add(new Event(Color.RED, 1521747297801l, "Anxiety Episode"));
-        events.add(new Event(Color.RED, 1521564300000l, "Anxiety Episode"));
-        events.add(new Event(Color.RED, 1521804979122l, "Anxiety Episode"));
-        events.add(new Event(Color.RED, 1521813159970l, "Anxiety Episode"));
-        events.add(new Event(Color.RED, 1521482040000l, "Anxiety Episode"));
-        events.add(new Event(Color.RED, 1521891276134l, "Anxiety Episode"));
-        events.add(new Event(Color.RED, 1522673069436l, "Anxiety Episode"));
-        events.add(new Event(Color.RED, 1520467200000l, "Anxiety Episode"));
-        events.add(new Event(Color.RED, 1520467200000l, "Anxiety Episode"));
-        events.add(new Event(Color.RED, 1520121600000l, "Anxiety Episode"));
-        events.add(new Event(Color.RED, 1522364400000l, "Anxiety Episode"));
-        events.add(new Event(Color.RED, 1520985600000l, "Anxiety Episode"));
-        events.add(new Event(Color.RED, 1520985600000l, "Anxiety Episode"));
-        events.add(new Event(Color.RED, 1520985600000l, "Anxiety Episode"));
-        events.add(new Event(Color.RED, 1521072000000l, "Anxiety Episode"));
-        events.add(new Event(Color.RED, 1521072000000l, "Anxiety Episode"));
-        events.add(new Event(Color.RED, 1521072000000l, "Anxiety Episode"));
-        events.add(new Event(Color.RED, 1521158400000l, "Anxiety Episode"));
-
-        return events;
-    }
-
     private void addToDeviceCalendar(){
 
         ContentResolver cr = this.getContentResolver();
@@ -201,4 +193,31 @@ public class CalendarActivity extends AppCompatActivity {
         }
         Uri uri = cr.insert(CalendarContract.Events.CONTENT_URI, values);
     }
+
+//    private ArrayList<Event> getEvents() {
+//
+//        ArrayList<Event> events = new ArrayList<>();
+//        events.add(new Event(Color.RED, System.currentTimeMillis(), "Anxiety Episode"));
+//        events.add(new Event(Color.RED, System.currentTimeMillis(), "Anxiety Episode"));
+//        events.add(new Event(Color.RED, 1521747297801l, "Anxiety Episode"));
+//        events.add(new Event(Color.RED, 1521564300000l, "Anxiety Episode"));
+//        events.add(new Event(Color.RED, 1521804979122l, "Anxiety Episode"));
+//        events.add(new Event(Color.RED, 1521813159970l, "Anxiety Episode"));
+//        events.add(new Event(Color.RED, 1521482040000l, "Anxiety Episode"));
+//        events.add(new Event(Color.RED, 1521891276134l, "Anxiety Episode"));
+//        events.add(new Event(Color.RED, 1522673069436l, "Anxiety Episode"));
+//        events.add(new Event(Color.RED, 1520467200000l, "Anxiety Episode"));
+//        events.add(new Event(Color.RED, 1520467200000l, "Anxiety Episode"));
+//        events.add(new Event(Color.RED, 1520121600000l, "Anxiety Episode"));
+//        events.add(new Event(Color.RED, 1522364400000l, "Anxiety Episode"));
+//        events.add(new Event(Color.RED, 1520985600000l, "Anxiety Episode"));
+//        events.add(new Event(Color.RED, 1520985600000l, "Anxiety Episode"));
+//        events.add(new Event(Color.RED, 1520985600000l, "Anxiety Episode"));
+//        events.add(new Event(Color.RED, 1521072000000l, "Anxiety Episode"));
+//        events.add(new Event(Color.RED, 1521072000000l, "Anxiety Episode"));
+//        events.add(new Event(Color.RED, 1521072000000l, "Anxiety Episode"));
+//        events.add(new Event(Color.RED, 1521158400000l, "Anxiety Episode"));
+//
+//        return events;
+//    }
 }

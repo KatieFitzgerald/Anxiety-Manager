@@ -20,7 +20,7 @@ public class RateOneMoodActivity extends AppCompatActivity {
     ImageView nextQuestion;
 
     String questionnaire[] = new String[12];
-    String[] chosenMoods = new String[2];
+    String[] chosenEmotions = new String[2];
 
     SeekBar seekBarMoodOne;
     SeekBar seekBarOverall;
@@ -32,12 +32,12 @@ public class RateOneMoodActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         questionnaire = extras.getStringArray("questionnaireObj");
-        chosenMoods = extras.getStringArray("chosenMoods");
+        chosenEmotions = extras.getStringArray("chosenMoods");
 
         seekBarMoodOne = findViewById(R.id.seekbarMoodOne);
         seekBarOverall = findViewById(R.id.seekBarOverall);
 
-        setupMoodImages(chosenMoods);
+        setupMoodImages(chosenEmotions);
 
         seekBarSetup();
 
