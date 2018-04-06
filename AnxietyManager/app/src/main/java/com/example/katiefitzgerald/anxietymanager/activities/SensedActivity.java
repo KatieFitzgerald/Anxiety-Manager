@@ -66,10 +66,10 @@ public class SensedActivity extends AppCompatActivity {
         questionnaireDetails = findViewById(R.id.questionnaireDetails);
         questionnaireDetails.setVisibility(View.INVISIBLE);
 
-//
-//        Location location = getLastKnownLocation();
-//        longitude = location.getLongitude();
-//        latitude = location.getLatitude();
+
+        Location location = getLastKnownLocation();
+        longitude = location.getLongitude();
+        latitude = location.getLatitude();
 
         populateEpisodeList();
         listCheck();
@@ -161,7 +161,8 @@ public class SensedActivity extends AppCompatActivity {
 
     }
 
-    // https://stackoverflow.com/questions/20438627/getlastknownlocation-returns-null
+    //bug fixed using https://stackoverflow.com/questions/20438627/getlastknownlocation-returns-null
+    
     private Location getLastKnownLocation() {
 
         mLocationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
