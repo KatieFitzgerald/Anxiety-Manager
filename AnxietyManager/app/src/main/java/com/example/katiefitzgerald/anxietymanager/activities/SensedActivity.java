@@ -66,7 +66,6 @@ public class SensedActivity extends AppCompatActivity {
         questionnaireDetails = findViewById(R.id.questionnaireDetails);
         questionnaireDetails.setVisibility(View.INVISIBLE);
 
-//
 //        Location location = getLastKnownLocation();
 //        longitude = location.getLongitude();
 //        latitude = location.getLatitude();
@@ -295,7 +294,7 @@ public class SensedActivity extends AppCompatActivity {
 
                                                             questionnaireDetails.setVisibility(View.INVISIBLE);
                                                             questionnaireStart.setVisibility(View.VISIBLE);
-//
+
                                                         }
                                                     }
 

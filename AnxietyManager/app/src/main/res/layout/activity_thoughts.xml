@@ -37,13 +37,13 @@
         android:layout_marginTop="33dp"
         android:backgroundTint="#FFFFFF"
         android:ems="10"
-        android:hint="Enter your thoughts"
+        android:hint="Write a new thought"
         android:inputType="text|textCapSentences"
         android:selectAllOnFocus="false"
         android:textAppearance="@android:style/TextAppearance.Holo.SearchResult.Subtitle"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
-        android:textSize="16sp"/>
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/textView4"
@@ -51,11 +51,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
         android:layout_centerHorizontal="true"
-        android:textStyle="bold"
         android:layout_marginTop="21dp"
-        android:text="What going through your mind?"
+        android:text="What's going through your mind?"
         android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
-        android:textColor="#FFFFFF" />
+        android:textColor="#FFFFFF"
+        android:textStyle="bold" />
 
     <ListView
         android:id="@+id/thoughtList"

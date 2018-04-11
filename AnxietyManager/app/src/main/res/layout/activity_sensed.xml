@@ -31,8 +31,11 @@
         android:id="@+id/episodeListView"
         android:layout_width="wrap_content"
         android:layout_height="260dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView29" />
+        android:layout_below="@+id/textView29"
+        android:fadeScrollbars="false" />
 
     <Button
         android:id="@+id/fillOutQuestionnaire"
@@ -60,18 +63,18 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/toolbar"
-        android:textColor="#FFFFFF"
-        android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
-        android:text="Previously added episode:" />
+        android:layout_marginTop="20dp"
+        android:text="Previously sensed episodes:"
+        android:textColor="#FFFFFF" />
 
     <TextView
-        android:id="@+id/textView32"
+        android:id="@+id/questionnaireTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_alignStart="@+id/textView29"
         android:layout_below="@+id/episodeListView"
+        android:layout_marginTop="10dp"
         android:text="Questionnaire details:"
         android:textColor="#FFFFFF" />
 

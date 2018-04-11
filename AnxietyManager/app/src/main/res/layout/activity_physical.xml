@@ -36,10 +36,10 @@
         android:layout_below="@+id/toolbar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:textStyle="bold"
-        android:text="How are you physically feeling?"
+        android:text="What was your initial physical feeling?"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         android:textColor="#FFFFFF"
+        android:textStyle="bold"
         tools:targetApi="lollipop" />
 
     <ImageView
