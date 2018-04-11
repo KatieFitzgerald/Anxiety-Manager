@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient"
+    tools:context="com.example.katiefitzgerald.anxietymanager.activities.ChosenUserActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#81d4fa"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="11dp"
+            android:text="Anxiety Manager"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textColor="#FFFFFF" />
+
+    </android.support.v7.widget.Toolbar>
+
+
+    <Button
+        android:id="@+id/sensedAnxiety"
+        style="@android:style/Widget.Material.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/profileBtn"
+        android:text="Sensed"
+        android:background="@drawable/shape"
+        tools:targetApi="m" />
+
+    <Button
+        android:id="@+id/calendarButton"
+        style="@android:style/Widget.Material.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/insightsBtn"
+        android:text="Calendar"
+        android:background="@drawable/shape"
+        tools:targetApi="m" />
+
+    <Button
+        android:id="@+id/insightsBtn"
+        style="@android:style/Widget.Material.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/sensedAnxiety"
+        android:text="Insights"
+        android:background="@drawable/shape"
+        tools:targetApi="m" />
+
+    <Button
+        android:id="@+id/profileBtn"
+        style="@android:style/Widget.Material.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:text="Profile"
+        android:background="@drawable/shape"
+        tools:targetApi="m" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/worriesChart"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="12dp"
+        android:fontFamily="sans-serif"
+        android:text="X current worries..."
+        android:textAppearance="@style/TextAppearance.AppCompat.Title.Inverse"
+        android:textSize="24sp" />
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/worriesChart"
+        android:layout_width="360dp"
+        android:layout_height="340dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:gravity="center" />
+
+</RelativeLayout>
