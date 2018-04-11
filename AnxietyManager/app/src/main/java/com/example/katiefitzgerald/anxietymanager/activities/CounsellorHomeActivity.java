@@ -41,6 +41,11 @@ public class CounsellorHomeActivity extends AppCompatActivity {
         chooseUser();
     }
 
+    @Override
+    public void onBackPressed() {
+    }
+
+
     private void chooseUser(){
 
         DatabaseReference sensedDB = FirebaseDatabase.getInstance().getReference();
@@ -117,4 +122,5 @@ public class CounsellorHomeActivity extends AppCompatActivity {
             }
         });
     }
+
 }

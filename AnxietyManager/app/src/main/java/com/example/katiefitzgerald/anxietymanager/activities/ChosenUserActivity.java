@@ -152,6 +152,9 @@ public class ChosenUserActivity extends AppCompatActivity {
                         profileButton.setBackgroundResource(R.drawable.pressed);
                         profileButton.setTextColor(Color.GRAY);
 
+                        Intent home = new Intent(getApplicationContext(), CounsellorHomeActivity.class);
+                        startActivity(home);
+
                     case MotionEvent.ACTION_UP:
 
                         profileButton.setBackgroundResource(R.drawable.shape);
@@ -165,5 +168,10 @@ public class ChosenUserActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+
+    @Override
+    public void onBackPressed() {
     }
 }
