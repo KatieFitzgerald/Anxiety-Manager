@@ -113,7 +113,7 @@ public class CreateAccountActivity extends AppCompatActivity {
 
                 String user_id = UsersDB.push().getKey();
 
-                User user = new User(user_id, userName, userEmail, password, false);
+                User user = new User(user_id, userName, userEmail, password, true);
 
                 UsersDB.child(user_id).setValue(user);
 
@@ -130,7 +130,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                 }
 
                 //start counsellor activity
-                Intent home = new Intent(getApplicationContext(), HomeActivity.class);
+                Intent home = new Intent(getApplicationContext(), CounsellorHomeActivity.class);
                 home.putExtra("user_id", user_id);
                 startActivity(home);
                 Toast.makeText(this, "Counsellor", Toast.LENGTH_LONG).show();

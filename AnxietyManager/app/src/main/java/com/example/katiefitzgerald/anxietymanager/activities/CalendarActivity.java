@@ -64,13 +64,13 @@ public class CalendarActivity extends AppCompatActivity {
         //addToDeviceCalendar();
     }
 
-    @Override
-    public void onBackPressed() {
-
-        Intent home = new Intent(getApplicationContext(), HomeActivity.class);
-        home.putExtra("user_id", user_id);
-        startActivity(home);
-    }
+//    @Override
+//    public void onBackPressed() {
+//
+//        Intent home = new Intent(getApplicationContext(), HomeActivity.class);
+//        home.putExtra("user_id", user_id);
+//        startActivity(home);
+//    }
 
     private void addToAppCalendar() {
 

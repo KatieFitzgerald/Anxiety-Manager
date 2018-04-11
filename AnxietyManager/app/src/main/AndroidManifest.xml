@@ -24,6 +24,8 @@
         </activity>
         <activity android:name=".activities.CreateAccountActivity"></activity>
         <activity android:name=".activities.SensedActivity"></activity>
+        <activity android:name=".activities.ChosenUserActivity"></activity>
+        <activity android:name=".activities.CounsellorHomeActivity"></activity>
         <activity android:name=".activities.HomeActivity"></activity>
         <activity android:name=".activities.WhatsUpActivity"
             android:label=" "
