@@ -30,11 +30,11 @@
     <ListView
         android:id="@+id/episodeListView"
         android:layout_width="wrap_content"
-        android:layout_height="260dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_height="200dp"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textView29"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:fadeScrollbars="false" />
 
     <Button
@@ -53,18 +53,17 @@
         layout="@layout/questionnaire_details_view"
         android:layout_width="250dp"
         android:layout_height="200dp"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/questionnaireTitle"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginTop="21dp" />
 
     <TextView
         android:id="@+id/textView29"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:layout_alignStart="@+id/episodeListView"
         android:layout_below="@+id/toolbar"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="13dp"
         android:text="Previously sensed episodes:"
         android:textColor="#FFFFFF" />
 

@@ -64,14 +64,6 @@ public class CalendarActivity extends AppCompatActivity {
         //addToDeviceCalendar();
     }
 
-//    @Override
-//    public void onBackPressed() {
-//
-//        Intent home = new Intent(getApplicationContext(), HomeActivity.class);
-//        home.putExtra("user_id", user_id);
-//        startActivity(home);
-//    }
-
     private void addToAppCalendar() {
 
         month = findViewById(R.id.monthText);
@@ -79,6 +71,7 @@ public class CalendarActivity extends AppCompatActivity {
 
         month.setText(dateFormatMonth.format(System.currentTimeMillis()));
 
+        //get timestamp of users sensed anxiety
         DatabaseReference sensedDB = FirebaseDatabase.getInstance().getReference();
         Query sensedAnxiety = sensedDB.child("sensed_anxiety").orderByChild("user_ID").equalTo(user_id);
 
@@ -97,7 +90,7 @@ public class CalendarActivity extends AppCompatActivity {
 
                         if (sensedAnxiety.getTimestamp() != null) {
 
-                            //get timestamps from sensed anxiety
+                            //get timestamps from sensed anxiety object
                             timestamps.add(Long.parseLong(sensedAnxiety.getTimestamp()));
 
                         }
@@ -123,9 +116,8 @@ public class CalendarActivity extends AppCompatActivity {
 
         });
 
+        //draw red dots
         compactCalendar.shouldDrawIndicatorsBelowSelectedDays(true);
-
-        //compactCalendar.addEvents(getEvents());
 
         // define a listener to receive when data click or month swipe occurs
         compactCalendar.setListener(new CompactCalendarView.CompactCalendarViewListener() {
@@ -144,13 +136,13 @@ public class CalendarActivity extends AppCompatActivity {
 
                     //fill in default responses for demonstration
                     TextView location = questionnaireDetails.findViewById(R.id.location);
-                    location.setText("- Kevin St");
+                    location.setText("Kevin Street");
                     TextView subjectTV = questionnaireDetails.findViewById(R.id.subject);
-                    subjectTV.setText("- Exam stress");
-                    TextView physicalTV = questionnaireDetails.findViewById(R.id.physical);
-                    physicalTV.setText("- Shaking");
+                    subjectTV.setText("Exam stress");
+                    TextView physicalTV = questionnaireDetails.findViewById(R.id.reaction);
+                    physicalTV.setText("Left");
                     TextView thoughtTV = questionnaireDetails.findViewById(R.id.thought);
-                    thoughtTV.setText("- I don't have enough time to study everything");
+                    thoughtTV.setText("I don't have enough time to study everything");
                 }
             }
 
@@ -194,30 +186,4 @@ public class CalendarActivity extends AppCompatActivity {
         Uri uri = cr.insert(CalendarContract.Events.CONTENT_URI, values);
     }
 
-//    private ArrayList<Event> getEvents() {
-//
-//        ArrayList<Event> events = new ArrayList<>();
-//        events.add(new Event(Color.RED, System.currentTimeMillis(), "Anxiety Episode"));
-//        events.add(new Event(Color.RED, System.currentTimeMillis(), "Anxiety Episode"));
-//        events.add(new Event(Color.RED, 1521747297801l, "Anxiety Episode"));
-//        events.add(new Event(Color.RED, 1521564300000l, "Anxiety Episode"));
-//        events.add(new Event(Color.RED, 1521804979122l, "Anxiety Episode"));
-//        events.add(new Event(Color.RED, 1521813159970l, "Anxiety Episode"));
-//        events.add(new Event(Color.RED, 1521482040000l, "Anxiety Episode"));
-//        events.add(new Event(Color.RED, 1521891276134l, "Anxiety Episode"));
-//        events.add(new Event(Color.RED, 1522673069436l, "Anxiety Episode"));
-//        events.add(new Event(Color.RED, 1520467200000l, "Anxiety Episode"));
-//        events.add(new Event(Color.RED, 1520467200000l, "Anxiety Episode"));
-//        events.add(new Event(Color.RED, 1520121600000l, "Anxiety Episode"));
-//        events.add(new Event(Color.RED, 1522364400000l, "Anxiety Episode"));
-//        events.add(new Event(Color.RED, 1520985600000l, "Anxiety Episode"));
-//        events.add(new Event(Color.RED, 1520985600000l, "Anxiety Episode"));
-//        events.add(new Event(Color.RED, 1520985600000l, "Anxiety Episode"));
-//        events.add(new Event(Color.RED, 1521072000000l, "Anxiety Episode"));
-//        events.add(new Event(Color.RED, 1521072000000l, "Anxiety Episode"));
-//        events.add(new Event(Color.RED, 1521072000000l, "Anxiety Episode"));
-//        events.add(new Event(Color.RED, 1521158400000l, "Anxiety Episode"));
-//
-//        return events;
-//    }
 }

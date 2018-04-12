@@ -43,6 +43,18 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/textView35"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/subject"
+            android:layout_alignBottom="@+id/subject"
+            android:layout_toStartOf="@+id/subject"
+            android:text="Subject: "
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"/>
+
+
+        <TextView
             android:id="@+id/subject"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
@@ -53,13 +65,35 @@
             android:textColor="#FFFFFF"
             android:textSize="15sp" />
 
+
         <TextView
-            android:id="@+id/physical"
+            android:id="@+id/textView37"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/textView36"
+            android:layout_below="@+id/thought"
+            android:text="Reaction: "
+            android:textColor="#FFFFFF"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/reaction"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_alignStart="@+id/thought"
             android:layout_below="@+id/thought"
-            android:text="Physical"
+            android:text="Reaction"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:id="@+id/textView36"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/textView35"
+            android:layout_below="@+id/subject"
+            android:text="Thought: "
             android:textColor="#FFFFFF"
             android:textSize="15sp" />
 
@@ -69,10 +103,11 @@
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/subject"
             android:layout_below="@+id/subject"
-            android:text="Thought"
             android:layout_marginBottom="5dp"
+            android:text="Thought"
             android:textColor="#FFFFFF"
             android:textSize="15sp" />
+
 
     </RelativeLayout>
 </ScrollView>

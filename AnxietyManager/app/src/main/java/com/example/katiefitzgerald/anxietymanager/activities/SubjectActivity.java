@@ -20,7 +20,7 @@ import android.support.v7.widget.Toolbar;
 import com.example.katiefitzgerald.anxietymanager.model.SensedAnxiety;
 import com.example.katiefitzgerald.anxietymanager.sql.DatabaseManager;
 import com.example.katiefitzgerald.anxietymanager.R;
-import com.example.katiefitzgerald.anxietymanager.adapters.WhatsUpAdapter;
+import com.example.katiefitzgerald.anxietymanager.adapters.SubjectAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,13 +38,13 @@ import static android.widget.Toast.LENGTH_SHORT;
  * Created by Katie Fitzgerald on 15/01/2018.
  */
 
-public class WhatsUpActivity extends AppCompatActivity {
+public class SubjectActivity extends AppCompatActivity {
 
     EditText worryName;
     Button addSituation;
     ListView worryList;
     String user;
-    WhatsUpAdapter cursorAdapter;
+    SubjectAdapter cursorAdapter;
     String sensed_id = null;
     String subjectChosen, currentTime;
 
@@ -129,14 +129,14 @@ public class WhatsUpActivity extends AppCompatActivity {
             db.open();
 
             Cursor subjects = db.selectSubjects();
-            cursorAdapter = new WhatsUpAdapter(WhatsUpActivity.this, subjects);
+            cursorAdapter = new SubjectAdapter(SubjectActivity.this, subjects);
             worryList.setAdapter(cursorAdapter);
 
             db.close();
 
         }
         catch (SQLException e) {
-            Toast.makeText(WhatsUpActivity.this, "Error opening database", LENGTH_SHORT).show();
+            Toast.makeText(SubjectActivity.this, "Error opening database", LENGTH_SHORT).show();
         }
 
         worryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -149,10 +149,9 @@ public class WhatsUpActivity extends AppCompatActivity {
 
                 questionnaire[2] = subjectChosen;
 
-                Toast.makeText(getApplicationContext(), subjectChosen + " selected", Toast.LENGTH_SHORT).show();
-
                 Intent Thoughts = new Intent(getApplicationContext(), ThoughtsActivity.class);
                 Thoughts.putExtra("questionnaireObj", questionnaire);
+                finish();
                 startActivity(Thoughts);
                 overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
 
@@ -177,7 +176,7 @@ public class WhatsUpActivity extends AppCompatActivity {
 
                         //refresh view
                         Cursor searchResult = db.selectSubjects();
-                        cursorAdapter = new WhatsUpAdapter(WhatsUpActivity.this, searchResult);
+                        cursorAdapter = new SubjectAdapter(SubjectActivity.this, searchResult);
                         cursorAdapter.notifyDataSetChanged();
                         worryList.setAdapter(cursorAdapter);
 
@@ -185,18 +184,21 @@ public class WhatsUpActivity extends AppCompatActivity {
 
                         db.close();
 
+                        //start next question
                         Intent Thoughts = new Intent(getApplicationContext(), ThoughtsActivity.class);
                         Thoughts.putExtra("questionnaireObj", questionnaire);
                         startActivity(Thoughts);
+                        finish();
                         overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
 
                     }
                     catch (SQLException e) {
-                        Toast.makeText(WhatsUpActivity.this, "Error inserting into database", LENGTH_SHORT).show();
+                        Toast.makeText(SubjectActivity.this, "Error inserting into database", LENGTH_SHORT).show();
                     }
 
                 }
                 else {
+                    //if user tries to submit enter subject
                     final TextView warning = findViewById(R.id.warning);
                     warning.setTextColor(Color.RED);
                     warning.setText("Please enter a situation");

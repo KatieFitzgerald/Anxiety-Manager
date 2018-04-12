@@ -7,11 +7,9 @@ import android.app.TaskStackBuilder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 
 import com.example.katiefitzgerald.anxietymanager.R;
 import com.example.katiefitzgerald.anxietymanager.activities.LoginActivity;
-import com.example.katiefitzgerald.anxietymanager.activities.WhatsUpActivity;
 
 /**
  * Created by Katie Fitzgerald on 02/04/2018.
@@ -34,7 +32,6 @@ public class AnxietyReceiver extends BroadcastReceiver {
 
         Notification notification = builder.setContentTitle("Everything is okay - Anxiety Manager")
                 .setContentText("Want to track what you're feeling?")
-                .setTicker("New Message Alert!")
                 .setSmallIcon(R.drawable.launcher)
                 .setContentIntent(pendingIntent).build();
 

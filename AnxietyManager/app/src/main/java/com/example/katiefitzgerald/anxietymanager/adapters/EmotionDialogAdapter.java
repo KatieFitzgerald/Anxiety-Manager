@@ -14,8 +14,8 @@ import com.example.katiefitzgerald.anxietymanager.R;
  * Created by Katie Fitzgerald on 10/03/2018.
  */
 
-public class MoodDialogAdapter extends CursorAdapter {
-    public MoodDialogAdapter(Context context, Cursor cursor) {
+public class EmotionDialogAdapter extends CursorAdapter {
+    public EmotionDialogAdapter(Context context, Cursor cursor) {
         super(context, cursor, 0);
     }
 

@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent register = new Intent(getApplicationContext(), CreateAccountActivity.class);
+                Intent register = new Intent(getApplicationContext(), RegisterActivity.class);
                 startActivity(register);
             }
         });
@@ -121,6 +121,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 else {
 
+                    //Check user_profile of name and password entered
                     DatabaseReference UsersDB = FirebaseDatabase.getInstance().getReference();
                     Query userReference = UsersDB.child("user_profile").orderByChild("name").equalTo(enteredUsername);
                     final Query passwordReference = UsersDB.child("user_profile").orderByChild("password").equalTo(enteredPassword);
@@ -145,7 +146,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                                 if (user.getCounsellor()){
 
-                                                    Intent home = new Intent(getApplicationContext(), CounsellorHomeActivity.class);
+                                                    Intent home = new Intent(getApplicationContext(), ChoosePatientActivity.class);
                                                     home.putExtra("user_id", user_id);
                                                     startActivity(home);
 
