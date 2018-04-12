@@ -76,8 +76,6 @@ public class ThoughtsActivity extends AppCompatActivity {
 
                 questionnaire[3] = thoughtChosen;
 
-                Toast.makeText(getApplicationContext(), thoughtChosen + " selected", Toast.LENGTH_LONG).show();
-
                 startNextActivity();
 
             }
@@ -107,8 +105,6 @@ public class ThoughtsActivity extends AppCompatActivity {
                         db.close();
 
                         questionnaire[3] = thoughtNameInput;
-
-                        Toast.makeText(getApplicationContext(), thoughtNameInput + " added", Toast.LENGTH_LONG).show();
 
                         startNextActivity();
 
@@ -148,6 +144,7 @@ public class ThoughtsActivity extends AppCompatActivity {
         Intent Physical = new Intent(getApplicationContext(), PhysicalActivity.class);
         Physical.putExtra("questionnaireObj", questionnaire);
         startActivity(Physical);
+        finish();
         overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
 
     }

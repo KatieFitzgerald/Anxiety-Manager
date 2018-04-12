@@ -23,7 +23,7 @@ import java.sql.SQLException;
 
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class CreateAccountActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
     EditText enterEmail;
     EditText enterPassword;
@@ -125,12 +125,12 @@ public class CreateAccountActivity extends AppCompatActivity {
                 }
                 catch (SQLException e){
 
-                    Toast.makeText(CreateAccountActivity.this, "Error adding user into database", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Error adding user into database", Toast.LENGTH_SHORT).show();
 
                 }
 
                 //start counsellor activity
-                Intent home = new Intent(getApplicationContext(), CounsellorHomeActivity.class);
+                Intent home = new Intent(getApplicationContext(), ChoosePatientActivity.class);
                 home.putExtra("user_id", user_id);
                 startActivity(home);
                 Toast.makeText(this, "Counsellor", Toast.LENGTH_LONG).show();
@@ -151,7 +151,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                 }
                 catch (SQLException e){
 
-                    Toast.makeText(CreateAccountActivity.this, "Error adding user into database", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Error adding user into database", Toast.LENGTH_SHORT).show();
 
                 }
 

@@ -22,19 +22,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.CreateAccountActivity"></activity>
+        <activity android:name=".activities.RegisterActivity"></activity>
         <activity android:name=".activities.SensedActivity"></activity>
-        <activity android:name=".activities.ChosenUserActivity"></activity>
         <activity android:name=".activities.CounsellorHomeActivity"></activity>
+        <activity android:name=".activities.ChoosePatientActivity"></activity>
         <activity android:name=".activities.HomeActivity"></activity>
-        <activity android:name=".activities.WhatsUpActivity"
+        <activity android:name=".activities.SubjectActivity"
             android:label=" "
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="stateHidden" ></activity>
         <activity android:name=".activities.ThoughtsActivity"
             android:windowSoftInputMode="stateHidden" ></activity>
         <activity android:name=".activities.PhysicalActivity"></activity>
-        <activity android:name=".activities.MoodActivity"></activity>
+        <activity android:name=".activities.EmotionActivity"></activity>
         <activity android:name=".activities.RateTwoMoodActivity"></activity>
         <activity android:name=".activities.RateOneMoodActivity"></activity>
         <activity android:name=".activities.ReactActivity"></activity>

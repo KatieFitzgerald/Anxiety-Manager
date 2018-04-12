@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient"
-    tools:context="com.example.katiefitzgerald.anxietymanager.activities.ChosenUserActivity">
+    tools:context="com.example.katiefitzgerald.anxietymanager.activities.CounsellorHomeActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_toStartOf="@+id/profileBtn"
+        android:layout_toStartOf="@+id/lgOutBtn"
         android:text="Sensed"
         android:background="@drawable/shape"
         tools:targetApi="m" />
@@ -65,7 +65,7 @@
         tools:targetApi="m" />
 
     <Button
-        android:id="@+id/profileBtn"
+        android:id="@+id/lgOutBtn"
         style="@android:style/Widget.Material.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

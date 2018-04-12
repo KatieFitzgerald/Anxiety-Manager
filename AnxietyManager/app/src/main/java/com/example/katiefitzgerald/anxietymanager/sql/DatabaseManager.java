@@ -327,19 +327,6 @@ public class DatabaseManager {
 
     }
 
-    public void updateUser(User user) {
-        //SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues userValues = new ContentValues();
-        userValues.put(KEY_USER_NAME, user.getName());
-        userValues.put(KEY_USER_EMAIL, user.getEmail());
-        userValues.put(KEY_USER_PASSWORD, user.getPassword());
-
-        // updating row
-        db.update(TABLE_USER, userValues, KEY_USER_ID + " = ?", new String[]{String.valueOf(user.getId())});
-        db.close();
-    }
-
     //Code snippet from http://www.androidtutorialshub.com/android-login-and-register-with-sqlite-database-tutorial/
     public boolean checkUser(String email, String password) {
 

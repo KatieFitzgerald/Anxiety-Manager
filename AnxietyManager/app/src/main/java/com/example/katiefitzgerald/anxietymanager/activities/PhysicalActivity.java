@@ -52,7 +52,7 @@ public class PhysicalActivity extends AppCompatActivity {
             public void onClick(View view) {
                 breathing.setImageResource(R.drawable.chosen);
                 questionCount += 1;
-                checkQuestions("Breathing");
+                checkQuestions("Unusual breathing");
             }
         });
 
@@ -61,7 +61,7 @@ public class PhysicalActivity extends AppCompatActivity {
             public void onClick(View view) {
                 heartbeat.setImageResource(R.drawable.chosen);
                 questionCount += 1;
-                checkQuestions("Heartbeat");
+                checkQuestions("Unusual heartbeat");
             }
         });
 
@@ -70,7 +70,7 @@ public class PhysicalActivity extends AppCompatActivity {
             public void onClick(View view) {
                 sweating.setImageResource(R.drawable.chosen);
                 questionCount += 1;
-                checkQuestions("Sweating");
+                checkQuestions("Excessive sweating");
             }
         });
 
@@ -79,7 +79,7 @@ public class PhysicalActivity extends AppCompatActivity {
             public void onClick(View view) {
                 warm.setImageResource(R.drawable.chosen);
                 questionCount += 1;
-                checkQuestions("Warm");
+                checkQuestions("Feeling warm");
             }
         });
 
@@ -106,7 +106,7 @@ public class PhysicalActivity extends AppCompatActivity {
             public void onClick(View view) {
                 shaking.setImageResource(R.drawable.chosen);
                 questionCount += 1;
-                checkQuestions("Shaking");
+                checkQuestions("Excessive shaking");
             }
         });
 
@@ -150,9 +150,10 @@ public class PhysicalActivity extends AppCompatActivity {
             changeAppetite.setClickable(false);
             headache.setClickable(false);
 
-            Intent Emotion = new Intent(getApplicationContext(), MoodActivity.class);
+            Intent Emotion = new Intent(getApplicationContext(), EmotionActivity.class);
             Emotion.putExtra("questionnaireObj", questionnaire);
             startActivity(Emotion);
+            finish();
             overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
 
         }

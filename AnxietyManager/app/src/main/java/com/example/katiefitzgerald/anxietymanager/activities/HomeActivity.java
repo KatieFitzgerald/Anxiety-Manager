@@ -38,7 +38,7 @@ public class HomeActivity extends AppCompatActivity {
     Button addTodayAnxiety;
     Button calendarButton;
     Button insightButton;
-    Button profileButton;
+    Button logOutButton;
     TextView welcome;
     int counter = 0;
 
@@ -86,7 +86,7 @@ public class HomeActivity extends AppCompatActivity {
                         addTodayAnxiety.setBackgroundResource(R.drawable.pressed);
                         addTodayAnxiety.setTextColor(Color.GRAY);
 
-                        Intent Questionnaire = new Intent(getApplicationContext(), WhatsUpActivity.class);
+                        Intent Questionnaire = new Intent(getApplicationContext(), SubjectActivity.class);
                         Questionnaire.putExtra("user_id", user);
                         startActivity(Questionnaire);
 
@@ -182,20 +182,23 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        profileButton = findViewById(R.id.profileBtn);
-        profileButton.setOnTouchListener(new View.OnTouchListener() {
+        logOutButton = findViewById(R.id.lgOutBtn);
+        logOutButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
 
-                        profileButton.setBackgroundResource(R.drawable.pressed);
-                        profileButton.setTextColor(Color.GRAY);
+                        logOutButton.setBackgroundResource(R.drawable.pressed);
+                        logOutButton.setTextColor(Color.GRAY);
+
+                        Intent Logout = new Intent(getApplicationContext(), LoginActivity.class);
+                        startActivity(Logout);
 
                     case MotionEvent.ACTION_UP:
 
-                        profileButton.setBackgroundResource(R.drawable.shape);
-                        profileButton.setTextColor(Color.WHITE);
+                        logOutButton.setBackgroundResource(R.drawable.shape);
+                        logOutButton.setTextColor(Color.WHITE);
 
                         return true;
 

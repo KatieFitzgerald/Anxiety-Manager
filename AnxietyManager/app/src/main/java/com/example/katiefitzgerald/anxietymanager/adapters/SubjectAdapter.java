@@ -14,8 +14,8 @@ import com.example.katiefitzgerald.anxietymanager.R;
  * Created by Katie Fitzgerald on 07/03/2018.
  */
 
-public class WhatsUpAdapter extends CursorAdapter {
-    public WhatsUpAdapter(Context context, Cursor cursor) {
+public class SubjectAdapter extends CursorAdapter {
+    public SubjectAdapter(Context context, Cursor cursor) {
         super(context, cursor, 0);
     }
 

@@ -49,6 +49,7 @@ public class RateTwoMoodActivity extends AppCompatActivity {
                 Intent Reaction = new Intent(getApplicationContext(), ReactActivity.class);
                 Reaction.putExtra("questionnaireObj", questionnaire);
                 startActivity(Reaction);
+                finish();
                 overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
 
             }

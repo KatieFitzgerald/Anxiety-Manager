@@ -205,8 +205,6 @@ public class SensedActivity extends AppCompatActivity {
                     location += split[i] + " ";
                 }
 
-                Log.v("Location", "LOC 1" + location + "2");
-
                 if (location.equals("questionnaire ")){
 
                     questionnaireAssoc("none", timestamp);
@@ -224,6 +222,7 @@ public class SensedActivity extends AppCompatActivity {
 
     private void questionnaireAssoc(String location, final String timestamp) {
 
+        //get user from user_id, get location of anxiety attack, then user sensed_id from attack and join the questionnaire with that sensed_id
         final DatabaseReference sensedDB = FirebaseDatabase.getInstance().getReference();
         Query userRef = sensedDB.child("sensed_anxiety").orderByChild("user_ID").equalTo(user_id);
         final Query locationRef = sensedDB.child("sensed_anxiety").orderByChild("location").equalTo(location);

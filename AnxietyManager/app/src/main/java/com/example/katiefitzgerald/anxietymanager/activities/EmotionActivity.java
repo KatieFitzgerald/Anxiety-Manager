@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.katiefitzgerald.anxietymanager.R;
-import com.example.katiefitzgerald.anxietymanager.adapters.MoodDialogAdapter;
+import com.example.katiefitzgerald.anxietymanager.adapters.EmotionDialogAdapter;
 import com.example.katiefitzgerald.anxietymanager.sql.DatabaseManager;
 
 import java.sql.SQLException;
@@ -29,7 +29,7 @@ import static android.widget.Toast.LENGTH_SHORT;
  * Created by Katie Fitzgerald on 26/01/2018.
  */
 
-public class MoodActivity extends AppCompatActivity {
+public class EmotionActivity extends AppCompatActivity {
 
     ImageView fear;
     ImageView angry;
@@ -41,7 +41,7 @@ public class MoodActivity extends AppCompatActivity {
     ImageView nervous;
     ImageView other;
 
-    MoodDialogAdapter cursorAdapter;
+    EmotionDialogAdapter cursorAdapter;
 
     DatabaseManager db = new DatabaseManager(this);
 
@@ -211,7 +211,7 @@ public class MoodActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                AlertDialog.Builder otherDialog = new AlertDialog.Builder(MoodActivity.this);
+                AlertDialog.Builder otherDialog = new AlertDialog.Builder(EmotionActivity.this);
                 final View dialogView = getLayoutInflater().inflate(R.layout.mood_dialog, null);
                 final EditText addOther = dialogView.findViewById(R.id.otherEmotion);
                 final ListView emotionList = dialogView.findViewById(R.id.emotionList);
@@ -221,7 +221,7 @@ public class MoodActivity extends AppCompatActivity {
                     db.open();
 
                     Cursor moods = db.selectMood();
-                    cursorAdapter = new MoodDialogAdapter(MoodActivity.this, moods);
+                    cursorAdapter = new EmotionDialogAdapter(EmotionActivity.this, moods);
                     emotionList.setAdapter(cursorAdapter);
 
                     db.close();
@@ -252,7 +252,7 @@ public class MoodActivity extends AppCompatActivity {
 
                 }
                 catch (SQLException e) {
-                    Toast.makeText(MoodActivity.this, "Error opening database", LENGTH_SHORT).show();
+                    Toast.makeText(EmotionActivity.this, "Error opening database", LENGTH_SHORT).show();
                 }
 
                 add.setOnClickListener(new View.OnClickListener(){
@@ -270,7 +270,7 @@ public class MoodActivity extends AppCompatActivity {
                                 db.insertMood(otherEmotion);
 
                                 Cursor moods = db.selectMood();
-                                cursorAdapter = new MoodDialogAdapter(MoodActivity.this, moods);
+                                cursorAdapter = new EmotionDialogAdapter(EmotionActivity.this, moods);
                                 cursorAdapter.notifyDataSetChanged();
                                 emotionList.setAdapter(cursorAdapter);
 
@@ -292,7 +292,7 @@ public class MoodActivity extends AppCompatActivity {
 
                             }
                             catch (SQLException e) {
-                                Toast.makeText(MoodActivity.this, "Error inserting into database", LENGTH_SHORT).show();
+                                Toast.makeText(EmotionActivity.this, "Error inserting into database", LENGTH_SHORT).show();
                             }
 
                         }
@@ -345,22 +345,20 @@ public class MoodActivity extends AppCompatActivity {
             other.setClickable(false);
             nervous.setClickable(false);
 
-            Toast.makeText(this, "Two QUESTIONS", Toast.LENGTH_SHORT).show();
-
             Intent RateMood = new Intent(getApplicationContext(), RateTwoMoodActivity.class);
             RateMood.putExtra("questionnaireObj", questionnaire);
             RateMood.putExtra("chosenMoods", chosenEmotion);
             startActivity(RateMood);
+            finish();
             overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
         }
         else if (questionCount == 3) {
-
-            Toast.makeText(this, "THREE QUESTIONS", Toast.LENGTH_SHORT).show();
 
             Intent RateMood = new Intent(getApplicationContext(), RateOneMoodActivity.class);
             RateMood.putExtra("questionnaireObj", questionnaire);
             RateMood.putExtra("chosenMoods", chosenEmotion);
             startActivity(RateMood);
+            finish();
             overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_left);
 
         }

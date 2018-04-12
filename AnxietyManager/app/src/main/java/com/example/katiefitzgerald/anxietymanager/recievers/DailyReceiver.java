@@ -32,7 +32,7 @@ public class DailyReceiver  extends BroadcastReceiver {
 
         Notification notification = builder.setContentTitle("Anxiety Manager")
                 .setContentText("Anything to track?")
-                .setTicker("New Message Alert!")
+                .setTicker("Daily Reminder!")
                 .setSmallIcon(R.drawable.launcher)
                 .setContentIntent(pendingIntent).build();
 
