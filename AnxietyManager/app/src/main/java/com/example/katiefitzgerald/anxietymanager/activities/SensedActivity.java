@@ -266,26 +266,26 @@ public class SensedActivity extends AppCompatActivity {
 
                                                                 Questionnaire questionnaire = questionnaireData.getValue(Questionnaire.class);
                                                                 String subject = questionnaire.getSubject();
-                                                                String physical = questionnaire.getPhysical();
+                                                                String reaction = questionnaire.getReaction();
                                                                 String thought = questionnaire.getThought();
 
                                                                 questionnaireStart.setVisibility(View.INVISIBLE);
                                                                 questionnaireDetails.setVisibility(View.VISIBLE);
 
                                                                 TextView location = questionnaireDetails.findViewById(R.id.location);
-                                                                if(loc == "none") {
+                                                                if(loc.equals("none")) {
                                                                     location.setText("- Unknown");
 
                                                                 }
                                                                 else {
                                                                     location.setText("- " + loc);
                                                                 }
-                                                                TextView subjectTV = questionnaireDetails.findViewById(R.id.subject);
-                                                                subjectTV.setText("- " + subject);
-                                                                TextView physicalTV = questionnaireDetails.findViewById(R.id.physical);
-                                                                physicalTV.setText("- " + physical);
-                                                                TextView thoughtTV = questionnaireDetails.findViewById(R.id.thought);
-                                                                thoughtTV.setText("- " + thought);
+                                                                TextView subjectText = questionnaireDetails.findViewById(R.id.subject);
+                                                                subjectText.setText(subject);
+                                                                TextView reactionText = questionnaireDetails.findViewById(R.id.reaction);
+                                                                reactionText.setText(reaction);
+                                                                TextView thoughtText = questionnaireDetails.findViewById(R.id.thought);
+                                                                thoughtText.setText(thought);
                                                             }
 
                                                         }

@@ -136,13 +136,13 @@ public class CalendarActivity extends AppCompatActivity {
 
                     //fill in default responses for demonstration
                     TextView location = questionnaireDetails.findViewById(R.id.location);
-                    location.setText("- Kevin St");
+                    location.setText("Kevin Street");
                     TextView subjectTV = questionnaireDetails.findViewById(R.id.subject);
-                    subjectTV.setText("- Exam stress");
-                    TextView physicalTV = questionnaireDetails.findViewById(R.id.physical);
-                    physicalTV.setText("- Shaking");
+                    subjectTV.setText("Exam stress");
+                    TextView physicalTV = questionnaireDetails.findViewById(R.id.reaction);
+                    physicalTV.setText("Left");
                     TextView thoughtTV = questionnaireDetails.findViewById(R.id.thought);
-                    thoughtTV.setText("- I don't have enough time to study everything");
+                    thoughtTV.setText("I don't have enough time to study everything");
                 }
             }
 
