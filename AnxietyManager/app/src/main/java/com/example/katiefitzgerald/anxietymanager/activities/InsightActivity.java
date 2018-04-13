@@ -42,6 +42,7 @@ public class InsightActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
     }
 
+    //snippet adapted from Android documentation https://developer.android.com/reference/android/support/v4/app/FragmentPagerAdapter.html
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {

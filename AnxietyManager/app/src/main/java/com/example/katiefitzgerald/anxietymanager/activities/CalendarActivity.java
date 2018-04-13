@@ -119,7 +119,7 @@ public class CalendarActivity extends AppCompatActivity {
         //draw red dots
         compactCalendar.shouldDrawIndicatorsBelowSelectedDays(true);
 
-        // define a listener to receive when data click or month swipe occurs
+        //define a listener to receive when data click or month swipe occurs
         compactCalendar.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
             public void onDayClick(final Date dateClicked) {
@@ -175,7 +175,7 @@ public class CalendarActivity extends AppCompatActivity {
         long endTime = System.currentTimeMillis() + 1800000;
         values.put(CalendarContract.Events.DTEND, endTime);
 
-        //https://developer.android.com/training/permissions/requesting.html
+        //snippet adapted from https://developer.android.com/training/permissions/requesting.html
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.READ_CALENDAR)
                 != PackageManager.PERMISSION_GRANTED) {

@@ -13,6 +13,7 @@ import com.example.katiefitzgerald.anxietymanager.activities.LoginActivity;
 
 /**
  * Created by Katie Fitzgerald on 02/04/2018.
+ * Adapted from: https://developer.android.com/reference/android/content/BroadcastReceiver.html
  */
 
 public class AnxietyReceiver extends BroadcastReceiver {

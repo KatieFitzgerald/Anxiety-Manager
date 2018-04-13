@@ -1,7 +1,5 @@
 package com.example.katiefitzgerald.anxietymanager.activities;
 
-//Pie chart tutorial used https://www.youtube.com/watch?v=8BcTXbwDGbg
-
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -245,6 +243,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void sendNotification() {
+
+        //snippet adapted from Android documentation https://developer.android.com/reference/android/app/AlarmManager.html
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 

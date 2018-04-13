@@ -19,7 +19,6 @@ import com.google.firebase.database.FirebaseDatabase;
 public class ReactActivity extends AppCompatActivity {
 
     Button done;
-
     ImageView stayed;
     ImageView left;
 

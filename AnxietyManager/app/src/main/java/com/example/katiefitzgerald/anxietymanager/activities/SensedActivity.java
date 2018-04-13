@@ -160,7 +160,7 @@ public class SensedActivity extends AppCompatActivity {
 
     }
 
-    // https://stackoverflow.com/questions/20438627/getlastknownlocation-returns-null
+    //Code snippet https://stackoverflow.com/questions/20438627/getlastknownlocation-returns-null
     private Location getLastKnownLocation() {
 
         mLocationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
