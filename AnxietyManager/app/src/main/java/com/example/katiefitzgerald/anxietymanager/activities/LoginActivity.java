@@ -13,7 +13,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -141,7 +140,6 @@ public class LoginActivity extends AppCompatActivity {
                                             for(DataSnapshot userData: dataSnapshot.getChildren()) {
 
                                                 User user = userData.getValue(User.class);
-                                                Log.v("this", "UD" + userData);
                                                 String user_id = user.getId();
 
                                                 if (user.getCounsellor()){
